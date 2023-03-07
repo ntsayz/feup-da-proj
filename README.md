@@ -1,2 +1,2 @@
 # feup-da-proj
-Algorithm Design (DA) Project @FEUP
+Algorithm Design (DA) Projects @FEUP
