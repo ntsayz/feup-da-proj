@@ -17,6 +17,8 @@
 */
 
 class Utility {
+private:
+    static const int LENGTH = 100;
 public:
     /// Auxiliary function, to get a number from user input given a range
     /// \param choice

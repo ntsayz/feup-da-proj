@@ -25,29 +25,29 @@ void Utility::clear_screen() {
     std::system("clear");
 }
 void Utility::header(const std::string& title){
-    int n = (int)(title.size() + 59) / 2;
-    std::cout << "|" << std::setfill('-') <<std::setw(59) << "|\n"; // ---
+    int n = (int)(title.size() + LENGTH) / 2;
+    std::cout << "|" << std::setfill('-') <<std::setw(LENGTH) << "|\n"; // ---
     std::cout << "|" << std::setfill(' ') << std::setw(n); // | txt
     std::cout << title;
-    std::cout << std::setfill(' ') <<std::setw(59 -n)<<"|\n"  //  --> |
-              << "|"<< std::setfill('-') <<std::setw(59) <<"|\n";
+    std::cout << std::setfill(' ') <<std::setw(LENGTH -n)<<"|\n"  //  --> |
+              << "|"<< std::setfill('-') <<std::setw(LENGTH) <<"|\n";
 }
 
 void Utility::footer() {
-    std::cout << "|" << std::setfill('-') <<std::setw(59) << "|\n"; // --
-    std::cout << "|" << std::setfill(' ')<< std::setw(33) << "9.Back  " << std::setw(26) << "|\n";
-    std::cout << "|" << std::setfill('-') <<std::setw(59) << "|\n";
+    std::cout << "|" << std::setfill('-') <<std::setw(LENGTH) << "|\n"; // --
+    std::cout << "|" << std::setfill(' ')<< std::setw((LENGTH/2)+3) << "9.Back" << std::setw((LENGTH/2)-3) << "|\n";
+    std::cout << "|" << std::setfill('-') <<std::setw(LENGTH) << "|\n";
     std::cout << "-->";
 }
 
 void Utility::body(const std::string& description, std::vector<std::string> options){
-    int n = (int)(description.size() + 59) / 2;
+    int n = (int)(description.size() +LENGTH ) / 2;
     std::cout << "|" << std::setfill(' ') << std::setw(n) << description;
-    std::cout << std::setfill(' ') <<std::setw(59- n)<<"|\n";
-    std::cout << "|" << std::setfill(' ') <<std::setw(59) << "|\n";
+    std::cout << std::setfill(' ') <<std::setw(LENGTH- n)<<"|\n";
+    std::cout << "|" << std::setfill(' ') <<std::setw(LENGTH) << "|\n";
     for(int i =0; i < options.size(); i++){
-        int k = (int)(options[i].size() + 59) / 2;
-        std::cout << "|" << std::setfill(' ') << std::setw(k) << options[i] << std::setw(59 - k) << "|\n";
+        int k = (int)(options[i].size() + LENGTH) / 2;
+        std::cout << "|" << std::setfill(' ') << std::setw(k) << options[i] << std::setw(LENGTH - k) << "|\n";
     }
 
 }

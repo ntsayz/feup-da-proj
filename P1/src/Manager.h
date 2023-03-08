@@ -17,6 +17,7 @@
 
 class Manager {
 private:
+
     /**
 	* @brief variable for user input.
 	*/
