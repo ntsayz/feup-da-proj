@@ -5,7 +5,7 @@
 #include "Graph.h"
 
 void Graph::addStation(const Station &station) {
-
+    stations[station.getName()] = station;
 }
 
 void Graph::addSegment(const Segment &segment) {

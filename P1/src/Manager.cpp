@@ -28,6 +28,7 @@ bool Manager::load_data() {
     std::vector<Station> stationsVEC = Utility::loadDataFromCSV<Station>(fname1);
     std::vector<Segment> segmentsVEC = Utility::loadDataFromCSV<Segment>(fname2);
 
+
     return false;
 }
 

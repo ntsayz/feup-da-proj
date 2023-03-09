@@ -43,3 +43,5 @@ const std::string &Station::getLine() const {
 void Station::setLine(const std::string &line) {
     Station::line = line;
 }
+
+Station::Station() {}

@@ -38,7 +38,7 @@ public:
     Station(std::string name, std::string district,std::string municipality,  std::string township,std::string line):
     name(std::move(name)), district(std::move(district)),municipality(std::move(municipality)),township(std::move(township)),line(std::move(line)){}
 
-
+    Station() : name(), district(), municipality() , township(), line(){}
 
     /**
         @brief Creates a Station object from a string in .csv format

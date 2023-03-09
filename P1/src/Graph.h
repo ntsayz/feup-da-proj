@@ -55,7 +55,7 @@ private:
     /**
      * @brief Hashtable with station IDs being mapped to their objects
      */
-    std::unordered_map<int, Station> stations;
+    std::unordered_map<std::string, Station> stations;
 
 
 };
