@@ -13,6 +13,8 @@
 
 #include <string>
 #include "Utility.h"
+#include "Station.h"
+#include "Segment.h"
 #include "Menu.h"
 
 class Manager {
@@ -38,6 +40,33 @@ private:
     /**@{
     *
     */
+
+    /**
+	* @brief Hashtable to store stations. Its Unique name as key and an airline object as the value.
+	*/
+    std::unordered_map<std::string,Station> stations;
+    /**
+	* @brief Hashtable to store a concatenated string with all of the stations of a municipality
+     * with a district and its municipality name as key, for uniqueness.
+     * A vector of Stations objects as values, because municipalities may have multiple stations
+	*/
+    std::unordered_map<std::string,std::vector<Station>> municipalities;
+    /**
+	* @brief Hashtable to store all of the stations of a district
+     * A vector of Stations objects as values, because a districts may have multiple stations
+	*/
+    std::unordered_map<std::string,std::vector<Station>> district;
+    /**
+	* @brief Graph with Airports as nodes and flights as edges that connect them. Stored in an adjacency list
+	*/
+    //Graph flight_network;
+    /**
+	* @brief List of airports in the city of departure.
+	*/
+    //std::vector<Airport> departuresAirports;
+    /**
+	* @brief List of airports in the city of arrival.
+	*/
 
     /**
 	* @brief Hashtables and whatnot

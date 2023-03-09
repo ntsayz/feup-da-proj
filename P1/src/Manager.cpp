@@ -24,10 +24,9 @@ bool Manager::load_data() {
                 localSession = false;
         }
     }
-
-
-    //std::vector<Airline> airlinesVEC = Utility::loadDataFromCSV<Airline>(fname1);
-    //std::vector<Airport> airportsVEC = Utility::loadDataFromCSV<Airport>(fname2);
+    std::printf("Loading data..");
+    std::vector<Station> airlinesVEC = Utility::loadDataFromCSV<Station>(fname1);
+    std::vector<Segment> airportsVEC = Utility::loadDataFromCSV<Segment>(fname2);
 
     return false;
 }
