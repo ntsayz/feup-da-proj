@@ -5,7 +5,7 @@
 - Open the project in the */src* directory with Clion and let it build. Once it finishes, you should have a new directory named cmake-build-debug.
 
 ### Running (Linux/Mac)
-While in the src directory
+
 ```
 cd cmake-build-debug
 ```
