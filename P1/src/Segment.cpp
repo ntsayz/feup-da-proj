@@ -32,3 +32,7 @@ const std::string &Segment::getService() const {
 void Segment::setService(const std::string &service) {
     Segment::service = service;
 }
+
+const std::string &Segment::getSource() const {
+    return source;
+}

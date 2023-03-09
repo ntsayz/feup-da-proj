@@ -7,8 +7,8 @@ unsigned int Menu::Main() {
     int choice;
     Utility::header("Portugal Railway");
     Utility::header("Main Menu");
-    Utility::body("Choose",{"1.idk"});
-    Utility::footer();
+    Utility::body("Choose",{"1.TBD","2.Feature #2"});
+    Utility::footer("9.Quit");
     std::cin >> choice;
     Utility::clear_screen();
     return Utility::getInput(choice,1,2);
@@ -22,7 +22,7 @@ unsigned int Menu::DataLoader(std::string& f1, std::string& f2) {
     Utility::body("Choose from which files would you like to import the data from:"
             ,{"1. Default (Given in the dataset)"
       ,"2. Custom"});
-    Utility::footer();
+    Utility::footer("9.Continue");
     std::cin >> choice;
     Utility::clear_screen();
     return Utility::getInput(choice,1,2);

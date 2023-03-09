@@ -39,6 +39,12 @@ void Utility::footer() {
     std::cout << "|" << std::setfill('-') <<std::setw(LENGTH) << "|\n";
     std::cout << "-->";
 }
+void Utility::footer(std::string text) {
+    std::cout << "|" << std::setfill('-') <<std::setw(LENGTH) << "|\n"; // --
+    std::cout << "|" << std::setfill(' ')<< std::setw((LENGTH/2)+(int)(text.size()/2)) << text << std::setw((LENGTH/2)-(int)(text.size()/2)) << "|\n";
+    std::cout << "|" << std::setfill('-') <<std::setw(LENGTH) << "|\n";
+    std::cout << "-->";
+}
 
 void Utility::body(const std::string& description, std::vector<std::string> options){
     int n = (int)(description.size() +LENGTH ) / 2;
@@ -72,8 +78,8 @@ void Utility::get_filenames(std::string& f1, std::string& f2) {
             std::cerr << "The file name has to finish with .csv";
             continue;
         }else{
-            f1.insert(0,"../src/dataset/");
-            f2.insert(0,"../src/dataset/");
+            f1.insert(0,"../dataset/");
+            f2.insert(0,"../dataset/");
             return;
         }
     }

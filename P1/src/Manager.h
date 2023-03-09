@@ -16,6 +16,12 @@
 #include "Station.h"
 #include "Segment.h"
 #include "Menu.h"
+#include "Graph.h"
+#ifdef _WIN32
+#include <windows.h>
+#endif
+// Library effective with Linux
+#include <unistd.h>
 
 class Manager {
 private:
@@ -55,22 +61,19 @@ private:
 	* @brief Hashtable to store all of the stations of a district
      * A vector of Stations objects as values, because a districts may have multiple stations
 	*/
-    std::unordered_map<std::string,std::vector<Station>> district;
+    std::unordered_map<std::string,std::vector<Station>> districts;
     /**
-	* @brief Graph with Airports as nodes and flights as edges that connect them. Stored in an adjacency list
+	* @brief Graph with Stations as nodes and segments as edges that connect them. Stored in an adjacency list
 	*/
-    //Graph flight_network;
+    Graph railway_network;
     /**
-	* @brief List of airports in the city of departure.
+	* @brief List of stations in the source. (recurso)
 	*/
-    //std::vector<Airport> departuresAirports;
+    std::vector<Station> sourceStations;
     /**
-	* @brief List of airports in the city of arrival.
+	* @brief List of stations in the destination. (recurso)
 	*/
-
-    /**
-	* @brief Hashtables and whatnot
-	*/
+    std::vector<Station> destinationStations;
 
     /** @} end of Manager's Data Structures */
 public:

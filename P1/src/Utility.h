@@ -80,6 +80,8 @@ public:
 
         return data;
     }
+
+    static void footer(std::string text);
 };
 
 

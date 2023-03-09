@@ -5,8 +5,11 @@
 #include "Manager.h"
 
 void Manager::run() {
-    load_data();
+    if(!load_data()){
+        return;
+    }
     main_menu();
+
 }
 bool Manager::load_data() {
     std::string fname1 = "no file chosen" , fname2 = "no file chosen";
@@ -15,7 +18,7 @@ bool Manager::load_data() {
         Utility::clear_screen();
         switch (Menu::DataLoader(fname1,fname2)) {
             case 1:
-                fname1 = "../src/dataset/stations.csv" , fname2 = "../src/dataset/network.csv";
+                fname1 = "../dataset/stations.csv" , fname2 = "../dataset/network.csv";
                 break;
             case 2:
                 Utility::get_filenames(fname1,fname2);
@@ -24,12 +27,24 @@ bool Manager::load_data() {
                 localSession = false;
         }
     }
-    std::printf("Loading data..");
+    std::printf("Loading data...");
     std::vector<Station> stationsVEC = Utility::loadDataFromCSV<Station>(fname1);
     std::vector<Segment> segmentsVEC = Utility::loadDataFromCSV<Segment>(fname2);
 
+    for(const auto& station: stationsVEC){
+        railway_network.addStation(station);
+        municipalities[station.getMunicipality()].push_back(station);
+        districts[station.getDistrict()].push_back(station);
+    }
+    for(const auto& segment: segmentsVEC){
+        railway_network.addSegment(segment);
+    }
 
-    return false;
+    std::printf("\n%zu Municipalities |",municipalities.size());
+    std::printf(" %zu Districts |",districts.size());
+    std::printf(" %zu Stations \n", stationsVEC.size());
+    sleep(1);
+    return true;
 }
 
 //exemplo de non-functional
