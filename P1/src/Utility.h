@@ -10,7 +10,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
+#include <regex>
+#include "Menu.h"
 /**
     @class Utility
     @brief Seeing that a lot of functionality is used very often, to avoid repeated code we created a helper class that encapsulated and made our easier throughout the development of this application
@@ -18,7 +19,7 @@
 
 class Utility {
 private:
-    static const int LENGTH = 100;
+    static const int LENGTH = 150;
 public:
     /// Auxiliary function, to get a number from user input given a range
     /// \param choice
@@ -51,6 +52,11 @@ public:
     /// \param sub Substring
     /// \return
     static bool isSubstring(std::string str, std::string sub);
+    /// Gets file names from user
+    /// \param str String to check
+    /// \param sub Substring
+    /// \return
+    static void get_filenames(std::string& f1,std::string& f2);
     /// Loads data from the .csv files
     /// \tparam T Guarantees that any datatype can be used
     /// \param filename
@@ -74,6 +80,8 @@ public:
 
         return data;
     }
+
+    static void footer(std::string text);
 };
 
 

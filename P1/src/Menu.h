@@ -11,8 +11,12 @@
     @brief Prints the menu and avoids bloating the Manager class
 */
 class Menu {
+
 public:
-    static int Main();
+    static int choice;
+    static unsigned int Main();
+    static unsigned int DataLoader(std::string& f1, std::string& f2);
+    static void GetCustomFiles();
 };
 
 
