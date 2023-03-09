@@ -57,6 +57,26 @@ public:
 
         return {name, district, municipality,  township, line};
     }
+
+    const std::string &getName() const;
+
+    void setName(const std::string &name);
+
+    const std::string &getDistrict() const;
+
+    void setDistrict(const std::string &district);
+
+    const std::string &getMunicipality() const;
+
+    void setMunicipality(const std::string &municipality);
+
+    const std::string &getTownship() const;
+
+    void setTownship(const std::string &township);
+
+    const std::string &getLine() const;
+
+    void setLine(const std::string &line);
 };
 
 

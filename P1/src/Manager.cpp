@@ -25,8 +25,8 @@ bool Manager::load_data() {
         }
     }
     std::printf("Loading data..");
-    std::vector<Station> airlinesVEC = Utility::loadDataFromCSV<Station>(fname1);
-    std::vector<Segment> airportsVEC = Utility::loadDataFromCSV<Segment>(fname2);
+    std::vector<Station> stationsVEC = Utility::loadDataFromCSV<Station>(fname1);
+    std::vector<Segment> segmentsVEC = Utility::loadDataFromCSV<Segment>(fname2);
 
     return false;
 }
