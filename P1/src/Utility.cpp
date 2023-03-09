@@ -11,7 +11,7 @@ int  Utility::getInput(int choice, int min, int max)  {
         if (std::cin.fail()) {
             std::cerr << "Sorry, I cannot read that. Please try again." << std::endl;
             std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }else if (choice < min || choice > max) {
             return -1;
@@ -55,5 +55,27 @@ void Utility::body(const std::string& description, std::vector<std::string> opti
 bool Utility::isSubstring(std::string str, std::string sub)
 {
     return str.find(sub) != std::string::npos;
+}
+
+void Utility::get_filenames(std::string& f1, std::string& f2) {
+    std::regex pattern("\\.csv$");
+    while (true){
+        Menu::GetCustomFiles();
+        std::getline(std::cin,f1);
+        std::cout << "-->";
+        std::getline(std::cin,f2);
+        if(f1.empty() || f2.empty()){
+            continue;
+        }else if(f1 == "9" || f2 == "9"){
+            return;
+        }else if(!(std::regex_search(f1, pattern) && std::regex_search(f2, pattern))){
+            std::cerr << "The file name has to finish with .csv";
+            continue;
+        }else{
+            f1.insert(0,"../src/dataset/");
+            f2.insert(0,"../src/dataset/");
+            return;
+        }
+    }
 }
 

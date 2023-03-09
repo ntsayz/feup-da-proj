@@ -58,10 +58,14 @@ public:
     /// \param fname1 Path to 'network.csv'
     /// \param fname2 Path to 'stations.csv'
     /// \return It compares the size of the data structures that the data was loaded into, to determine if they're according to spec
-    bool loadData(const std::string& fname1, const std::string& fname2);
-
+    bool load_data();
+    /**
+	* @brief Main menu of the application
+	*/
     void main_menu();
-
+    /**
+     * Function t
+     */
     /// 1st Option in the Main menu; Shows the 'Search Stations' section
     /// \param notARecursiveCall Since we need to use this function multiple times within the same call chain, it should be recursive. This was a way to handle recursion appropriately
     void search_stations(bool notARecursiveCall);

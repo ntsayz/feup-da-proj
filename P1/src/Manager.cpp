@@ -5,7 +5,31 @@
 #include "Manager.h"
 
 void Manager::run() {
+    load_data();
     main_menu();
+}
+bool Manager::load_data() {
+    std::string fname1 = "no file chosen" , fname2 = "no file chosen";
+    localSession = true;
+    while(localSession){
+        Utility::clear_screen();
+        switch (Menu::DataLoader(fname1,fname2)) {
+            case 1:
+                fname1 = "../src/dataset/stations.csv" , fname2 = "../src/dataset/network.csv";
+                break;
+            case 2:
+                Utility::get_filenames(fname1,fname2);
+                break;
+            case 9:
+                localSession = false;
+        }
+    }
+
+
+    //std::vector<Airline> airlinesVEC = Utility::loadDataFromCSV<Airline>(fname1);
+    //std::vector<Airport> airportsVEC = Utility::loadDataFromCSV<Airport>(fname2);
+
+    return false;
 }
 
 //exemplo de non-functional
@@ -89,12 +113,7 @@ void Manager::search_stations(bool notARecursiveCall) {
     }*/
 }
 
-bool Manager::loadData(const std::string &fname1, const std::string &fname2) {
-    //std::vector<Airline> airlinesVEC = Utility::loadDataFromCSV<Airline>(fname1);
-    //std::vector<Airport> airportsVEC = Utility::loadDataFromCSV<Airport>(fname2);
 
-    return false;
-}
 
 
 
