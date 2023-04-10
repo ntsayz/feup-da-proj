@@ -193,7 +193,7 @@ void Manager::reducedconnectivity() {
 
         for(auto const sourceSt: sourceStations){
             for(auto const destSt: destinationStations){
-                int j = railway_network.max_trains_between_stations(sourceSt.getName(),destSt.getName());
+                int j = railway_network.reduced_max_trains_between_stations(sourceSt.getName(), destSt.getName());
                 std::printf("Between '%s' AND '%s' %d trains can travel simultaneously!\n",sourceSt.getName().c_str(),destSt.getName().c_str(),j);
             }
         }

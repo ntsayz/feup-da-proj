@@ -52,7 +52,7 @@ public:
      * @param end_station The ending station
      * @return The maximum number of trains that can simultaneously travel between the two stations in the reduced network
      */
-     int max_trains_between_stations(const std::string& source, const std::string& destination) const;
+     int reduced_max_trains_between_stations(const std::string& source, const std::string& destination) const;
 
     std::vector<Segment> getSegments(const std::string& station_name) const;
 

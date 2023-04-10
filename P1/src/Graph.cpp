@@ -83,7 +83,7 @@ std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std
 }
 
 // Currently not working as intended
-int Graph::max_trains_between_stations(const std::string& source, const std::string& destination) const {
+int Graph::reduced_max_trains_between_stations(const std::string& source, const std::string& destination) const {
     if (stations.find(source) == stations.end() || stations.find(destination) == stations.end()) {
         return 0;
     }
