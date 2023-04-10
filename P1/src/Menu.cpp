@@ -8,7 +8,8 @@ unsigned int Menu::Main() {
     Utility::header("Portugal Railway");
     Utility::header("Main Menu");
     Utility::body("Choose",
-  {"1. Top K Municipalities(2.3)","2.Reduced Connectivity(4.1)","3. Get Stations", "4. Maximum Number Of Trains Between Two Stations1""9"});
+  {"1. Top K Municipalities ","2.Maximum Number of Trains Between Two Stations(Reduced Connectivity)",
+   "3. Maximum Number Of Trains Between Two Stations1""9","4. Pairs of Stations Require Most Trains"});
     Utility::footer("9.Quit");
     std::cin >> choice;
     Utility::clear_screen();

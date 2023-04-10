@@ -62,6 +62,11 @@ public:
 
     int max_trains_between_stations(const std::string &source, const std::string &destination) const;
 
+
+    std::vector<std::pair<std::string, std::string>> stations_most_trains() const;
+
+    std::vector<std::tuple<std::string, std::string, int>> stations_require_most_trains() const;
+
 private:
     /**
      * @brief Adjacency list representing all stations as nodes and segments as edges.
@@ -72,7 +77,6 @@ private:
      * @brief Hashtable with station IDs being mapped to their objects
      */
     std::unordered_map<std::string, Station> stations;
-
 
 };
 

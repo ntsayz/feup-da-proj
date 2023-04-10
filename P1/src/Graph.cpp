@@ -82,7 +82,7 @@ std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std
     return {top_k_municipalities, top_k_districts};
 }
 
-// Currently not working as intended
+//
 int Graph::reduced_max_trains_between_stations(const std::string& source, const std::string& destination) const {
     if (stations.find(source) == stations.end() || stations.find(destination) == stations.end()) {
         return 0;
@@ -245,6 +245,56 @@ int Graph::max_trains_between_stations(const std::string& source, const std::str
     // Return the minimum capacity seen for the path from the source to the destination station
     return min_capacity;
 }
+
+// O(n^3) -- Floyd-Warshall (altered)
+std::vector<std::tuple<std::string, std::string, int>> Graph::stations_require_most_trains() const {
+    std::unordered_map<std::string, int> station_indices;
+    int index = 0;
+    for (const auto& station : stations) {
+        station_indices[station.first] = index++;
+    }
+
+    int num_stations = stations.size();
+    std::vector<std::vector<int>> max_flow(num_stations, std::vector<int>(num_stations, 0));
+
+    for (const auto& source : adjacency_list) {
+        for (const auto& segment : source.second) {
+            int u = station_indices[source.first];
+            int v = station_indices[segment.getDestination()];
+            max_flow[u][v] = segment.getCapacity();
+        }
+    }
+
+    for (int k = 0; k < num_stations; k++) {
+        for (int i = 0; i < num_stations; i++) {
+            for (int j = 0; j < num_stations; j++) {
+                max_flow[i][j] = std::max(max_flow[i][j], std::min(max_flow[i][k], max_flow[k][j]));
+            }
+        }
+    }
+
+    std::vector<std::tuple<std::string, std::string, int>> result;
+    int global_max_flow = 0;
+
+    for (const auto& source : station_indices) {
+        for (const auto& destination : station_indices) {
+            if (source.first != destination.first) {
+                int flow = max_flow[source.second][destination.second];
+                if (flow > global_max_flow) {
+                    global_max_flow = flow;
+                    result.clear();
+                    result.push_back({source.first, destination.first, flow});
+                } else if (flow == global_max_flow) {
+                    result.push_back({source.first, destination.first, flow});
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+
 
 
 

@@ -113,6 +113,8 @@ public:
     void show_stations();
 
     void max_Number_of_trains();
+
+    void stations_most_trains();
 };
 
 
