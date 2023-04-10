@@ -27,25 +27,39 @@ public:
      * @param station The station to get the segments for
      * @return A vector of all segments going out from the specified station
      */
-    std::vector<Segment> getSegmentsFromStation(const Station& station) const;
+    std::vector<Segment> getSegmentsFromStation(const std::string station) const;
     /**
      * @brief Returns a vector of all segments going into a specified station
      * @param station The station to get the segments for
      * @return A vector of all segments going into the specified station
      */
-    std::vector<Segment> getSegmentsToStation(const Station& station) const;
+    std::vector<Segment> getSegmentsToStation(const std::string station) const;
     /**
      * @brief Returns the number of segments going out from a specified station
      * @param station The station to get the segments for
      * @return The number of segments going out from the specified station
      */
-    int numSegmentsFromStation(const Station& station) const;
+    int numSegmentsFromStation(const std::string station) const;
     /**
      * @brief Returns the number of segments going into a specified station
      * @param station The station to get the segments for
      * @return The number of segments going into the specified station
      */
-    int numSegmentsToStation(const Station& station) const;
+    int numSegmentsToStation(const std::string station) const;
+        /**
+     * @brief Calculates the maximum number of trains that can simultaneously travel between two specific stations in a network of reduced connectivity
+     * @param start_station The starting station
+     * @param end_station The ending station
+     * @return The maximum number of trains that can simultaneously travel between the two stations in the reduced network
+     */
+     int max_trains_between_stations(const std::string& source, const std::string& destination) const;
+
+    std::vector<Segment> getSegments(const std::string& station_name) const;
+
+    Graph getReducedNetwork(const std::string& source) const;
+
+    std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std::string, double>>> top_k_municipalities_and_districts(int k);
+
 private:
     /**
      * @brief Adjacency list representing all stations as nodes and segments as edges.

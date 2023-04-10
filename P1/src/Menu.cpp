@@ -7,11 +7,12 @@ unsigned int Menu::Main() {
     int choice;
     Utility::header("Portugal Railway");
     Utility::header("Main Menu");
-    Utility::body("Choose",{"1.TBD","2.Feature #2"});
+    Utility::body("Choose",
+  {"1. Top K Municipalities(2.3)","2.Reduced Connectivity(4.1)","3. Get Stations"});
     Utility::footer("9.Quit");
     std::cin >> choice;
     Utility::clear_screen();
-    return Utility::getInput(choice,1,2);
+    return Utility::getInput(choice,1,3);
 }
 
 unsigned int Menu::DataLoader(std::string& f1, std::string& f2) {
@@ -34,6 +35,23 @@ void Menu::GetCustomFiles() {
     Utility::header("File names");
     Utility::body("Write the stations and network file name (in order)",{"Make sure that all files are in the src/dataset directory","","Write the names of the files for the stations(1st) and network(2nd). eg:. your_stations.csv | your_network.csv)"});
     Utility::footer();
+}
+
+unsigned int Menu::search_stations(bool notARecursiveCall) {
+    int choice;
+    Utility::clear_screen();
+    Utility::header("Portugal Railway");
+    Utility::header("Search stations");
+    if(notARecursiveCall){
+        Utility::body("CHOOSE THE SOURCE",{""});
+    }else{
+        Utility::body("CHOOSE THE DESTINATION",{""});
+    }
+    Utility::body("Get stations by:",{"1.Municipality","2. District","3. Name"});
+    Utility::footer();
+    std::cin >> choice;
+    Utility::clear_screen();
+    return Utility::getInput(choice,1,3);
 }
 
 

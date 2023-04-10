@@ -48,7 +48,7 @@ private:
     */
 
     /**
-	* @brief Hashtable to store stations. Its Unique name as key and an airline object as the value.
+	* @brief Hashtable to store stations. Its Unique name as key and a station object as the value.
 	*/
     std::unordered_map<std::string,Station> stations;
     /**
@@ -101,6 +101,16 @@ public:
     /// 1st Option in the Main menu; Shows the 'Search Stations' section
     /// \param notARecursiveCall Since we need to use this function multiple times within the same call chain, it should be recursive. This was a way to handle recursion appropriately
     void search_stations(bool notARecursiveCall);
+
+    void topkdistrictsmunicipalities();
+
+    void reducedconnectivity();
+
+    std::vector<Station> get_stations_in_municipality();
+    std::vector<Station> get_stations_in_district();
+    Station get_station_by_name();
+
+    void show_stations();
 };
 
 

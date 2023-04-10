@@ -17,6 +17,7 @@ public:
     static unsigned int Main();
     static unsigned int DataLoader(std::string& f1, std::string& f2);
     static void GetCustomFiles();
+    static unsigned int search_stations(bool notARecursiveCall);
 };
 
 

@@ -27,13 +27,13 @@ private:
     /**
     * @brief The
     */
-    unsigned int capacity;
+    double capacity;
     /**
     * @brief The
     */
     std::string service;
 public:
-    Segment(std::string source , std::string destination ,unsigned int capacity, std::string service):
+    Segment(std::string source , std::string destination ,double capacity, std::string service):
     source(std::move(source)),destination(std::move(destination)),capacity(capacity),service(std::move(service)){}
 
     /**
@@ -43,7 +43,7 @@ public:
    */
     static Segment fromCSVLine(std::istringstream& iss) {
         std::string source, destination, service,capStr;
-        unsigned int capacity;
+        double capacity;
 
         std::getline(iss, source, ',');
         std::getline(iss, destination, ',');
@@ -63,9 +63,9 @@ public:
 
     void setDestination(const std::string &destination);
 
-    unsigned int getCapacity() const;
+    double getCapacity() const;
 
-    void setCapacity(unsigned int capacity);
+    void setCapacity(double capacity);
 
     const std::string &getService() const;
 

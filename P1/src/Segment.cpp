@@ -17,12 +17,12 @@ void Segment::setDestination(const std::string &destination) {
     Segment::destination = destination;
 }
 
-unsigned int Segment::getCapacity() const {
+double Segment::getCapacity() const {
     return capacity;
 }
 
-void Segment::setCapacity(unsigned int capacity) {
-    Segment::capacity = capacity;
+void Segment::setCapacity(double capacity2) {
+    Segment::capacity = capacity2;
 }
 
 const std::string &Segment::getService() const {

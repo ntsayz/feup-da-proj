@@ -85,3 +85,37 @@ void Utility::get_filenames(std::string& f1, std::string& f2) {
     }
 }
 
+void Utility::get_string(std::string& f1) {
+    while (true){
+        std::getline(std::cin,f1);
+
+
+        if(f1.empty() ){
+            continue;
+        }else if(f1 == "9"){
+            return;
+        }
+    }
+}
+
+std::string Utility::getName(std::string purpose){
+    std::string stringin;
+    while (true){
+        Utility::clear_screen();
+        Utility::header("PR");
+        Utility::body("Write the name of the",{purpose});
+        Utility::footer();
+        std::getline(std::cin,stringin);
+        if(stringin.empty()){
+            continue;
+        }else if(stringin == "9" || stringin == "exit"){
+            return "exit";
+        }else if(stringin.size() < 2){
+            std::cerr << "A bit longer please!";
+            continue;
+        }else{
+            return stringin;
+        }
+    }
+
+}
