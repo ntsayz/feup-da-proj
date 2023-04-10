@@ -76,6 +76,9 @@ public:
     bool operator==(const Segment& other) const {
         return source == other.source && destination == other.destination && capacity == other.capacity && service == other.service;
     }
+    bool operator!=(const Segment& other) const {
+        return !(*this == other);
+    }
 
 
 };
