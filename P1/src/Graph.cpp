@@ -82,7 +82,7 @@ std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std
     return {top_k_municipalities, top_k_districts};
 }
 
-// Currently not working as intended
+//
 int Graph::reduced_max_trains_between_stations(const std::string& source, const std::string& destination) const {
     if (stations.find(source) == stations.end() || stations.find(destination) == stations.end()) {
         return 0;
@@ -208,43 +208,168 @@ std::vector<Segment> Graph::getSegmentsToStation(const std::string station) cons
 
 
 int Graph::max_trains_between_stations(const std::string& source, const std::string& destination) const {
-    // Initialize the minimum capacity to a large number
-    int min_capacity = INT_MAX;
+    int max_number_of_trains = edmonds_karp_max_flow(source, destination);
+    return max_number_of_trains;
+}
 
-    // Initialize the visited set and queue for BFS
-    std::unordered_set<std::string> visited;
-    std::queue<std::pair<std::string, int>> q;
-    q.push({source, INT_MAX});
+// O(n^3) -- Floyd-Warshall (altered)
+std::vector<std::tuple<std::string, std::string, int>> Graph::stations_require_most_trains() const {
+    std::unordered_map<std::string, int> station_indices;
+    int index = 0;
+    for (const auto& station : stations) {
+        station_indices[station.first] = index++;
+    }
 
-    // Perform BFS until the destination station is found or the queue is empty
-    while (!q.empty()) {
-        // Get the next station and its minimum capacity seen so far
-        auto [current, capacity] = q.front();
-        q.pop();
+    int num_stations = stations.size();
+    std::vector<std::vector<int>> max_flow(num_stations, std::vector<int>(num_stations, 0));
 
-        // Skip if the station has already been visited
-        if (visited.count(current)) {
-            continue;
-        }
-        visited.insert(current);
-
-        // Update the minimum capacity seen for the current station
-        min_capacity = std::min(min_capacity, capacity);
-
-        // Stop BFS if the destination station is found
-        if (current == destination) {
-            break;
-        }
-
-        // Add the adjacent stations to the queue
-        for (const auto& seg : getSegmentsFromStation(current)) {
-            q.push({seg.getDestination(), seg.getCapacity()});
+    for (const auto& source : adjacency_list) {
+        for (const auto& segment : source.second) {
+            int u = station_indices[source.first];
+            int v = station_indices[segment.getDestination()];
+            max_flow[u][v] = segment.getCapacity();
         }
     }
 
-    // Return the minimum capacity seen for the path from the source to the destination station
-    return min_capacity;
+    for (int k = 0; k < num_stations; k++) {
+        for (int i = 0; i < num_stations; i++) {
+            for (int j = 0; j < num_stations; j++) {
+                max_flow[i][j] = std::max(max_flow[i][j], std::min(max_flow[i][k], max_flow[k][j]));
+            }
+        }
+    }
+
+    std::vector<std::tuple<std::string, std::string, int>> result;
+    int global_max_flow = 0;
+
+    for (const auto& source : station_indices) {
+        for (const auto& destination : station_indices) {
+            if (source.first != destination.first) {
+                int flow = max_flow[source.second][destination.second];
+                if (flow > global_max_flow) {
+                    global_max_flow = flow;
+                    result.clear();
+                    result.push_back({source.first, destination.first, flow});
+                } else if (flow == global_max_flow) {
+                    result.push_back({source.first, destination.first, flow});
+                }
+            }
+        }
+    }
+
+    return result;
 }
+
+int Graph::edmonds_karp_max_flow(const std::string& source, const std::string& destination) const {
+    int max_flow = 0;
+
+    // Create a residual graph and fill it with the capacity values of the original graph
+    std::unordered_map<std::string, std::unordered_map<std::string, int>> residual_graph;
+    for (const auto& src : adjacency_list) {
+        for (const auto& segment : src.second) {
+            residual_graph[src.first][segment.getDestination()] = segment.getCapacity();
+        }
+    }
+
+    // BFS
+    auto bfs_augmenting_path = [&residual_graph, &source, &destination](std::unordered_map<std::string, std::string>& parent) {
+        std::unordered_set<std::string> visited;
+        std::queue<std::string> q;
+
+        q.push(source);
+        visited.insert(source);
+
+        while (!q.empty()) {
+            std::string current = q.front();
+            q.pop();
+
+            for (const auto& next : residual_graph[current]) {
+                if (next.second > 0 && visited.find(next.first) == visited.end()) {
+                    parent[next.first] = current;
+                    visited.insert(next.first);
+                    q.push(next.first);
+
+                    if (next.first == destination) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    };
+
+    // Edmonds-Karp algorithm
+    std::unordered_map<std::string, std::string> parent;
+    while (bfs_augmenting_path(parent)) {
+        int path_flow = INT_MAX;
+
+        // Find the minimum capacity along the augmenting path
+        for (std::string v = destination; v != source; v = parent[v]) {
+            std::string u = parent[v];
+            path_flow = std::min(path_flow, residual_graph[u][v]);
+        }
+
+        // Update the residual graph capacities
+        for (std::string v = destination; v != source; v = parent[v]) {
+            std::string u = parent[v];
+            residual_graph[u][v] -= path_flow;
+            residual_graph[v][u] += path_flow;
+        }
+
+        // Update the maximum flow
+        max_flow += path_flow;
+    }
+
+    return max_flow;
+}
+
+
+std::unordered_map<Segment, std::vector<std::string>> Graph::most_affected_stations_by_segment_failure() const {
+    std::unordered_map<Segment, std::vector<std::string>> affected_stations;
+
+    // Identify source and destination stations (assuming there is only one source and destination)
+    std::string source, destination;
+    for (const auto& station : stations) {
+        if (station.second.getLine() == "source") {
+            source = station.first;
+        } else if (station.second.getLine() == "destination") {
+            destination = station.first;
+        }
+    }
+
+    // Calculate the initial max flow
+    int initial_max_flow = edmonds_karp_max_flow(source, destination);
+
+    // Iterate through all segments
+    for (const auto& src : adjacency_list) {
+        for (const auto& seg : src.second) {
+            // Remove the segment temporarily
+            int original_capacity = seg.getCapacity();
+            const_cast<Segment&>(seg).setCapacity(0);
+
+            // Calculate the max flow after the segment removal
+            int new_max_flow = edmonds_karp_max_flow(source, destination);
+
+            // Restore the segment capacity
+            const_cast<Segment&>(seg).setCapacity(original_capacity);
+
+            // Calculate the flow difference due to the segment removal
+            int flow_difference = initial_max_flow - new_max_flow;
+
+            // If there is a difference, add the affected stations to the map
+            if (flow_difference > 0) {
+                affected_stations[seg].push_back(seg.getSource());
+                affected_stations[seg].push_back(seg.getDestination());
+            }
+        }
+    }
+
+    return affected_stations;
+}
+
+
+
 
 
 
