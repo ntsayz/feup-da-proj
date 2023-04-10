@@ -295,55 +295,64 @@ std::vector<std::tuple<std::string, std::string, int>> Graph::stations_require_m
 }
 
 int Graph::edmonds_karp_max_flow(const std::string& source, const std::string& destination) const {
-    std::unordered_map<std::string, std::unordered_map<std::string, int>> flow;
+    int max_flow = 0;
+
+    // Create a residual graph and fill it with the capacity values of the original graph
+    std::unordered_map<std::string, std::unordered_map<std::string, int>> residual_graph;
     for (const auto& src : adjacency_list) {
-        for (const auto& seg : src.second) {
-            flow[src.first][seg.getDestination()] = 0;
-            flow[seg.getDestination()][src.first] = 0;
+        for (const auto& segment : src.second) {
+            residual_graph[src.first][segment.getDestination()] = segment.getCapacity();
         }
     }
 
-    int max_flow = 0;
+    // BFS
+    auto bfs_augmenting_path = [&residual_graph, &source, &destination](std::unordered_map<std::string, std::string>& parent) {
+        std::unordered_set<std::string> visited;
+        std::queue<std::string> q;
 
-    while (true) {
-        std::unordered_map<std::string, std::string> parent;
-        std::queue<std::pair<std::string, int>> q;
-        q.push({source, INT_MAX});
+        q.push(source);
+        visited.insert(source);
 
         while (!q.empty()) {
-            auto [node, cur_flow] = q.front();
+            std::string current = q.front();
             q.pop();
 
-            for (const auto& seg : getSegmentsFromStation(node)) {
-                std::string next_node = seg.getDestination();
-                int remaining_capacity = seg.getCapacity() - flow[node][next_node];
+            for (const auto& next : residual_graph[current]) {
+                if (next.second > 0 && visited.find(next.first) == visited.end()) {
+                    parent[next.first] = current;
+                    visited.insert(next.first);
+                    q.push(next.first);
 
-                if (parent.find(next_node) == parent.end() && remaining_capacity > 0) {
-                    parent[next_node] = node;
-                    int bottleneck = std::min(cur_flow, remaining_capacity);
-
-                    if (next_node == destination) {
-                        max_flow += bottleneck;
-
-                        std::string cur = next_node;
-                        while (cur != source) {
-                            std::string prev = parent[cur];
-                            flow[prev][cur] += bottleneck;
-                            flow[cur][prev] -= bottleneck;
-                            cur = prev;
-                        }
-
-                        break;
+                    if (next.first == destination) {
+                        return true;
                     }
-
-                    q.push({next_node, bottleneck});
                 }
             }
         }
 
-        if (parent.find(destination) == parent.end()) {
-            break;
+        return false;
+    };
+
+    // Edmonds-Karp algorithm
+    std::unordered_map<std::string, std::string> parent;
+    while (bfs_augmenting_path(parent)) {
+        int path_flow = INT_MAX;
+
+        // Find the minimum capacity along the augmenting path
+        for (std::string v = destination; v != source; v = parent[v]) {
+            std::string u = parent[v];
+            path_flow = std::min(path_flow, residual_graph[u][v]);
         }
+
+        // Update the residual graph capacities
+        for (std::string v = destination; v != source; v = parent[v]) {
+            std::string u = parent[v];
+            residual_graph[u][v] -= path_flow;
+            residual_graph[v][u] += path_flow;
+        }
+
+        // Update the maximum flow
+        max_flow += path_flow;
     }
 
     return max_flow;

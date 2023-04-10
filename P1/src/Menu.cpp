@@ -9,11 +9,11 @@ unsigned int Menu::Main() {
     Utility::header("Main Menu");
     Utility::body("Choose",
   {"1. Top K Municipalities ","2.Maximum Number of Trains Between Two Stations(Reduced Connectivity)",
-   "3. Maximum Number Of Trains Between Two Stations1""9","4. Pairs of Stations Require Most Trains"});
+   "3. Maximum Number Of Trains Between Two Stations1""9","4. Pairs of Stations Require Most Trains","5. Most affected stations by segment failure"});
     Utility::footer("9.Quit");
     std::cin >> choice;
     Utility::clear_screen();
-    return Utility::getInput(choice,1,4);
+    return Utility::getInput(choice,1,5);
 }
 
 unsigned int Menu::DataLoader(std::string& f1, std::string& f2) {
