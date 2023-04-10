@@ -67,6 +67,9 @@ public:
 
     std::vector<std::tuple<std::string, std::string, int>> stations_require_most_trains() const;
 
+    int edmonds_karp_max_flow(const std::string &source, const std::string &destination) const;
+
+    std::unordered_map<Segment, std::vector<std::string>> most_affected_stations_by_segment_failure() const;
 private:
     /**
      * @brief Adjacency list representing all stations as nodes and segments as edges.
@@ -77,6 +80,7 @@ private:
      * @brief Hashtable with station IDs being mapped to their objects
      */
     std::unordered_map<std::string, Station> stations;
+
 
 };
 

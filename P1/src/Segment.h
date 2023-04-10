@@ -5,6 +5,8 @@
 #include <utility>
 #include <fstream>
 #include <sstream>
+#include <functional>
+
 #ifndef SRC_SEGMENT_H
 #define SRC_SEGMENT_H
 
@@ -70,6 +72,11 @@ public:
     const std::string &getService() const;
 
     void setService(const std::string &service);
+
+    bool operator==(const Segment& other) const {
+        return source == other.source && destination == other.destination && capacity == other.capacity && service == other.service;
+    }
+
 
 };
 

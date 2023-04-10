@@ -294,6 +294,106 @@ std::vector<std::tuple<std::string, std::string, int>> Graph::stations_require_m
     return result;
 }
 
+int Graph::edmonds_karp_max_flow(const std::string& source, const std::string& destination) const {
+    std::unordered_map<std::string, std::unordered_map<std::string, int>> flow;
+    for (const auto& src : adjacency_list) {
+        for (const auto& seg : src.second) {
+            flow[src.first][seg.getDestination()] = 0;
+            flow[seg.getDestination()][src.first] = 0;
+        }
+    }
+
+    int max_flow = 0;
+
+    while (true) {
+        std::unordered_map<std::string, std::string> parent;
+        std::queue<std::pair<std::string, int>> q;
+        q.push({source, INT_MAX});
+
+        while (!q.empty()) {
+            auto [node, cur_flow] = q.front();
+            q.pop();
+
+            for (const auto& seg : getSegmentsFromStation(node)) {
+                std::string next_node = seg.getDestination();
+                int remaining_capacity = seg.getCapacity() - flow[node][next_node];
+
+                if (parent.find(next_node) == parent.end() && remaining_capacity > 0) {
+                    parent[next_node] = node;
+                    int bottleneck = std::min(cur_flow, remaining_capacity);
+
+                    if (next_node == destination) {
+                        max_flow += bottleneck;
+
+                        std::string cur = next_node;
+                        while (cur != source) {
+                            std::string prev = parent[cur];
+                            flow[prev][cur] += bottleneck;
+                            flow[cur][prev] -= bottleneck;
+                            cur = prev;
+                        }
+
+                        break;
+                    }
+
+                    q.push({next_node, bottleneck});
+                }
+            }
+        }
+
+        if (parent.find(destination) == parent.end()) {
+            break;
+        }
+    }
+
+    return max_flow;
+}
+
+
+std::unordered_map<Segment, std::vector<std::string>> Graph::most_affected_stations_by_segment_failure() const {
+    std::unordered_map<Segment, std::vector<std::string>> affected_stations;
+
+    // Identify source and destination stations (assuming there is only one source and destination)
+    std::string source, destination;
+    for (const auto& station : stations) {
+        if (station.second.getLine() == "source") {
+            source = station.first;
+        } else if (station.second.getLine() == "destination") {
+            destination = station.first;
+        }
+    }
+
+    // Calculate the initial max flow
+    int initial_max_flow = edmonds_karp_max_flow(source, destination);
+
+    // Iterate through all segments
+    for (const auto& src : adjacency_list) {
+        for (const auto& seg : src.second) {
+            // Remove the segment temporarily
+            int original_capacity = seg.getCapacity();
+            const_cast<Segment&>(seg).setCapacity(0);
+
+            // Calculate the max flow after the segment removal
+            int new_max_flow = edmonds_karp_max_flow(source, destination);
+
+            // Restore the segment capacity
+            const_cast<Segment&>(seg).setCapacity(original_capacity);
+
+            // Calculate the flow difference due to the segment removal
+            int flow_difference = initial_max_flow - new_max_flow;
+
+            // If there is a difference, add the affected stations to the map
+            if (flow_difference > 0) {
+                affected_stations[seg].push_back(seg.getSource());
+                affected_stations[seg].push_back(seg.getDestination());
+            }
+        }
+    }
+
+    return affected_stations;
+}
+
+
 
 
 
