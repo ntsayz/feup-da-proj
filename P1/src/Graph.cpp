@@ -40,7 +40,7 @@ std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std
         }
     }
 
-    // Step 3
+
     std::unordered_map<std::string, double> station_traffic_volumes;
     for (const auto& [id, edges] : graph_copy.adjacency_list) {
         double traffic_volume = 0.0;
@@ -82,45 +82,51 @@ std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std
     return {top_k_municipalities, top_k_districts};
 }
 
+// Currently not working as intended
 int Graph::max_trains_between_stations(const std::string& source, const std::string& destination) const {
-    // Check if source and destination stations are in the graph
+    // Check if source and destination stations exist
     if (stations.find(source) == stations.end() || stations.find(destination) == stations.end()) {
-        throw std::invalid_argument("Source or destination station not found in graph.");
+        return 0;
     }
 
-    // Create a map to keep track of the maximum capacity seen so far for each station
-    std::unordered_map<std::string, double> max_capacity;
-    for (const auto& [id, station] : stations) {
-        max_capacity[id] = 0.0;
-    }
+    // Get the reduced network
+    Graph reducedNetwork = getReducedNetwork(source);
 
-    // Visit all nodes using depth-first search to find the maximum capacity between source and destination
-    std::stack<std::string> dfs_stack;
+    // Initialize visited stations set
     std::unordered_set<std::string> visited;
-    dfs_stack.push(source);
-    max_capacity[source] = std::numeric_limits<double>::infinity();
-    while (!dfs_stack.empty()) {
-        const std::string& current = dfs_stack.top();
-        dfs_stack.pop();
-        if (current == destination) {
-            break;
+
+    // Initialize the search queue with the source station and its capacity
+    std::queue<std::pair<std::string, int>> searchQueue;
+    searchQueue.push({source, INT_MAX});
+
+    // Breadth-first search
+    while (!searchQueue.empty()) {
+        auto current = searchQueue.front();
+        searchQueue.pop();
+
+        // If we reached the destination station, return the minimum capacity along the path
+        if (current.first == destination) {
+            return current.second;
         }
-        visited.insert(current);
-        for (const Segment& edge : adjacency_list.at(current)) {
-            const std::string& neighbor = edge.getDestination();
-            if (visited.count(neighbor) == 0) {
-                double capacity = std::min(max_capacity[current], static_cast<double>(edge.getCapacity()));
-                if (capacity > max_capacity[neighbor]) {
-                    max_capacity[neighbor] = capacity;
-                    dfs_stack.push(neighbor);
-                }
+
+
+        visited.insert(current.first);
+
+
+        for (const Segment& segment : reducedNetwork.getSegments(current.first)) {
+            std::string next_station = segment.getDestination();
+            int next_capacity = segment.getCapacity();
+
+            // If the station has not been visited and has capacity, add it to the queue
+            if (visited.find(next_station) == visited.end() && next_capacity > 0) {
+                searchQueue.push({next_station, std::min(current.second, next_capacity)});
             }
         }
     }
 
-    return static_cast<int>(max_capacity[destination]);
+    // No path found between the stations
+    return 0;
 }
-
 
 
 Graph Graph::getReducedNetwork(const std::string& source) const {
