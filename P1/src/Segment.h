@@ -5,6 +5,8 @@
 #include <utility>
 #include <fstream>
 #include <sstream>
+#include <functional>
+
 #ifndef SRC_SEGMENT_H
 #define SRC_SEGMENT_H
 
@@ -71,7 +73,29 @@ public:
 
     void setService(const std::string &service);
 
+    bool operator==(const Segment& other) const {
+        return source == other.source && destination == other.destination && capacity == other.capacity && service == other.service;
+    }
+    bool operator!=(const Segment& other) const {
+        return !(*this == other);
+    }
+
+
 };
 
+namespace std {
+    template<>
+    struct hash<Segment> {
+        size_t operator()(const Segment& segment) const {
+            // You can choose any way to combine the hashes of the members
+            // This is just one example, using bit manipulation
+            size_t source_hash = std::hash<std::string>{}(segment.getSource());
+            size_t destination_hash = std::hash<std::string>{}(segment.getDestination());
+            size_t capacity_hash = std::hash<double>{}(segment.getCapacity());
+            size_t service_hash = std::hash<std::string>{}(segment.getService());
 
+            return source_hash ^ (destination_hash << 1) ^ (capacity_hash << 2) ^ (service_hash << 3);
+        }
+    };
+}
 #endif //SRC_SEGMENT_H

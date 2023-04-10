@@ -55,10 +55,13 @@ void Manager::main_menu(){
                 reducedconnectivity();
                 break;
             case 3:
-                search_stations(true);
+                max_Number_of_trains();
                 break;
             case 4:
-                max_Number_of_trains();
+                stations_most_trains();
+                break;
+            case 5:
+                most_affected_stations_seg_failure();
                 break;
             case 9:
                 globalSession = false;
@@ -74,32 +77,51 @@ void Manager::topkdistrictsmunicipalities() {
     while(localSession){
         Utility::header("Transportation Budget Prioritization");
         Utility::body("Report of Top-k Municipalities and Districts and their respective traffic volumes",{""});
-        std::printf("Please enter the value of K:");
+        Utility::body("Please enter how many do you want to see!",{""});
+        Utility::footer("");
         std::cin >> choice;
-        int k = Utility::getInput(choice,1,30);
+        int k = Utility::getInput(choice,1,10);
 
-        // Call function to calculate top-k municipalities and districts
+
         auto [top_k_municipalities, top_k_districts] = railway_network.top_k_municipalities_and_districts(k);
 
-        // Print top-k municipalities
+
         std::printf("Top %d Municipalities:\n", k);
         if (top_k_municipalities.empty()) {
             std::printf("No municipalities found.\n");
         } else {
             for (const auto& [municipality, volume] : top_k_municipalities) {
-                std::printf("%s: %.2f\n", municipality.c_str(), volume);
+                if(municipality.size() > 1) std::printf("%s: %.2f\n", municipality.c_str(), volume);
             }
         }
 
-        // Print top-k districts
         std::printf("\nTop %d Districts:\n", k);
         if (top_k_districts.empty()) {
             std::printf("No districts found.\n");
         } else {
             for (const auto& [district, volume] : top_k_districts) {
-                std::printf("%s: %.2f\n", district.c_str(), volume);
+                if(district.size() > 1)std::printf("%s: %.2f\n", district.c_str(), volume);
             }
         }
+        Utility::footer("0. Back to Menu");
+        std::cin >> choice;
+        Utility::clear_screen();
+        if(choice == 0) localSession = false;
+    }
+}
+
+void Manager::stations_most_trains(){
+    Utility::clear_screen();
+    localSession = true;
+    while(localSession){
+        Utility::header("Pairs of stations require the most amount of trains");
+        Utility::body("Pairs of stations require the most amount of trains when taking full advantage of the existing network capacity",{""});
+        auto stationspair = railway_network.stations_require_most_trains();
+
+        for(auto const [k,v,val]: stationspair){
+            std::printf("%s - %s (%d)\n",k.c_str(),v.c_str(),val);
+        }
+
         Utility::footer("0. Back to Menu");
         std::cin >> choice;
         Utility::clear_screen();
@@ -207,6 +229,41 @@ void Manager::show_stations(){
     sourceStations.clear();
     destinationStations.clear();
 }
+
+void Manager::most_affected_stations_seg_failure() {
+    Utility::clear_screen();
+    localSession = true;
+    while (localSession) {
+        Utility::header("Most affected stations by segment failure");
+        Utility::body("", {""});
+
+        // Get the most affected stations by segment failure
+        auto most_affected_stations = railway_network.most_affected_stations_by_segment_failure();
+
+        std::cout << "Segment Failure\tAffected Stations\tNumber of Affected Stations\n";
+        std::cout << "-----------------------------------------------------------------\n";
+        for (const auto& item : most_affected_stations) {
+            const auto& segment = item.first;
+            const auto& affected_stations = item.second;
+            int num_affected_stations = affected_stations.size();
+
+            std::cout << segment.getSource() << " - " << segment.getDestination() << "\t";
+            for (size_t i = 0; i < affected_stations.size(); ++i) {
+                std::cout << affected_stations[i];
+                if (i < affected_stations.size() - 1) {
+                    std::cout << ", ";
+                }
+            }
+            std::cout << "\t" << num_affected_stations << std::endl;
+        }
+
+        Utility::footer("0. Back to Menu");
+        std::cin >> choice;
+        Utility::clear_screen();
+        if (choice == 0) localSession = false;
+    }
+}
+
 
 void Manager::reducedconnectivity() {
     Utility::clear_screen();

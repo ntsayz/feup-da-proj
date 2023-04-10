@@ -25,6 +25,9 @@ void Segment::setCapacity(double capacity2) {
     Segment::capacity = capacity2;
 }
 
+
+
+
 const std::string &Segment::getService() const {
     return service;
 }
