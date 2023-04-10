@@ -60,6 +60,8 @@ public:
 
     std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std::string, double>>> top_k_municipalities_and_districts(int k);
 
+    int max_trains_between_stations(const std::string &source, const std::string &destination) const;
+
 private:
     /**
      * @brief Adjacency list representing all stations as nodes and segments as edges.
@@ -72,7 +74,6 @@ private:
     std::unordered_map<std::string, Station> stations;
 
 
-    int max_trains_between_stations(const std::string &source, const std::string &destination) const;
 };
 
 
