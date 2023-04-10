@@ -72,6 +72,7 @@ private:
     std::unordered_map<std::string, Station> stations;
 
 
+    int max_trains_between_stations(const std::string &source, const std::string &destination) const;
 };
 
 

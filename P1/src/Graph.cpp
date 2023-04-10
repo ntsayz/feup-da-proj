@@ -157,8 +157,6 @@ int Graph::reduced_max_trains_between_stations(const std::string& source, const 
 }
 
 
-
-
 Graph Graph::getReducedNetwork(const std::string& source) const {
     Graph reduced_network;
     std::unordered_set<std::string> visited;
@@ -182,6 +180,52 @@ Graph Graph::getReducedNetwork(const std::string& source) const {
         }
     }
     return reduced_network;
+}
+
+std::vector<Segment> Graph::getSegmentsFromStation(const std::string station) const {
+    // Find the station in the adjacency list
+    auto it = adjacency_list.find(station);
+    if (it == adjacency_list.end()) {
+        // Station not found, return an empty vector
+        return std::vector<Segment>();
+    } else {
+        // Return the vector of segments going out from the station
+        return it->second;
+    }
+}
+
+int Graph::max_trains_between_stations(const std::string& source, const std::string& destination) const {
+    // Get segments going out from the source station
+    auto source_segments = getSegmentsFromStation(source);
+    // Get segments going into the destination station
+    auto destination_segments = getSegmentsToStation(destination);
+
+    // Create a set of station names that appear in both sets of segments
+    std::unordered_set<std::string> common_stations;
+    for (const auto& s : source_segments) {
+        if (destination_segments.end() != std::find(destination_segments.begin(), destination_segments.end(), s)) {
+            common_stations.insert(s.getDestination());
+        }
+    }
+
+    // Calculate the minimum of the maximum number of trains that can travel along each connecting segment
+    int max_trains = INT_MAX;
+    for (const auto& station : common_stations) {
+        auto in_segments = getSegmentsToStation(station);
+        auto out_segments = getSegmentsFromStation(station);
+        for (const auto& in_seg : in_segments) {
+            for (const auto& out_seg : out_segments) {
+                if (in_seg.getSource() == source && out_seg.getDestination() == destination) {
+                    int trains = std::min(in_seg.getCapacity(), out_seg.getCapacity());
+                    if (trains < max_trains) {
+                        max_trains = trains;
+                    }
+                }
+            }
+        }
+    }
+
+    return max_trains;
 }
 
 
