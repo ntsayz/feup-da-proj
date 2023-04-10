@@ -157,8 +157,6 @@ int Graph::reduced_max_trains_between_stations(const std::string& source, const 
 }
 
 
-
-
 Graph Graph::getReducedNetwork(const std::string& source) const {
     Graph reduced_network;
     std::unordered_set<std::string> visited;
@@ -183,6 +181,71 @@ Graph Graph::getReducedNetwork(const std::string& source) const {
     }
     return reduced_network;
 }
+
+std::vector<Segment> Graph::getSegmentsFromStation(const std::string station) const {
+    // Find the station in the adjacency list
+    auto it = adjacency_list.find(station);
+    if (it == adjacency_list.end()) {
+        // Station not found, return an empty vector
+        return std::vector<Segment>();
+    } else {
+        // Return the vector of segments going out from the station
+        return it->second;
+    }
+}
+
+
+std::vector<Segment> Graph::getSegmentsToStation(const std::string station) const {
+    std::vector<Segment> segments_to_station;
+    std::vector<Segment> segments = getSegments(station);
+    for(auto s: segments){
+        if(s.getDestination() == station){
+            segments_to_station.push_back(s);
+        }
+    }
+    return segments_to_station;
+}
+
+
+int Graph::max_trains_between_stations(const std::string& source, const std::string& destination) const {
+    // Initialize the minimum capacity to a large number
+    int min_capacity = INT_MAX;
+
+    // Initialize the visited set and queue for BFS
+    std::unordered_set<std::string> visited;
+    std::queue<std::pair<std::string, int>> q;
+    q.push({source, INT_MAX});
+
+    // Perform BFS until the destination station is found or the queue is empty
+    while (!q.empty()) {
+        // Get the next station and its minimum capacity seen so far
+        auto [current, capacity] = q.front();
+        q.pop();
+
+        // Skip if the station has already been visited
+        if (visited.count(current)) {
+            continue;
+        }
+        visited.insert(current);
+
+        // Update the minimum capacity seen for the current station
+        min_capacity = std::min(min_capacity, capacity);
+
+        // Stop BFS if the destination station is found
+        if (current == destination) {
+            break;
+        }
+
+        // Add the adjacent stations to the queue
+        for (const auto& seg : getSegmentsFromStation(current)) {
+            q.push({seg.getDestination(), seg.getCapacity()});
+        }
+    }
+
+    // Return the minimum capacity seen for the path from the source to the destination station
+    return min_capacity;
+}
+
 
 
 

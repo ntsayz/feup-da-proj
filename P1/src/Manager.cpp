@@ -57,6 +57,9 @@ void Manager::main_menu(){
             case 3:
                 search_stations(true);
                 break;
+            case 4:
+                max_Number_of_trains();
+                break;
             case 9:
                 globalSession = false;
         }
@@ -104,7 +107,32 @@ void Manager::topkdistrictsmunicipalities() {
     }
 }
 
+void Manager::max_Number_of_trains() {
+    Utility::clear_screen();
+    localSession = true;
+    while (localSession) {
+        Utility::header("Maximum Number of Trains between two stations");
+        std::printf("Please choose the stations");
 
+        search_stations(true);
+
+
+        for (auto const sourceSt: sourceStations) {
+            for (auto const destSt: destinationStations) {
+                int j = railway_network.max_trains_between_stations(sourceSt.getName(), destSt.getName());
+                std::printf("The maximum number of trains between stations %s and %s is %d!\n", sourceSt.getName().c_str(), destSt.getName().c_str(),j);
+            }
+        }
+
+        sourceStations.clear();
+        destinationStations.clear();
+
+        Utility::footer("0. Back to Menu");
+        std::cin >> choice;
+        Utility::clear_screen();
+        if (choice == 0) localSession = false;
+    }
+}
 
 
 void Manager::search_stations(bool notARecursiveCall) {

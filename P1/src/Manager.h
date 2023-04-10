@@ -111,6 +111,8 @@ public:
     Station get_station_by_name();
 
     void show_stations();
+
+    void max_Number_of_trains();
 };
 
 
