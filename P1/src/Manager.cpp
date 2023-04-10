@@ -115,13 +115,13 @@ void Manager::search_stations(bool notARecursiveCall) {
             case 1:
                 while(localSession){
                     if(!notARecursiveCall){
-                        sourceStations = get_stations_in_municipality();
-                        if(sourceStations.empty()){ localSession = false;
+                        destinationStations = get_stations_in_municipality();
+                        if(destinationStations.empty()){ localSession = false;
                             return;}
                         return;
                     }else{
-                        destinationStations = get_stations_in_municipality();
-                        if(destinationStations.empty()){ localSession = false;
+                        sourceStations = get_stations_in_municipality();
+                        if(sourceStations.empty()){ localSession = false;
                             continue;}
                         search_stations(false);
                     }
@@ -130,13 +130,13 @@ void Manager::search_stations(bool notARecursiveCall) {
             case 2:
                 while(localSession){
                     if(!notARecursiveCall){
-                        sourceStations = get_stations_in_district();
-                        if(sourceStations.empty()){ localSession = false;
+                        destinationStations = get_stations_in_district();
+                        if(destinationStations.empty()){ localSession = false;
                             return;}
                         return;
                     }else{
-                        destinationStations = get_stations_in_district();
-                        if(destinationStations.empty()){ localSession = false;
+                        sourceStations = get_stations_in_district();
+                        if(sourceStations.empty()){ localSession = false;
                             continue;}
                         search_stations(false);
                     }
@@ -145,13 +145,13 @@ void Manager::search_stations(bool notARecursiveCall) {
             case 3:
                 while(localSession){
                     if(!notARecursiveCall){
-                        sourceStations.push_back(get_station_by_name());
-                        if(sourceStations.empty()){ localSession = false;
+                        destinationStations.push_back(get_station_by_name());
+                        if(destinationStations.empty()){ localSession = false;
                             return;}
                         return;
                     }else{
-                        destinationStations.push_back(get_station_by_name());
-                        if(destinationStations.empty()){ localSession = false;
+                        sourceStations.push_back(get_station_by_name());
+                        if(sourceStations.empty()){ localSession = false;
                             continue;}
                         search_stations(false);
                     }
@@ -162,7 +162,6 @@ void Manager::search_stations(bool notARecursiveCall) {
                 break;
         }
 
-        show_stations();
 
     }
 }
@@ -185,15 +184,22 @@ void Manager::reducedconnectivity() {
     Utility::clear_screen();
     localSession = true;
     while(localSession){
-        Utility::header("Max trains between stations");
+        Utility::header("Max-flow of trains between stations");
         Utility::body("Repors and Dis",{""});
-        std::printf("Please stations");
-        std::cin >> choice;
-        Utility::getInput(choice,1,30);
+        std::printf("Please choose the stations");
 
-        int j = railway_network.max_trains_between_stations("Porto Campanhã","Lisboa Oriente");
+        search_stations(true);
 
-        std::printf("%-- d --",j);
+
+        for(auto const sourceSt: sourceStations){
+            for(auto const destSt: destinationStations){
+                int j = railway_network.max_trains_between_stations(sourceSt.getName(),destSt.getName());
+                std::printf("Between '%s' AND '%s' %d trains can travel simultaneously!\n",sourceSt.getName().c_str(),destSt.getName().c_str(),j);
+            }
+        }
+
+        sourceStations.clear();
+        destinationStations.clear();
 
         Utility::footer("0. Back to Menu");
         std::cin >> choice;

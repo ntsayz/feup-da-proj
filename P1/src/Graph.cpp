@@ -40,7 +40,7 @@ std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std
         }
     }
 
-    // Step 3
+
     std::unordered_map<std::string, double> station_traffic_volumes;
     for (const auto& [id, edges] : graph_copy.adjacency_list) {
         double traffic_volume = 0.0;
@@ -82,44 +82,80 @@ std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std
     return {top_k_municipalities, top_k_districts};
 }
 
+// Currently not working as intended
 int Graph::max_trains_between_stations(const std::string& source, const std::string& destination) const {
-    // Check if source and destination stations are in the graph
     if (stations.find(source) == stations.end() || stations.find(destination) == stations.end()) {
-        throw std::invalid_argument("Source or destination station not found in graph.");
+        return 0;
     }
 
-    // Create a map to keep track of the maximum capacity seen so far for each station
-    std::unordered_map<std::string, double> max_capacity;
-    for (const auto& [id, station] : stations) {
-        max_capacity[id] = 0.0;
-    }
+    Graph reducedNetwork = getReducedNetwork(source);
 
-    // Visit all nodes using depth-first search to find the maximum capacity between source and destination
-    std::stack<std::string> dfs_stack;
-    std::unordered_set<std::string> visited;
-    dfs_stack.push(source);
-    max_capacity[source] = std::numeric_limits<double>::infinity();
-    while (!dfs_stack.empty()) {
-        const std::string& current = dfs_stack.top();
-        dfs_stack.pop();
-        if (current == destination) {
-            break;
-        }
-        visited.insert(current);
-        for (const Segment& edge : adjacency_list.at(current)) {
-            const std::string& neighbor = edge.getDestination();
-            if (visited.count(neighbor) == 0) {
-                double capacity = std::min(max_capacity[current], static_cast<double>(edge.getCapacity()));
-                if (capacity > max_capacity[neighbor]) {
-                    max_capacity[neighbor] = capacity;
-                    dfs_stack.push(neighbor);
+    int max_flow = 0;
+
+    while (true) {
+        std::unordered_map<std::string, std::pair<std::string, int>> parent;
+        std::queue<std::pair<std::string, int>> searchQueue;
+        searchQueue.push({source, INT_MAX});
+
+        while (!searchQueue.empty()) {
+            auto current = searchQueue.front();
+            searchQueue.pop();
+
+            for (const Segment& segment : reducedNetwork.getSegments(current.first)) {
+                std::string next_station = segment.getDestination();
+                int next_capacity = segment.getCapacity();
+
+                if (parent.find(next_station) == parent.end() && next_capacity > 0) {
+                    parent[next_station] = {current.first, std::min(current.second, next_capacity)};
+                    searchQueue.push({next_station, parent[next_station].second});
+
+                    if (next_station == destination) {
+                        break;
+                    }
                 }
             }
         }
+
+        if (parent.find(destination) == parent.end()) {
+            break;
+        }
+
+        int path_flow = parent[destination].second;
+        max_flow += path_flow;
+
+        std::string current = destination;
+        while (current != source) {
+            std::string prev = parent[current].first;
+
+            // Update edge capacity
+            for (Segment& edge : reducedNetwork.adjacency_list[prev]) {
+                if (edge.getDestination() == current) {
+                    edge.setCapacity(edge.getCapacity() - path_flow);
+                    break;
+                }
+            }
+
+            // Add reverse edge for the residual graph
+            bool reverse_edge_exists = false;
+            for (Segment& reverse_edge : reducedNetwork.adjacency_list[current]) {
+                if (reverse_edge.getDestination() == prev) {
+                    reverse_edge.setCapacity(reverse_edge.getCapacity() + path_flow);
+                    reverse_edge_exists = true;
+                    break;
+                }
+            }
+
+            if (!reverse_edge_exists) {
+                reducedNetwork.adjacency_list[current].push_back(Segment(current, prev, path_flow, ""));
+            }
+
+            current = prev;
+        }
     }
 
-    return static_cast<int>(max_capacity[destination]);
+    return max_flow;
 }
+
 
 
 
@@ -137,7 +173,7 @@ Graph Graph::getReducedNetwork(const std::string& source) const {
         }
         reduced_network.addStation(stations.at(node));
         for (const Segment& edge : adjacency_list.at(node)) {
-            if (visited.count(edge.getDestination()) == 0) {
+            if (visited.count(edge.getDestination()) == 0 && edge.getCapacity() > 0) {
                 reduced_network.addStation(stations.at(edge.getDestination()));
                 reduced_network.addSegment(edge);
                 visited.insert(edge.getDestination());
@@ -147,4 +183,6 @@ Graph Graph::getReducedNetwork(const std::string& source) const {
     }
     return reduced_network;
 }
+
+
 
