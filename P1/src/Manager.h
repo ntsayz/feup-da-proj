@@ -119,6 +119,8 @@ public:
     void most_affected_stations_seg_failure();
 
     void max_trains_at_station();
+
+    void max_trains_min_cost();
 };
 
 

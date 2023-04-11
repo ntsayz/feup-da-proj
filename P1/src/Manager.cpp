@@ -66,6 +66,9 @@ void Manager::main_menu(){
             case 6:
                 max_trains_at_station();
                 break;
+            case 7:
+                max_trains_min_cost();
+                break;
             case 9:
                 globalSession = false;
         }
@@ -167,6 +170,28 @@ void Manager::max_Number_of_trains() {
     }
 }
 
+void Manager::max_trains_min_cost(){
+       Utility::clear_screen();
+       localSession = true;
+       while(localSession){
+             Utility::header("Maximum Number of Trains between two stations with minimum cost");
+             std::printf("Please choose the stations");
+             search_stations(true);
+             for(auto const sourceSt: sourceStations){
+                 for(auto const destSt: destinationStations){
+                     int j = railway_network.max_trains_with_min_cost(sourceSt.getName(), destSt.getName());
+                     std::printf("The maximum number of trains between stations %s and %s with minimum cost is %d!\n", sourceSt.getName().c_str(), destSt.getName().c_str(),j);
+                 }
+             }
+           sourceStations.clear();
+           destinationStations.clear();
+
+           Utility::footer("0. Back to Menu");
+           std::cin >> choice;
+           Utility::clear_screen();
+           if (choice == 0) localSession = false;
+       }
+}
 
 void Manager::search_stations(bool notARecursiveCall) {
     localSession = true;
