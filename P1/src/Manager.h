@@ -110,7 +110,7 @@ public:
     std::vector<Station> get_stations_in_district();
     Station get_station_by_name();
 
-    void show_stations();
+    voshow_stations();
 
     void max_Number_of_trains();
 

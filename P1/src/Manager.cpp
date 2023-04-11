@@ -227,19 +227,6 @@ void Manager::search_stations(bool notARecursiveCall) {
     }
 }
 
-void Manager::show_stations(){
-    std::printf("FROM:");
-    for( auto const k: sourceStations){
-        std::printf("%s\n",k.getName().c_str());
-    }
-    std::printf("\nTO:\n");
-    for( auto const k: destinationStations){
-        std::printf("%s\n",k.getName().c_str());
-    }
-
-    sourceStations.clear();
-    destinationStations.clear();
-}
 void Manager::most_affected_stations_seg_failure() {
     Utility::clear_screen();
     localSession = true;
@@ -326,7 +313,7 @@ void Manager::reducedconnectivity() {
 
         Utility::header("Max-flow of trains between stations with Reduced Connectivity");
         Utility::body("Choose a reduction factor",{"How much the graph should be reduced by","It should be between [0;1]"});
-        double rf = Utility::getDoubleInput(0,1);
+        double rf = Utility::getDoubleInput(0.0,1.0);
 
         for(auto const sourceSt: sourceStations){
             for(auto const destSt: destinationStations){

@@ -83,6 +83,7 @@ public:
     std::vector<std::tuple<std::string, std::string, int>> top_k_affected_stations_by_segment_failure(int k);
     int max_trains_between_stations_reduced_connectivity(const std::string &source, const std::string &destination,
                                                          double reduction_factor);
+    int max_trains_at_station(const std::string &station) const;
 private:
     /**
      * @brief Adjacency list representing all stations as nodes and segments as edges.
@@ -100,6 +101,7 @@ private:
     std::unordered_map<std::pair<std::string, std::string>, int, PairHash> all_pairs_max_trains_floyd_warshall() const;
 
     Graph generate_reduced_connectivity_graph(double reduction_factor) const;
+
 
 
 };
