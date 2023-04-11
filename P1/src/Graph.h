@@ -89,6 +89,9 @@ public:
     int max_trains_at_station(const std::string &station) const;
 
     std::unordered_map<std::string, double> dijkstra_shortest_path(const std::string& source) const;
+
+    int max_trains_with_min_cost(const std::string &source, const std::string &destination);
+
 private:
     /**
      * @brief Adjacency list representing all stations as nodes and segments as edges.
@@ -108,7 +111,6 @@ private:
     Graph generate_reduced_connectivity_graph(double reduction_factor) const;
 
 
-    int max_trains_with_min_cost(const std::string &source, const std::string &destination);
 };
 
 

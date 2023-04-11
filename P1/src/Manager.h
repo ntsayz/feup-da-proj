@@ -171,6 +171,8 @@ public:
  * trains that can be present at each station at any given time.
  */
     void max_trains_at_station();
+
+    void max_trains_min_cost();
 };
 
 
