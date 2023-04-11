@@ -1,0 +1,356 @@
+\hypertarget{class_graph}{}\doxysection{Graph Class Reference}
+\label{class_graph}\index{Graph@{Graph}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_graph_acb8cf4f723502444353ed820552eb758}{add\+Station}} (const \mbox{\hyperlink{class_station}{Station}} \&station)
+\begin{DoxyCompactList}\small\item\em Adds a station to the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_ad3646911172c41a438a7ad117dbe4fb7}{add\+Segment}} (const \mbox{\hyperlink{class_segment}{Segment}} \&segment)
+\begin{DoxyCompactList}\small\item\em Adds a segment to the graph. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_segment}{Segment}} $>$ \mbox{\hyperlink{class_graph_a3d2f4027114679064e0648a7cc673c2b}{get\+Segments\+From\+Station}} (const std\+::string station) const
+\begin{DoxyCompactList}\small\item\em Returns a vector of all segments going out from a specified station. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_segment}{Segment}} $>$ \mbox{\hyperlink{class_graph_a898a381567789bda8c2e2600b9ed4502}{get\+Segments\+To\+Station}} (const std\+::string station) const
+\begin{DoxyCompactList}\small\item\em Returns a vector of all segments going into a specified station. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_aef884bc33e6d44a22295bed0f770d9ca}{num\+Segments\+From\+Station}} (const std\+::string station) const
+\begin{DoxyCompactList}\small\item\em Returns the number of segments going out from a specified station. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_a7c62567a9ec31414d493098361fa58dc}{num\+Segments\+To\+Station}} (const std\+::string station) const
+\begin{DoxyCompactList}\small\item\em Returns the number of segments going into a specified station. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_segment}{Segment}} $>$ \mbox{\hyperlink{class_graph_a49896b6bbb6de4c6cba7b939f996a001}{get\+Segments}} (const std\+::string \&station\+\_\+name) const
+\begin{DoxyCompactList}\small\item\em Calculates the maximum number of trains that can simultaneously travel between two specific stations in a network of reduced connectivity. \end{DoxyCompactList}\item 
+std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ std\+::string, double $>$ $>$, std\+::vector$<$ std\+::pair$<$ std\+::string, double $>$ $>$ $>$ \mbox{\hyperlink{class_graph_a4c68624a87ca537ec8cb09800ccfe1cf}{top\+\_\+k\+\_\+municipalities\+\_\+and\+\_\+districts}} (int k)
+\begin{DoxyCompactList}\small\item\em Finds the top k municipalities and districts with the highest traffic volume. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_ade9b0c3af2bbbf51b449704919023416}{max\+\_\+trains\+\_\+between\+\_\+stations}} (const std\+::string \&source, const std\+::string \&destination) const
+\begin{DoxyCompactList}\small\item\em Computes the maximum number of trains that can simultaneously travel between two stations. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::tuple$<$ std\+::string, std\+::string, int $>$ $>$ \mbox{\hyperlink{class_graph_ab989b44fc4e034e33bc60f967e6a4475}{stations\+\_\+require\+\_\+most\+\_\+trains}} () const
+\begin{DoxyCompactList}\small\item\em Finds the stations that require the most number of trains when taking full advantage of the network capacity. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_a3120ddd8f678173a7cf5da21a7cdc27f}{edmonds\+\_\+karp\+\_\+max\+\_\+flow}} (const std\+::string \&source, const std\+::string \&destination) const
+\begin{DoxyCompactList}\small\item\em Computes the maximum flow between two stations using the Edmonds-\/\+Karp algorithm. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::tuple$<$ std\+::string, std\+::string, int $>$ $>$ \mbox{\hyperlink{class_graph_a0dad01e76d1c9394d5f8b891633c20f4}{top\+\_\+k\+\_\+affected\+\_\+stations\+\_\+by\+\_\+segment\+\_\+failure}} (int k)
+\begin{DoxyCompactList}\small\item\em Computes the top k segments that, when removed, cause the most number of affected stations. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_a46786502892c9f54d589e466a6dd414b}{max\+\_\+trains\+\_\+between\+\_\+stations\+\_\+reduced\+\_\+connectivity}} (const std\+::string \&source, const std\+::string \&destination, double reduction\+\_\+factor)
+\begin{DoxyCompactList}\small\item\em Computes the maximum number of trains that can simultaneously travel between two stations with reduced connectivity. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_a6496e04558a36d9415e0340b3940264f}{max\+\_\+trains\+\_\+at\+\_\+station}} (const std\+::string \&station) const
+\begin{DoxyCompactList}\small\item\em Computes the maximum number of trains that can be at a station at the same time. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, double $>$ \mbox{\hyperlink{class_graph_a27f1c05a63143e61688966b51d8147a4}{dijkstra\+\_\+shortest\+\_\+path}} (const std\+::string \&source) const
+\begin{DoxyCompactList}\small\item\em Computes the shortest path from the source station to all other stations using Dijkstra\textquotesingle{}s algorithm. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_a8f00f452dbb31d8339a69ce34c513523}{max\+\_\+trains\+\_\+with\+\_\+min\+\_\+cost}} (const std\+::string \&source, const std\+::string \&destination)
+\begin{DoxyCompactList}\small\item\em Computes the maximum number of trains that can simultaneously travel between two stations with minimum cost for the company. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_graph_ad3646911172c41a438a7ad117dbe4fb7}\label{class_graph_ad3646911172c41a438a7ad117dbe4fb7}} 
+\index{Graph@{Graph}!addSegment@{addSegment}}
+\index{addSegment@{addSegment}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addSegment()}{addSegment()}}
+{\footnotesize\ttfamily void Graph\+::add\+Segment (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_segment}{Segment}} \&}]{segment }\end{DoxyParamCaption})}
+
+
+
+Adds a segment to the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em segment} & The segment to be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graph_acb8cf4f723502444353ed820552eb758}\label{class_graph_acb8cf4f723502444353ed820552eb758}} 
+\index{Graph@{Graph}!addStation@{addStation}}
+\index{addStation@{addStation}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addStation()}{addStation()}}
+{\footnotesize\ttfamily void Graph\+::add\+Station (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_station}{Station}} \&}]{station }\end{DoxyParamCaption})}
+
+
+
+Adds a station to the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em station} & The station to be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graph_a27f1c05a63143e61688966b51d8147a4}\label{class_graph_a27f1c05a63143e61688966b51d8147a4}} 
+\index{Graph@{Graph}!dijkstra\_shortest\_path@{dijkstra\_shortest\_path}}
+\index{dijkstra\_shortest\_path@{dijkstra\_shortest\_path}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{dijkstra\_shortest\_path()}{dijkstra\_shortest\_path()}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$ std\+::string, double $>$ Graph\+::dijkstra\+\_\+shortest\+\_\+path (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source }\end{DoxyParamCaption}) const}
+
+
+
+Computes the shortest path from the source station to all other stations using Dijkstra\textquotesingle{}s algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source station. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An unordered map with station names as keys and the shortest path distance from the source station as values. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time complexity\+: O(V + E $\ast$ log(\+V)) using a priority queue. 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a3120ddd8f678173a7cf5da21a7cdc27f}\label{class_graph_a3120ddd8f678173a7cf5da21a7cdc27f}} 
+\index{Graph@{Graph}!edmonds\_karp\_max\_flow@{edmonds\_karp\_max\_flow}}
+\index{edmonds\_karp\_max\_flow@{edmonds\_karp\_max\_flow}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{edmonds\_karp\_max\_flow()}{edmonds\_karp\_max\_flow()}}
+{\footnotesize\ttfamily int Graph\+::edmonds\+\_\+karp\+\_\+max\+\_\+flow (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source,  }\item[{const std\+::string \&}]{destination }\end{DoxyParamCaption}) const}
+
+
+
+Computes the maximum flow between two stations using the Edmonds-\/\+Karp algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source station. \\
+\hline
+{\em destination} & The destination station. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum flow between the two stations. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time complexity\+: O(\+V $\ast$ E$^\wedge$2). 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a49896b6bbb6de4c6cba7b939f996a001}\label{class_graph_a49896b6bbb6de4c6cba7b939f996a001}} 
+\index{Graph@{Graph}!getSegments@{getSegments}}
+\index{getSegments@{getSegments}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getSegments()}{getSegments()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_segment}{Segment}} $>$ Graph\+::get\+Segments (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{station\+\_\+name }\end{DoxyParamCaption}) const}
+
+
+
+Calculates the maximum number of trains that can simultaneously travel between two specific stations in a network of reduced connectivity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start\+\_\+station} & The starting station \\
+\hline
+{\em end\+\_\+station} & The ending station \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum number of trains that can simultaneously travel between the two stations in the reduced network 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a3d2f4027114679064e0648a7cc673c2b}\label{class_graph_a3d2f4027114679064e0648a7cc673c2b}} 
+\index{Graph@{Graph}!getSegmentsFromStation@{getSegmentsFromStation}}
+\index{getSegmentsFromStation@{getSegmentsFromStation}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getSegmentsFromStation()}{getSegmentsFromStation()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_segment}{Segment}} $>$ Graph\+::get\+Segments\+From\+Station (\begin{DoxyParamCaption}\item[{const std\+::string}]{station }\end{DoxyParamCaption}) const}
+
+
+
+Returns a vector of all segments going out from a specified station. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em station} & The station to get the segments for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of all segments going out from the specified station 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a898a381567789bda8c2e2600b9ed4502}\label{class_graph_a898a381567789bda8c2e2600b9ed4502}} 
+\index{Graph@{Graph}!getSegmentsToStation@{getSegmentsToStation}}
+\index{getSegmentsToStation@{getSegmentsToStation}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getSegmentsToStation()}{getSegmentsToStation()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_segment}{Segment}} $>$ Graph\+::get\+Segments\+To\+Station (\begin{DoxyParamCaption}\item[{const std\+::string}]{station }\end{DoxyParamCaption}) const}
+
+
+
+Returns a vector of all segments going into a specified station. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em station} & The station to get the segments for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of all segments going into the specified station 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a6496e04558a36d9415e0340b3940264f}\label{class_graph_a6496e04558a36d9415e0340b3940264f}} 
+\index{Graph@{Graph}!max\_trains\_at\_station@{max\_trains\_at\_station}}
+\index{max\_trains\_at\_station@{max\_trains\_at\_station}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{max\_trains\_at\_station()}{max\_trains\_at\_station()}}
+{\footnotesize\ttfamily int Graph\+::max\+\_\+trains\+\_\+at\+\_\+station (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{station }\end{DoxyParamCaption}) const}
+
+
+
+Computes the maximum number of trains that can be at a station at the same time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em station} & The station in question. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum number of trains that can be at the station at the same time. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time complexity\+: O(\+V$^\wedge$2 $\ast$ E$^\wedge$2) using Edmonds-\/\+Karp algorithm. 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_ade9b0c3af2bbbf51b449704919023416}\label{class_graph_ade9b0c3af2bbbf51b449704919023416}} 
+\index{Graph@{Graph}!max\_trains\_between\_stations@{max\_trains\_between\_stations}}
+\index{max\_trains\_between\_stations@{max\_trains\_between\_stations}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{max\_trains\_between\_stations()}{max\_trains\_between\_stations()}}
+{\footnotesize\ttfamily int Graph\+::max\+\_\+trains\+\_\+between\+\_\+stations (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source,  }\item[{const std\+::string \&}]{destination }\end{DoxyParamCaption}) const}
+
+
+
+Computes the maximum number of trains that can simultaneously travel between two stations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source station. \\
+\hline
+{\em destination} & The destination station. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum number of trains that can simultaneously travel between the two stations. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time complexity\+: O(\+V $\ast$ E$^\wedge$2) using Edmonds-\/\+Karp algorithm. 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a46786502892c9f54d589e466a6dd414b}\label{class_graph_a46786502892c9f54d589e466a6dd414b}} 
+\index{Graph@{Graph}!max\_trains\_between\_stations\_reduced\_connectivity@{max\_trains\_between\_stations\_reduced\_connectivity}}
+\index{max\_trains\_between\_stations\_reduced\_connectivity@{max\_trains\_between\_stations\_reduced\_connectivity}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{max\_trains\_between\_stations\_reduced\_connectivity()}{max\_trains\_between\_stations\_reduced\_connectivity()}}
+{\footnotesize\ttfamily int Graph\+::max\+\_\+trains\+\_\+between\+\_\+stations\+\_\+reduced\+\_\+connectivity (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source,  }\item[{const std\+::string \&}]{destination,  }\item[{double}]{reduction\+\_\+factor }\end{DoxyParamCaption})}
+
+
+
+Computes the maximum number of trains that can simultaneously travel between two stations with reduced connectivity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source station. \\
+\hline
+{\em destination} & The destination station. \\
+\hline
+{\em reduction\+\_\+factor} & The probability of removing a segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum number of trains that can simultaneously travel between the two stations with reduced connectivity. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time complexity\+: O(\+V $\ast$ E$^\wedge$2) using Edmonds-\/\+Karp algorithm. 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a8f00f452dbb31d8339a69ce34c513523}\label{class_graph_a8f00f452dbb31d8339a69ce34c513523}} 
+\index{Graph@{Graph}!max\_trains\_with\_min\_cost@{max\_trains\_with\_min\_cost}}
+\index{max\_trains\_with\_min\_cost@{max\_trains\_with\_min\_cost}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{max\_trains\_with\_min\_cost()}{max\_trains\_with\_min\_cost()}}
+{\footnotesize\ttfamily int Graph\+::max\+\_\+trains\+\_\+with\+\_\+min\+\_\+cost (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source,  }\item[{const std\+::string \&}]{destination }\end{DoxyParamCaption})}
+
+
+
+Computes the maximum number of trains that can simultaneously travel between two stations with minimum cost for the company. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The source station. \\
+\hline
+{\em destination} & The destination station. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum number of trains that can simultaneously travel between the two stations with minimum cost for the company. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time complexity\+: O(\+V $\ast$ E$^\wedge$2) using a mixture of Dijkstra (w/\+PQ) and the Edmonds-\/\+Karp algorithm 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_aef884bc33e6d44a22295bed0f770d9ca}\label{class_graph_aef884bc33e6d44a22295bed0f770d9ca}} 
+\index{Graph@{Graph}!numSegmentsFromStation@{numSegmentsFromStation}}
+\index{numSegmentsFromStation@{numSegmentsFromStation}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{numSegmentsFromStation()}{numSegmentsFromStation()}}
+{\footnotesize\ttfamily int Graph\+::num\+Segments\+From\+Station (\begin{DoxyParamCaption}\item[{const std\+::string}]{station }\end{DoxyParamCaption}) const}
+
+
+
+Returns the number of segments going out from a specified station. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em station} & The station to get the segments for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of segments going out from the specified station 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a7c62567a9ec31414d493098361fa58dc}\label{class_graph_a7c62567a9ec31414d493098361fa58dc}} 
+\index{Graph@{Graph}!numSegmentsToStation@{numSegmentsToStation}}
+\index{numSegmentsToStation@{numSegmentsToStation}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{numSegmentsToStation()}{numSegmentsToStation()}}
+{\footnotesize\ttfamily int Graph\+::num\+Segments\+To\+Station (\begin{DoxyParamCaption}\item[{const std\+::string}]{station }\end{DoxyParamCaption}) const}
+
+
+
+Returns the number of segments going into a specified station. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em station} & The station to get the segments for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of segments going into the specified station 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_ab989b44fc4e034e33bc60f967e6a4475}\label{class_graph_ab989b44fc4e034e33bc60f967e6a4475}} 
+\index{Graph@{Graph}!stations\_require\_most\_trains@{stations\_require\_most\_trains}}
+\index{stations\_require\_most\_trains@{stations\_require\_most\_trains}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{stations\_require\_most\_trains()}{stations\_require\_most\_trains()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::tuple$<$ std\+::string, std\+::string, int $>$ $>$ Graph\+::stations\+\_\+require\+\_\+most\+\_\+trains (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Finds the stations that require the most number of trains when taking full advantage of the network capacity. 
+
+\begin{DoxyReturn}{Returns}
+A vector of tuples, each containing two station names and the number of trains required between them. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Time complexity\+: O(\+V$^\wedge$3) using a modified version of Floyd-\/\+Warshall algorithm. 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_graph_a0dad01e76d1c9394d5f8b891633c20f4}\label{class_graph_a0dad01e76d1c9394d5f8b891633c20f4}} 
+\index{Graph@{Graph}!top\_k\_affected\_stations\_by\_segment\_failure@{top\_k\_affected\_stations\_by\_segment\_failure}}
+\index{top\_k\_affected\_stations\_by\_segment\_failure@{top\_k\_affected\_stations\_by\_segment\_failure}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{top\_k\_affected\_stations\_by\_segment\_failure()}{top\_k\_affected\_stations\_by\_segment\_failure()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::tuple$<$ std\+::string, std\+::string, int $>$ $>$ Graph\+::top\+\_\+k\+\_\+affected\+\_\+stations\+\_\+by\+\_\+segment\+\_\+failure (\begin{DoxyParamCaption}\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+
+Computes the top k segments that, when removed, cause the most number of affected stations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & The number of segments to be returned. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of tuples, each containing a source station, a destination station, and the number of affected stations for that segment. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a4c68624a87ca537ec8cb09800ccfe1cf}\label{class_graph_a4c68624a87ca537ec8cb09800ccfe1cf}} 
+\index{Graph@{Graph}!top\_k\_municipalities\_and\_districts@{top\_k\_municipalities\_and\_districts}}
+\index{top\_k\_municipalities\_and\_districts@{top\_k\_municipalities\_and\_districts}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{top\_k\_municipalities\_and\_districts()}{top\_k\_municipalities\_and\_districts()}}
+{\footnotesize\ttfamily std\+::pair$<$ std\+::vector$<$ std\+::pair$<$ std\+::string, double $>$ $>$, std\+::vector$<$ std\+::pair$<$ std\+::string, double $>$ $>$ $>$ Graph\+::top\+\_\+k\+\_\+municipalities\+\_\+and\+\_\+districts (\begin{DoxyParamCaption}\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+
+Finds the top k municipalities and districts with the highest traffic volume. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & Number of top municipalities and districts to be returned. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pair of two vectors\+: the first vector contains the top k municipalities with the highest traffic volume, and the second with the districts 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Graph.\+h\item 
+src/Graph.\+cpp\end{DoxyCompactItemize}

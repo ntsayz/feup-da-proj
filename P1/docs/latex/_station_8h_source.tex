@@ -1,0 +1,64 @@
+\hypertarget{_station_8h_source}{}\doxysection{Station.\+h}
+\label{_station_8h_source}\index{src/Station.h@{src/Station.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ ntsayz\ on\ 09-\/03-\/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ SRC\_STATION\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ SRC\_STATION\_H}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_station}{Station}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00019\ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{00023\ \ \ \ \ std::string\ district;}
+\DoxyCodeLine{00027\ \ \ \ \ std::string\ municipality;}
+\DoxyCodeLine{00031\ \ \ \ \ std::string\ township;}
+\DoxyCodeLine{00035\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_station}{Station}}(std::string\ name,\ std::string\ district,std::string\ municipality,\ \ std::string\ township,std::string\ line):}
+\DoxyCodeLine{00039\ \ \ \ \ name(std::move(name)),\ district(std::move(district)),municipality(std::move(municipality)),township(std::move(township)),line(std::move(line))\{\}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_station}{Station}}()\ :\ name(),\ district(),\ municipality()\ ,\ township(),\ line()\{\}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_station}{Station}}\ \mbox{\hyperlink{class_station_a0fff8ea63ea9be053208dea95a30745a}{fromCSVLine}}(std::istringstream\&\ iss)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::string\ name,\ district,\ municipality,\ \ township,\ line;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ std::getline(iss,\ name,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::getline(iss,\ district,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::getline(iss,\ municipality,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::getline(iss,\ township,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ std::getline(iss,line);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{name,\ district,\ municipality,\ \ township,\ line\};}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&getName()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ setName(\textcolor{keyword}{const}\ std::string\ \&name);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&getDistrict()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ setDistrict(\textcolor{keyword}{const}\ std::string\ \&district);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&getMunicipality()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ setMunicipality(\textcolor{keyword}{const}\ std::string\ \&municipality);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&getTownship()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ setTownship(\textcolor{keyword}{const}\ std::string\ \&township);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&getLine()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ setLine(\textcolor{keyword}{const}\ std::string\ \&line);}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SRC\_STATION\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,82 @@
+\hypertarget{class_station}{}\doxysection{Station Class Reference}
+\label{class_station}\index{Station@{Station}}
+
+
+Represents a station.  
+
+
+
+
+{\ttfamily \#include $<$Station.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_station_ab7f34f62cb4075fd88400a5678300a14}\label{class_station_ab7f34f62cb4075fd88400a5678300a14}} 
+{\bfseries Station} (std\+::string name, std\+::string district, std\+::string municipality, std\+::string township, std\+::string line)
+\item 
+\mbox{\Hypertarget{class_station_a67a42e3b29edb826b50cdb4a0db2bef1}\label{class_station_a67a42e3b29edb826b50cdb4a0db2bef1}} 
+const std\+::string \& {\bfseries get\+Name} () const
+\item 
+\mbox{\Hypertarget{class_station_a15374400e22786d14d67f1a026f0bac7}\label{class_station_a15374400e22786d14d67f1a026f0bac7}} 
+void {\bfseries set\+Name} (const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{class_station_a7d18fdf93442c151368d0d0132f2cc2e}\label{class_station_a7d18fdf93442c151368d0d0132f2cc2e}} 
+const std\+::string \& {\bfseries get\+District} () const
+\item 
+\mbox{\Hypertarget{class_station_ab44fe6625b38e28689dd1957f4bc6b8e}\label{class_station_ab44fe6625b38e28689dd1957f4bc6b8e}} 
+void {\bfseries set\+District} (const std\+::string \&district)
+\item 
+\mbox{\Hypertarget{class_station_a264b78e89fef2f60c8d0d5f9fcd058fa}\label{class_station_a264b78e89fef2f60c8d0d5f9fcd058fa}} 
+const std\+::string \& {\bfseries get\+Municipality} () const
+\item 
+\mbox{\Hypertarget{class_station_a641453fbf4852faee32b4e080315486c}\label{class_station_a641453fbf4852faee32b4e080315486c}} 
+void {\bfseries set\+Municipality} (const std\+::string \&municipality)
+\item 
+\mbox{\Hypertarget{class_station_accc76f5996cfffe00000acc9c10a32bb}\label{class_station_accc76f5996cfffe00000acc9c10a32bb}} 
+const std\+::string \& {\bfseries get\+Township} () const
+\item 
+\mbox{\Hypertarget{class_station_a81704ae715c863cfbf30117f11870d41}\label{class_station_a81704ae715c863cfbf30117f11870d41}} 
+void {\bfseries set\+Township} (const std\+::string \&township)
+\item 
+\mbox{\Hypertarget{class_station_a729f8ac6b1e941032ec2db77ff96c6f9}\label{class_station_a729f8ac6b1e941032ec2db77ff96c6f9}} 
+const std\+::string \& {\bfseries get\+Line} () const
+\item 
+\mbox{\Hypertarget{class_station_af19a87ae66b47769e3d643154efbe56a}\label{class_station_af19a87ae66b47769e3d643154efbe56a}} 
+void {\bfseries set\+Line} (const std\+::string \&line)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_station}{Station}} \mbox{\hyperlink{class_station_a0fff8ea63ea9be053208dea95a30745a}{from\+CSVLine}} (std\+::istringstream \&iss)
+\begin{DoxyCompactList}\small\item\em Creates a \mbox{\hyperlink{class_station}{Station}} object from a string in .csv format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a station. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_station_a0fff8ea63ea9be053208dea95a30745a}\label{class_station_a0fff8ea63ea9be053208dea95a30745a}} 
+\index{Station@{Station}!fromCSVLine@{fromCSVLine}}
+\index{fromCSVLine@{fromCSVLine}!Station@{Station}}
+\doxysubsubsection{\texorpdfstring{fromCSVLine()}{fromCSVLine()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{class_station}{Station}} Station\+::from\+CSVLine (\begin{DoxyParamCaption}\item[{std\+::istringstream \&}]{iss }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates a \mbox{\hyperlink{class_station}{Station}} object from a string in .csv format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iss} & An std\+::istringstream object containing the string from the line in the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A station object 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Station.\+h\item 
+src/Station.\+cpp\end{DoxyCompactItemize}

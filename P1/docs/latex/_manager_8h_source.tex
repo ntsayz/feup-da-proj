@@ -1,0 +1,70 @@
+\hypertarget{_manager_8h_source}{}\doxysection{Manager.\+h}
+\label{_manager_8h_source}\index{src/Manager.h@{src/Manager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ Ntsay\ Zacarias\ on\ 07/03/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ SRC\_MANAGER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SRC\_MANAGER\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}Utility.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}Station.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}Segment.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}Menu.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}Graph.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <windows.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ Library\ effective\ with\ Linux}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_manager}{Manager}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ option;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{int}\ choice;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ globalSession\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ localSession\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00053\ \ \ \ \ std::unordered\_map<std::string,Station>\ stations;}
+\DoxyCodeLine{00059\ \ \ \ \ std::unordered\_map<std::string,std::vector<Station>>\ municipalities;}
+\DoxyCodeLine{00064\ \ \ \ \ std::unordered\_map<std::string,std::vector<Station>>\ districts;}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_graph}{Graph}}\ railway\_network;}
+\DoxyCodeLine{00072\ \ \ \ \ std::vector<Station>\ sourceStations;}
+\DoxyCodeLine{00076\ \ \ \ \ std::vector<Station>\ destinationStations;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0}{Manager}}()=\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_af8c67c221068e4e3ccccf1d5f70ba8ee}{run}}();}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ testing();}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_manager_aa288907065b47bedc0776bfade058656}{load\_data}}();}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_aa12b4fb7796df3df0a91382becd4585b}{main\_menu}}();}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_a0afb4f5554715a2caf98085b8f70894e}{search\_stations}}(\textcolor{keywordtype}{bool}\ notARecursiveCall);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_af2a8f66ed3e46a1e9999eaf1a9c6565b}{topkdistrictsmunicipalities}}();}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_ab5efa93559862b7889eb4014653e879e}{reducedconnectivity}}();}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00123\ \ \ \ \ std::vector<Station>\ \mbox{\hyperlink{class_manager_af3ec01f2bf26627ad174838013678f01}{get\_stations\_in\_municipality}}();}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00130\ \ \ \ \ std::vector<Station>\ \mbox{\hyperlink{class_manager_af46c8b4dab16823a5509d73d1a2f2300}{get\_stations\_in\_district}}();}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{class_station}{Station}}\ \mbox{\hyperlink{class_manager_a8fa585ebd5755b3244d103e9cb1df01a}{get\_station\_by\_name}}();}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_abc95de9acea233fab6b923eb9674bd68}{max\_Number\_of\_trains}}();}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_a261a6d00a5ffe5921e3d62e064db4239}{stations\_pairs\_require\_most\_trains}}();}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_a4e2095605b0d81796f6605597f6deb0e}{most\_affected\_stations\_seg\_failure}}();}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_a79e5caecc6b9fcc15c5f5c494d6a037d}{max\_trains\_at\_station}}();}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{void}\ max\_trains\_min\_cost();}
+\DoxyCodeLine{00170\ \};}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SRC\_MANAGER\_H}}
+
+\end{DoxyCode}

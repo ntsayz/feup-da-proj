@@ -1,0 +1,88 @@
+\hypertarget{_segment_8h_source}{}\doxysection{Segment.\+h}
+\label{_segment_8h_source}\index{src/Segment.h@{src/Segment.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ ntsayz\ on\ 09-\/03-\/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ SRC\_SEGMENT\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ SRC\_SEGMENT\_H}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_segment}{Segment}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00023\ \ \ \ \ std::string\ source;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ destination;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{double}\ capacity;}
+\DoxyCodeLine{00036\ \ \ \ \ std::string\ service;}
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_segment_aa3db96cbeccde4a326e3be6829205e0f}{getCost}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_segment}{Segment}}(std::string\ source\ ,\ std::string\ destination\ ,\textcolor{keywordtype}{double}\ capacity,\ std::string\ service):}
+\DoxyCodeLine{00046\ \ \ \ \ source(std::move(source)),destination(std::move(destination)),capacity(capacity),service(std::move(service))\{}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_segment}{Segment}}\ \mbox{\hyperlink{class_segment_ae308b83bb8d98eb0dd05e0fd1243ceac}{fromCSVLine}}(std::istringstream\&\ iss)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ std::string\ source,\ destination,\ service,capStr;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ capacity;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ std::getline(iss,\ source,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::getline(iss,\ destination,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ std::getline(iss,\ capStr,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ std::getline(iss,\ service);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ std::stringstream(capStr)\ >>\ capacity;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{source,\ destination,\ capacity,\ service\};}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&\mbox{\hyperlink{class_segment_a76093515a9f84ed4a0b6757795558b25}{getSource}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_segment_a2cf7feebd0f565772b78b78a053928f1}{setSource}}(\textcolor{keyword}{const}\ std::string\ \&source);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&\mbox{\hyperlink{class_segment_a3794ff65c094784d81bdccf553376247}{getDestination}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_segment_a7ab1114f21f210ef86e5d67a21bcf8a6}{setDestination}}(\textcolor{keyword}{const}\ std::string\ \&destination);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_segment_abae909d394b99f879bf91d19c6aee42b}{getCapacity}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_segment_a81a3aee5c287b110f2b77f51feff77e3}{setCapacity}}(\textcolor{keywordtype}{double}\ capacity);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&\mbox{\hyperlink{class_segment_ab335f3103750e955153fb3809a182a06}{getService}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_segment_ab6bfa893c1c9cb33149b3dd32bd1d9a6}{setService}}(\textcolor{keyword}{const}\ std::string\ \&service);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_segment}{Segment}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ source\ ==\ other.source\ \&\&\ destination\ ==\ other.destination\ \&\&\ capacity\ ==\ other.capacity\ \&\&\ service\ ==\ other.service;}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_segment}{Segment}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ other);}
+\DoxyCodeLine{00129\ \ \ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{namespace\ }std\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{struct\ }hash<\mbox{\hyperlink{class_segment}{Segment}}>\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_segment}{Segment}}\&\ segment)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ You\ can\ choose\ any\ way\ to\ combine\ the\ hashes\ of\ the\ members}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ is\ just\ one\ example,\ using\ bit\ manipulation}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ source\_hash\ =\ std::hash<std::string>\{\}(segment.\mbox{\hyperlink{class_segment_a76093515a9f84ed4a0b6757795558b25}{getSource}}());}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ destination\_hash\ =\ std::hash<std::string>\{\}(segment.\mbox{\hyperlink{class_segment_a3794ff65c094784d81bdccf553376247}{getDestination}}());}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ capacity\_hash\ =\ std::hash<double>\{\}(segment.\mbox{\hyperlink{class_segment_abae909d394b99f879bf91d19c6aee42b}{getCapacity}}());}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ service\_hash\ =\ std::hash<std::string>\{\}(segment.\mbox{\hyperlink{class_segment_ab335f3103750e955153fb3809a182a06}{getService}}());}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ source\_hash\ \string^\ (destination\_hash\ <<\ 1)\ \string^\ (capacity\_hash\ <<\ 2)\ \string^\ (service\_hash\ <<\ 3);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \};}
+\DoxyCodeLine{00148\ \}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SRC\_SEGMENT\_H}}
+
+\end{DoxyCode}

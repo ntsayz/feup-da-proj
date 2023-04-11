@@ -1,0 +1,144 @@
+\hypertarget{class_utility}{}\doxysection{Utility Class Reference}
+\label{class_utility}\index{Utility@{Utility}}
+
+
+Seeing that a lot of functionality is used very often, to avoid repeated code we created a helper class that encapsulated and made our easier throughout the development of this application.  
+
+
+
+
+{\ttfamily \#include $<$Utility.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{class_utility_a39d5d7fb64b8e2ef2cec09ad21019d93}{get\+Input}} (int choice, int min, int max)
+\item 
+static int \mbox{\hyperlink{class_utility_a29edc4ede26ae1888f1c764fe4ff6be2}{get\+Code}} (int code)
+\item 
+\mbox{\Hypertarget{class_utility_a34f05bd315eda43a811774d7f9d9ec07}\label{class_utility_a34f05bd315eda43a811774d7f9d9ec07}} 
+static void {\bfseries clear\+\_\+screen} ()
+\begin{DoxyCompactList}\small\item\em Clear screen (Cross-\/\+Platform) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_utility_a8d34a4c10ae4de754372ab8f6aa8f031}\label{class_utility_a8d34a4c10ae4de754372ab8f6aa8f031}} 
+static void {\bfseries footer} ()
+\begin{DoxyCompactList}\small\item\em Auxiliary function, to print the menu\textquotesingle{}s footer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_utility_a5ca2bdb48ec616350a96753978ec2a70}\label{class_utility_a5ca2bdb48ec616350a96753978ec2a70}} 
+static void {\bfseries header} (const std\+::string \&title)
+\begin{DoxyCompactList}\small\item\em Auxiliary function, to print the menu\textquotesingle{}s header. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_utility_ae62c4dbbcf6fbbdc2f513c74fb3436d7}\label{class_utility_ae62c4dbbcf6fbbdc2f513c74fb3436d7}} 
+static void {\bfseries body} (const std\+::string \&description, std\+::vector$<$ std\+::string $>$ options)
+\begin{DoxyCompactList}\small\item\em Auxiliary function, to print the menu\textquotesingle{}s body. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_utility_afb97f93021d82bda76e9e906e4eeec78}{is\+Substring}} (std\+::string str, std\+::string sub)
+\item 
+static void \mbox{\hyperlink{class_utility_a71e56421b6ac091c585dbdbe1ad783d9}{get\+\_\+filenames}} (std\+::string \&f1, std\+::string \&f2)
+\item 
+{\footnotesize template$<$typename T $>$ }\\static std\+::vector$<$ T $>$ \mbox{\hyperlink{class_utility_abf9bdd5ca46c2ec635832c4eeffbac40}{load\+Data\+From\+CSV}} (std\+::string filename)
+\item 
+\mbox{\Hypertarget{class_utility_afb4ba368ded93576fa0f7ad8310e110b}\label{class_utility_afb4ba368ded93576fa0f7ad8310e110b}} 
+static void {\bfseries footer} (std\+::string text)
+\item 
+\mbox{\Hypertarget{class_utility_a02204acbd30e67a03e8f48f76673349e}\label{class_utility_a02204acbd30e67a03e8f48f76673349e}} 
+static void {\bfseries get\+\_\+string} (std\+::string \&f1)
+\item 
+\mbox{\Hypertarget{class_utility_adda41963a616fe2b3b55a3627a83b251}\label{class_utility_adda41963a616fe2b3b55a3627a83b251}} 
+static std\+::string {\bfseries get\+Name} (std\+::string purpose)
+\item 
+\mbox{\Hypertarget{class_utility_ad7e29deca9eaf0922f74df0ee2b39acf}\label{class_utility_ad7e29deca9eaf0922f74df0ee2b39acf}} 
+static double {\bfseries get\+Double\+Input} (double min, double max)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Seeing that a lot of functionality is used very often, to avoid repeated code we created a helper class that encapsulated and made our easier throughout the development of this application. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_utility_a71e56421b6ac091c585dbdbe1ad783d9}\label{class_utility_a71e56421b6ac091c585dbdbe1ad783d9}} 
+\index{Utility@{Utility}!get\_filenames@{get\_filenames}}
+\index{get\_filenames@{get\_filenames}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{get\_filenames()}{get\_filenames()}}
+{\footnotesize\ttfamily void Utility\+::get\+\_\+filenames (\begin{DoxyParamCaption}\item[{std\+::string \&}]{f1,  }\item[{std\+::string \&}]{f2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Gets file names from user 
+\begin{DoxyParams}{Parameters}
+{\em str} & String to check \\
+\hline
+{\em sub} & Substring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_utility_a29edc4ede26ae1888f1c764fe4ff6be2}\label{class_utility_a29edc4ede26ae1888f1c764fe4ff6be2}} 
+\index{Utility@{Utility}!getCode@{getCode}}
+\index{getCode@{getCode}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{getCode()}{getCode()}}
+{\footnotesize\ttfamily static int Utility\+::get\+Code (\begin{DoxyParamCaption}\item[{int}]{code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Auxiliary function, to get a number from user input 
+\begin{DoxyParams}{Parameters}
+{\em code} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_utility_a39d5d7fb64b8e2ef2cec09ad21019d93}\label{class_utility_a39d5d7fb64b8e2ef2cec09ad21019d93}} 
+\index{Utility@{Utility}!getInput@{getInput}}
+\index{getInput@{getInput}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{getInput()}{getInput()}}
+{\footnotesize\ttfamily int Utility\+::get\+Input (\begin{DoxyParamCaption}\item[{int}]{choice,  }\item[{int}]{min,  }\item[{int}]{max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Auxiliary function, to get a number from user input given a range 
+\begin{DoxyParams}{Parameters}
+{\em choice} & \\
+\hline
+{\em min} & \\
+\hline
+{\em max} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_utility_afb97f93021d82bda76e9e906e4eeec78}\label{class_utility_afb97f93021d82bda76e9e906e4eeec78}} 
+\index{Utility@{Utility}!isSubstring@{isSubstring}}
+\index{isSubstring@{isSubstring}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{isSubstring()}{isSubstring()}}
+{\footnotesize\ttfamily bool Utility\+::is\+Substring (\begin{DoxyParamCaption}\item[{std\+::string}]{str,  }\item[{std\+::string}]{sub }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Checks if a string is contained in another 
+\begin{DoxyParams}{Parameters}
+{\em str} & String to check \\
+\hline
+{\em sub} & Substring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_utility_abf9bdd5ca46c2ec635832c4eeffbac40}\label{class_utility_abf9bdd5ca46c2ec635832c4eeffbac40}} 
+\index{Utility@{Utility}!loadDataFromCSV@{loadDataFromCSV}}
+\index{loadDataFromCSV@{loadDataFromCSV}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{loadDataFromCSV()}{loadDataFromCSV()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+static std\+::vector$<$ T $>$ Utility\+::load\+Data\+From\+CSV (\begin{DoxyParamCaption}\item[{std\+::string}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Loads data from the .csv files 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Guarantees that any datatype can be used \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Utility.\+h\item 
+src/Utility.\+cpp\end{DoxyCompactItemize}

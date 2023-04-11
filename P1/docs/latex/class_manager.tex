@@ -1,0 +1,180 @@
+\hypertarget{class_manager}{}\doxysection{Manager Class Reference}
+\label{class_manager}\index{Manager@{Manager}}
+
+
+Manages the application. Stores its most important data structures, manages the application state.  
+
+
+
+
+{\ttfamily \#include $<$Manager.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0}\label{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0}} 
+{\bfseries Manager} ()=default
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_manager}{Manager}}\textquotesingle{}s constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_manager_af8c67c221068e4e3ccccf1d5f70ba8ee}\label{class_manager_af8c67c221068e4e3ccccf1d5f70ba8ee}} 
+void {\bfseries run} ()
+\begin{DoxyCompactList}\small\item\em Function to start the application, called by the only instance of the manager function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_manager_a3ce44a229c819433a1b88323f4654730}\label{class_manager_a3ce44a229c819433a1b88323f4654730}} 
+void {\bfseries testing} ()
+\item 
+bool \mbox{\hyperlink{class_manager_aa288907065b47bedc0776bfade058656}{load\+\_\+data}} ()
+\item 
+\mbox{\Hypertarget{class_manager_aa12b4fb7796df3df0a91382becd4585b}\label{class_manager_aa12b4fb7796df3df0a91382becd4585b}} 
+void {\bfseries main\+\_\+menu} ()
+\begin{DoxyCompactList}\small\item\em Main menu of the application. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_manager_a0afb4f5554715a2caf98085b8f70894e}{search\+\_\+stations}} (bool not\+ARecursive\+Call)
+\item 
+\mbox{\Hypertarget{class_manager_af2a8f66ed3e46a1e9999eaf1a9c6565b}\label{class_manager_af2a8f66ed3e46a1e9999eaf1a9c6565b}} 
+void {\bfseries topkdistrictsmunicipalities} ()
+\begin{DoxyCompactList}\small\item\em Finds the top k municipalities and districts with the highest traffic volume. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_manager_ab5efa93559862b7889eb4014653e879e}{reducedconnectivity}} ()
+\begin{DoxyCompactList}\small\item\em Analyzes the reduced connectivity of the train network. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_station}{Station}} $>$ \mbox{\hyperlink{class_manager_af3ec01f2bf26627ad174838013678f01}{get\+\_\+stations\+\_\+in\+\_\+municipality}} ()
+\begin{DoxyCompactList}\small\item\em Gets a vector of stations in a municipality. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_station}{Station}} $>$ \mbox{\hyperlink{class_manager_af46c8b4dab16823a5509d73d1a2f2300}{get\+\_\+stations\+\_\+in\+\_\+district}} ()
+\begin{DoxyCompactList}\small\item\em Gets a vector of stations located in a district. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_station}{Station}} \mbox{\hyperlink{class_manager_a8fa585ebd5755b3244d103e9cb1df01a}{get\+\_\+station\+\_\+by\+\_\+name}} ()
+\begin{DoxyCompactList}\small\item\em Gets a specific station by its name. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_manager_abc95de9acea233fab6b923eb9674bd68}{max\+\_\+\+Number\+\_\+of\+\_\+trains}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the maximum number of trains bt each station. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_manager_a261a6d00a5ffe5921e3d62e064db4239}{stations\+\_\+pairs\+\_\+require\+\_\+most\+\_\+trains}} ()
+\begin{DoxyCompactList}\small\item\em Finds the station pairs that require the most trains to operate. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_manager_a4e2095605b0d81796f6605597f6deb0e}{most\+\_\+affected\+\_\+stations\+\_\+seg\+\_\+failure}} ()
+\begin{DoxyCompactList}\small\item\em Identifies the most affected stations in case of segment failure. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_manager_a79e5caecc6b9fcc15c5f5c494d6a037d}{max\+\_\+trains\+\_\+at\+\_\+station}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the maximum number of trains that can arrive simultaneously at a given station . \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_manager_a3c0952da425743325d69fbc4fb30f827}\label{class_manager_a3c0952da425743325d69fbc4fb30f827}} 
+void {\bfseries max\+\_\+trains\+\_\+min\+\_\+cost} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the application. Stores its most important data structures, manages the application state. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_manager_a8fa585ebd5755b3244d103e9cb1df01a}\label{class_manager_a8fa585ebd5755b3244d103e9cb1df01a}} 
+\index{Manager@{Manager}!get\_station\_by\_name@{get\_station\_by\_name}}
+\index{get\_station\_by\_name@{get\_station\_by\_name}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{get\_station\_by\_name()}{get\_station\_by\_name()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_station}{Station}} Manager\+::get\+\_\+station\+\_\+by\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets a specific station by its name. 
+
+\begin{DoxyReturn}{Returns}
+A station object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_manager_af46c8b4dab16823a5509d73d1a2f2300}\label{class_manager_af46c8b4dab16823a5509d73d1a2f2300}} 
+\index{Manager@{Manager}!get\_stations\_in\_district@{get\_stations\_in\_district}}
+\index{get\_stations\_in\_district@{get\_stations\_in\_district}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{get\_stations\_in\_district()}{get\_stations\_in\_district()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_station}{Station}} $>$ Manager\+::get\+\_\+stations\+\_\+in\+\_\+district (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets a vector of stations located in a district. 
+
+\begin{DoxyReturn}{Returns}
+A vector of station objects in a district. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_manager_af3ec01f2bf26627ad174838013678f01}\label{class_manager_af3ec01f2bf26627ad174838013678f01}} 
+\index{Manager@{Manager}!get\_stations\_in\_municipality@{get\_stations\_in\_municipality}}
+\index{get\_stations\_in\_municipality@{get\_stations\_in\_municipality}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{get\_stations\_in\_municipality()}{get\_stations\_in\_municipality()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_station}{Station}} $>$ Manager\+::get\+\_\+stations\+\_\+in\+\_\+municipality (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets a vector of stations in a municipality. 
+
+\begin{DoxyReturn}{Returns}
+A vector of station objects in a municipality. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_manager_aa288907065b47bedc0776bfade058656}\label{class_manager_aa288907065b47bedc0776bfade058656}} 
+\index{Manager@{Manager}!load\_data@{load\_data}}
+\index{load\_data@{load\_data}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{load\_data()}{load\_data()}}
+{\footnotesize\ttfamily bool Manager\+::load\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function to load the data from the .csv files from the dataset. 
+\begin{DoxyParams}{Parameters}
+{\em fname1} & Path to \textquotesingle{}network.\+csv\textquotesingle{} \\
+\hline
+{\em fname2} & Path to \textquotesingle{}stations.\+csv\textquotesingle{} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+It compares the size of the data structures that the data was loaded into, to determine if they\textquotesingle{}re according to spec 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_manager_abc95de9acea233fab6b923eb9674bd68}\label{class_manager_abc95de9acea233fab6b923eb9674bd68}} 
+\index{Manager@{Manager}!max\_Number\_of\_trains@{max\_Number\_of\_trains}}
+\index{max\_Number\_of\_trains@{max\_Number\_of\_trains}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{max\_Number\_of\_trains()}{max\_Number\_of\_trains()}}
+{\footnotesize\ttfamily void Manager\+::max\+\_\+\+Number\+\_\+of\+\_\+trains (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates the maximum number of trains bt each station. 
+
+This function calculates the maximum number of trains between two stations \mbox{\Hypertarget{class_manager_a79e5caecc6b9fcc15c5f5c494d6a037d}\label{class_manager_a79e5caecc6b9fcc15c5f5c494d6a037d}} 
+\index{Manager@{Manager}!max\_trains\_at\_station@{max\_trains\_at\_station}}
+\index{max\_trains\_at\_station@{max\_trains\_at\_station}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{max\_trains\_at\_station()}{max\_trains\_at\_station()}}
+{\footnotesize\ttfamily void Manager\+::max\+\_\+trains\+\_\+at\+\_\+station (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates the maximum number of trains that can arrive simultaneously at a given station . 
+
+This function calculates the maximum number of trains that can arrive simultaneously at a given station \mbox{\Hypertarget{class_manager_a4e2095605b0d81796f6605597f6deb0e}\label{class_manager_a4e2095605b0d81796f6605597f6deb0e}} 
+\index{Manager@{Manager}!most\_affected\_stations\_seg\_failure@{most\_affected\_stations\_seg\_failure}}
+\index{most\_affected\_stations\_seg\_failure@{most\_affected\_stations\_seg\_failure}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{most\_affected\_stations\_seg\_failure()}{most\_affected\_stations\_seg\_failure()}}
+{\footnotesize\ttfamily void Manager\+::most\+\_\+affected\+\_\+stations\+\_\+seg\+\_\+failure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Identifies the most affected stations in case of segment failure. 
+
+This function examines the train network and determines which stations would be most affected if a segment were to fail, based on factors such as connectivity and capacity. \mbox{\Hypertarget{class_manager_ab5efa93559862b7889eb4014653e879e}\label{class_manager_ab5efa93559862b7889eb4014653e879e}} 
+\index{Manager@{Manager}!reducedconnectivity@{reducedconnectivity}}
+\index{reducedconnectivity@{reducedconnectivity}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{reducedconnectivity()}{reducedconnectivity()}}
+{\footnotesize\ttfamily void Manager\+::reducedconnectivity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Analyzes the reduced connectivity of the train network. 
+
+Examines the train network and determines the impact of reduced connectivity between two stations. \mbox{\Hypertarget{class_manager_a0afb4f5554715a2caf98085b8f70894e}\label{class_manager_a0afb4f5554715a2caf98085b8f70894e}} 
+\index{Manager@{Manager}!search\_stations@{search\_stations}}
+\index{search\_stations@{search\_stations}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{search\_stations()}{search\_stations()}}
+{\footnotesize\ttfamily void Manager\+::search\+\_\+stations (\begin{DoxyParamCaption}\item[{bool}]{not\+ARecursive\+Call }\end{DoxyParamCaption})}
+
+Function to search for stations
+\begin{DoxyParams}{Parameters}
+{\em not\+ARecursive\+Call} & Since we need to use this function multiple times within the same call chain, it should be recursive. This was a way to handle recursion appropriately \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_manager_a261a6d00a5ffe5921e3d62e064db4239}\label{class_manager_a261a6d00a5ffe5921e3d62e064db4239}} 
+\index{Manager@{Manager}!stations\_pairs\_require\_most\_trains@{stations\_pairs\_require\_most\_trains}}
+\index{stations\_pairs\_require\_most\_trains@{stations\_pairs\_require\_most\_trains}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{stations\_pairs\_require\_most\_trains()}{stations\_pairs\_require\_most\_trains()}}
+{\footnotesize\ttfamily void Manager\+::stations\+\_\+pairs\+\_\+require\+\_\+most\+\_\+trains (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Finds the station pairs that require the most trains to operate. 
+
+Pairs of stations that require the most amount of trains when taking full advantage of the network capacity 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Manager.\+h\item 
+src/Manager.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,73 @@
+\hypertarget{_graph_8h_source}{}\doxysection{Graph.\+h}
+\label{_graph_8h_source}\index{src/Graph.h@{src/Graph.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ ntsayz\ on\ 09-\/03-\/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}Segment.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}Station.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ SRC\_GRAPH\_H}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ SRC\_GRAPH\_H}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_pair_hash}{PairHash}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T1,\ \textcolor{keyword}{class}\ T2>}
+\DoxyCodeLine{00018\ \ \ \ \ std::size\_t\ operator\ ()\ (\textcolor{keyword}{const}\ std::pair<T1,\ T2>\&\ p)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ h1\ =\ std::hash<T1>\{\}(p.first);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ h2\ =\ std::hash<T2>\{\}(p.second);}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ h1\ \string^\ h2;}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph}{Graph}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_acb8cf4f723502444353ed820552eb758}{addStation}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_station}{Station}}\&\ station);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_ad3646911172c41a438a7ad117dbe4fb7}{addSegment}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_segment}{Segment}}\&\ segment);}
+\DoxyCodeLine{00043\ \ \ \ \ std::vector<Segment>\ \mbox{\hyperlink{class_graph_a3d2f4027114679064e0648a7cc673c2b}{getSegmentsFromStation}}(\textcolor{keyword}{const}\ std::string\ station)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00049\ \ \ \ \ std::vector<Segment>\ \mbox{\hyperlink{class_graph_a898a381567789bda8c2e2600b9ed4502}{getSegmentsToStation}}(\textcolor{keyword}{const}\ std::string\ station)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_aef884bc33e6d44a22295bed0f770d9ca}{numSegmentsFromStation}}(\textcolor{keyword}{const}\ std::string\ station)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_a7c62567a9ec31414d493098361fa58dc}{numSegmentsToStation}}(\textcolor{keyword}{const}\ std::string\ station)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00069\ \ \ \ \ [[nodiscard]]\ std::vector<Segment>\ \mbox{\hyperlink{class_graph_a49896b6bbb6de4c6cba7b939f996a001}{getSegments}}(\textcolor{keyword}{const}\ std::string\&\ station\_name)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00077\ \ \ \ \ std::pair<std::vector<std::pair<std::string,\ double>>,\ std::vector<std::pair<std::string,\ double>>>\ \mbox{\hyperlink{class_graph_a4c68624a87ca537ec8cb09800ccfe1cf}{top\_k\_municipalities\_and\_districts}}(\textcolor{keywordtype}{int}\ k);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_ade9b0c3af2bbbf51b449704919023416}{max\_trains\_between\_stations}}(\textcolor{keyword}{const}\ std::string\ \&source,\ \textcolor{keyword}{const}\ std::string\ \&destination)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00093\ \ \ \ \ std::vector<std::tuple<std::string,\ std::string,\ int>>\ \mbox{\hyperlink{class_graph_ab989b44fc4e034e33bc60f967e6a4475}{stations\_require\_most\_trains}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_a3120ddd8f678173a7cf5da21a7cdc27f}{edmonds\_karp\_max\_flow}}(\textcolor{keyword}{const}\ std::string\ \&source,\ \textcolor{keyword}{const}\ std::string\ \&destination)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00108\ \ \ \ \ std::vector<std::tuple<std::string,\ std::string,\ int>>\ \mbox{\hyperlink{class_graph_a0dad01e76d1c9394d5f8b891633c20f4}{top\_k\_affected\_stations\_by\_segment\_failure}}(\textcolor{keywordtype}{int}\ k);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_a46786502892c9f54d589e466a6dd414b}{max\_trains\_between\_stations\_reduced\_connectivity}}(\textcolor{keyword}{const}\ std::string\ \&source,\ \textcolor{keyword}{const}\ std::string\ \&destination,\ \textcolor{keywordtype}{double}\ reduction\_factor);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_a6496e04558a36d9415e0340b3940264f}{max\_trains\_at\_station}}(\textcolor{keyword}{const}\ std::string\ \&station)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00133\ \ \ \ \ std::unordered\_map<std::string,\ double>\ \mbox{\hyperlink{class_graph_a27f1c05a63143e61688966b51d8147a4}{dijkstra\_shortest\_path}}(\textcolor{keyword}{const}\ std::string\&\ source)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_a8f00f452dbb31d8339a69ce34c513523}{max\_trains\_with\_min\_cost}}(\textcolor{keyword}{const}\ std::string\ \&source,\ \textcolor{keyword}{const}\ std::string\ \&destination);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00149\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<Segment>>\ adjacency\_list;}
+\DoxyCodeLine{00153\ \ \ \ \ std::unordered\_map<std::string,\ Station>\ stations;}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{void}\ removeSegment(\textcolor{keyword}{const}\ std::string\ \&source,\ \textcolor{keyword}{const}\ std::string\ \&destination);}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ std::unordered\_map<std::pair<std::string,\ std::string>,\ int,\ \mbox{\hyperlink{struct_pair_hash}{PairHash}}>\ all\_pairs\_max\_trains\_floyd\_warshall()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \mbox{\hyperlink{class_graph}{Graph}}\ generate\_reduced\_connectivity\_graph(\textcolor{keywordtype}{double}\ reduction\_factor)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SRC\_GRAPH\_H}}
+
+\end{DoxyCode}
