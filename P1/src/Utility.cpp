@@ -20,6 +20,26 @@ int  Utility::getInput(int choice, int min, int max)  {
         return choice;
     }
 }
+double Utility::getDoubleInput(double min, double max) {
+    double choice;
+
+    while (true) {
+        std::cin >> choice;
+
+        if (std::cin.fail()) {
+            std::cerr << "Sorry, I cannot read that. Please try again." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        } else if (choice < min || choice > max) {
+            std::cerr << "Please enter a value between " << min << " and " << max << "." << std::endl;
+            continue;
+        }
+
+        return choice;
+    }
+}
+
 
 void Utility::clear_screen() {
     std::system("clear");

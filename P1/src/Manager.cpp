@@ -58,7 +58,7 @@ void Manager::main_menu(){
                 max_Number_of_trains();
                 break;
             case 4:
-                stations_most_trains();
+                stations_pairs_require_most_trains();
                 break;
             case 5:
                 most_affected_stations_seg_failure();
@@ -110,7 +110,7 @@ void Manager::topkdistrictsmunicipalities() {
     }
 }
 
-void Manager::stations_most_trains(){
+void Manager::stations_pairs_require_most_trains(){
     Utility::clear_screen();
     localSession = true;
     while(localSession){
@@ -229,56 +229,97 @@ void Manager::show_stations(){
     sourceStations.clear();
     destinationStations.clear();
 }
-
 void Manager::most_affected_stations_seg_failure() {
     Utility::clear_screen();
     localSession = true;
+
+    while (localSession) {
+        Utility::header("Most affected stations by segment failure");
+
+        // Get the most affected stations by segment failure
+        auto top_k_affected_stations = railway_network.top_k_affected_stations_by_segment_failure(10);
+
+        std::cout << "Segment Failure\tAffected Stations\tNumber of Affected Stations\n";
+        std::cout << "-----------------------------------------------------------------\n";
+
+        for (const auto& item : top_k_affected_stations) {
+            const auto& source = std::get<0>(item);
+            const auto& destination = std::get<1>(item);
+            int num_affected_stations = std::get<2>(item);
+
+            std::cout << source << " - " << destination << "\t";
+            std::cout << "Affected stations: " << num_affected_stations << std::endl;
+        }
+
+        Utility::footer("9. Back to Menu");
+        std::cin >> choice;
+        Utility::clear_screen();
+        if (choice == 9) localSession = false;
+    }
+}
+
+
+/*void Manager::most_affected_stations_seg_failure() {
+    Utility::clear_screen();
+    localSession = true;
+    std::unordered_map<Segment, std::vector<std::string>>most_affected_stations;
     while (localSession) {
         Utility::header("Most affected stations by segment failure");
         Utility::body("", {""});
 
-        // Get the most affected stations by segment failure
-        auto most_affected_stations = railway_network.most_affected_stations_by_segment_failure();
+        /*search_stations(true);
 
-        std::cout << "Segment Failure\tAffected Stations\tNumber of Affected Stations\n";
-        std::cout << "-----------------------------------------------------------------\n";
-        for (const auto& item : most_affected_stations) {
-            const auto& segment = item.first;
-            const auto& affected_stations = item.second;
-            int num_affected_stations = affected_stations.size();
 
-            std::cout << segment.getSource() << " - " << segment.getDestination() << "\t";
-            for (size_t i = 0; i < affected_stations.size(); ++i) {
-                std::cout << affected_stations[i];
-                if (i < affected_stations.size() - 1) {
-                    std::cout << ", ";
+        for (auto const sourceSt: sourceStations) {
+            for (auto const destSt: destinationStations) {
+                //most_affected_stations = railway_network.most_affected_stations_by_segment_failure(sourceSt.getName(),destSt.getName());
+
+                std::cout << "Segment Failure\tAffected Stations\tNumber of Affected Stations\n";
+                std::cout << "-----------------------------------------------------------------\n";
+                for (const auto& item : most_affected_stations) {
+                    const auto& segment = item.first;
+                    const auto& affected_stations = item.second;
+                    int num_affected_stations = affected_stations.size();
+
+                    std::cout << segment.getSource() << " - " << segment.getDestination() << "\t";
+                    for (size_t i = 0; i < affected_stations.size(); ++i) {
+                        std::cout << affected_stations[i];
+                        if (i < affected_stations.size() - 1) {
+                            std::cout << ", ";
+                        }
+                    }
+                    std::cout << "\t" << num_affected_stations << std::endl;
                 }
             }
-            std::cout << "\t" << num_affected_stations << std::endl;
         }
+        // Get the most affected stations by segment failure
+        auto o = railway_network.top_k_affected_stations_by_segment_failure(10);
 
-        Utility::footer("0. Back to Menu");
+
+        Utility::footer("9. Back to Menu");
         std::cin >> choice;
         Utility::clear_screen();
-        if (choice == 0) localSession = false;
+        sourceStations.clear();
+        destinationStations.clear();
+        if (choice == 9) localSession = false;
     }
-}
+}*/
 
 
 void Manager::reducedconnectivity() {
     Utility::clear_screen();
     localSession = true;
     while(localSession){
-        Utility::header("Max-flow of trains between stations");
-        Utility::body("Repors and Dis",{""});
-        std::printf("Please choose the stations");
-
+        Utility::header("Max-flow of trains between stations with Reduced Connectivity");
         search_stations(true);
 
+        Utility::header("Max-flow of trains between stations with Reduced Connectivity");
+        Utility::body("Choose a reduction factor",{"How much the graph should be reduced by","It should be between [0;1]"});
+        double rf = Utility::getDoubleInput(0,1);
 
         for(auto const sourceSt: sourceStations){
             for(auto const destSt: destinationStations){
-                int j = railway_network.reduced_max_trains_between_stations(sourceSt.getName(), destSt.getName());
+                int j = railway_network.max_trains_between_stations_reduced_connectivity(sourceSt.getName(), destSt.getName(),rf);
                 std::printf("Between '%s' AND '%s' %d trains can travel simultaneously!\n",sourceSt.getName().c_str(),destSt.getName().c_str(),j);
             }
         }

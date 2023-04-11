@@ -9,6 +9,14 @@
 void Graph::addStation(const Station &station) {
     stations[station.getName()] = station;
 }
+void Graph::removeSegment(const std::string& source, const std::string& destination) {
+    // Remove the segment from the adjacency list
+    auto &segments = adjacency_list[source];
+    segments.erase(std::remove_if(segments.begin(), segments.end(), [&](const Segment &seg) {
+        return seg.getDestination() == destination;
+    }), segments.end());
+}
+
 
 void Graph::addSegment(const Segment &segment) {
     adjacency_list[segment.getSource()].push_back(segment);
@@ -23,7 +31,31 @@ std::vector<Segment> Graph::getSegments(const std::string& station_name) const {
     return adjacency_list.at(station_name);
 }
 
+std::vector<Segment> Graph::getSegmentsFromStation(const std::string station) const {
+    // Find the station in the adjacency list
+    auto it = adjacency_list.find(station);
+    if (it == adjacency_list.end()) {
+        // Station not found, return an empty vector
+        return std::vector<Segment>();
+    } else {
+        // Return the vector of segments going out from the station
+        return it->second;
+    }
+}
 
+
+std::vector<Segment> Graph::getSegmentsToStation(const std::string station) const {
+    std::vector<Segment> segments_to_station;
+    std::vector<Segment> segments = getSegments(station);
+    for(auto s: segments){
+        if(s.getDestination() == station){
+            segments_to_station.push_back(s);
+        }
+    }
+    return segments_to_station;
+}
+
+// O(n^2)
 std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std::string, double>>> Graph::top_k_municipalities_and_districts(int k) {
 
     std::unordered_map<std::string, std::string> station_to_municipality;
@@ -83,129 +115,24 @@ std::pair<std::vector<std::pair<std::string, double>>, std::vector<std::pair<std
 }
 
 //
-int Graph::reduced_max_trains_between_stations(const std::string& source, const std::string& destination) const {
-    if (stations.find(source) == stations.end() || stations.find(destination) == stations.end()) {
-        return 0;
-    }
-
-    Graph reducedNetwork = getReducedNetwork(source);
-
-    int max_flow = 0;
-
-    while (true) {
-        std::unordered_map<std::string, std::pair<std::string, int>> parent;
-        std::queue<std::pair<std::string, int>> searchQueue;
-        searchQueue.push({source, INT_MAX});
-
-        while (!searchQueue.empty()) {
-            auto current = searchQueue.front();
-            searchQueue.pop();
-
-            for (const Segment& segment : reducedNetwork.getSegments(current.first)) {
-                std::string next_station = segment.getDestination();
-                int next_capacity = segment.getCapacity();
-
-                if (parent.find(next_station) == parent.end() && next_capacity > 0) {
-                    parent[next_station] = {current.first, std::min(current.second, next_capacity)};
-                    searchQueue.push({next_station, parent[next_station].second});
-
-                    if (next_station == destination) {
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (parent.find(destination) == parent.end()) {
-            break;
-        }
-
-        int path_flow = parent[destination].second;
-        max_flow += path_flow;
-
-        std::string current = destination;
-        while (current != source) {
-            std::string prev = parent[current].first;
-
-            // Update edge capacity
-            for (Segment& edge : reducedNetwork.adjacency_list[prev]) {
-                if (edge.getDestination() == current) {
-                    edge.setCapacity(edge.getCapacity() - path_flow);
-                    break;
-                }
-            }
-
-            // Add reverse edge for the residual graph
-            bool reverse_edge_exists = false;
-            for (Segment& reverse_edge : reducedNetwork.adjacency_list[current]) {
-                if (reverse_edge.getDestination() == prev) {
-                    reverse_edge.setCapacity(reverse_edge.getCapacity() + path_flow);
-                    reverse_edge_exists = true;
-                    break;
-                }
-            }
-
-            if (!reverse_edge_exists) {
-                reducedNetwork.adjacency_list[current].push_back(Segment(current, prev, path_flow, ""));
-            }
-
-            current = prev;
-        }
-    }
-
-    return max_flow;
+int Graph::max_trains_between_stations_reduced_connectivity(const std::string& source, const std::string& destination, double reduction_factor) {
+    Graph reduced_graph = generate_reduced_connectivity_graph(reduction_factor);
+    return reduced_graph.edmonds_karp_max_flow(source, destination);
 }
 
+Graph Graph::generate_reduced_connectivity_graph(double reduction_factor) const {
+    Graph reduced_graph(*this); // Create a copy of the original graph
 
-Graph Graph::getReducedNetwork(const std::string& source) const {
-    Graph reduced_network;
-    std::unordered_set<std::string> visited;
-    std::queue<std::string> q;
-    visited.insert(source);
-    q.push(source);
-    while (!q.empty()) {
-        const std::string& node = q.front();
-        q.pop();
-        if (adjacency_list.count(node) == 0) {
-            continue;  // key not present in adjacency list
-        }
-        reduced_network.addStation(stations.at(node));
-        for (const Segment& edge : adjacency_list.at(node)) {
-            if (visited.count(edge.getDestination()) == 0 && edge.getCapacity() > 0) {
-                reduced_network.addStation(stations.at(edge.getDestination()));
-                reduced_network.addSegment(edge);
-                visited.insert(edge.getDestination());
-                q.push(edge.getDestination());
+    for (const auto& source : reduced_graph.adjacency_list) {
+        for (const auto& segment : source.second) {
+            if (static_cast<double>(rand()) / RAND_MAX < reduction_factor) {
+                reduced_graph.removeSegment(segment.getSource(), segment.getDestination());
             }
         }
     }
-    return reduced_network;
+
+    return reduced_graph;
 }
-
-std::vector<Segment> Graph::getSegmentsFromStation(const std::string station) const {
-    // Find the station in the adjacency list
-    auto it = adjacency_list.find(station);
-    if (it == adjacency_list.end()) {
-        // Station not found, return an empty vector
-        return std::vector<Segment>();
-    } else {
-        // Return the vector of segments going out from the station
-        return it->second;
-    }
-}
-
-
-std::vector<Segment> Graph::getSegmentsToStation(const std::string station) const {
-    std::vector<Segment> segments_to_station;
-    std::vector<Segment> segments = getSegments(station);
-    for(auto s: segments){
-        if(s.getDestination() == station){
-            segments_to_station.push_back(s);
-        }
-    }
-    return segments_to_station;
-}
-
 
 int Graph::max_trains_between_stations(const std::string& source, const std::string& destination) const {
     // Initialize the minimum capacity to a large number
@@ -359,48 +286,95 @@ int Graph::edmonds_karp_max_flow(const std::string& source, const std::string& d
 }
 
 
-std::unordered_map<Segment, std::vector<std::string>> Graph::most_affected_stations_by_segment_failure() const {
-    std::unordered_map<Segment, std::vector<std::string>> affected_stations;
+std::vector<std::tuple<std::string, std::string, int>> Graph::top_k_affected_stations_by_segment_failure(int k) {
+    // Compute all pairs max trains using Floyd Warshall
+    auto all_pairs_max_trains = all_pairs_max_trains_floyd_warshall();
 
-    // Identify source and destination stations (assuming there is only one source and destination)
-    std::string source, destination;
-    for (const auto& station : stations) {
-        if (station.second.getLine() == "source") {
-            source = station.first;
-        } else if (station.second.getLine() == "destination") {
-            destination = station.first;
+    // Create a vector to store the results
+    std::vector<std::tuple<std::string, std::string, int>> result;
+    int c = 0;
+    // Iterate through all segments
+    for (const auto& source : adjacency_list) {
+        std::cout << c;
+        c++;
+        for (const auto& seg : source.second) {
+            // Temporarily remove the segment
+            removeSegment(seg.getSource(), seg.getDestination());
+
+            // Compute all pairs max trains after segment removal
+            auto all_pairs_max_trains_after_removal = all_pairs_max_trains_floyd_warshall();
+
+            // Calculate the total affected stations for the removed segment
+            int total_affected_stations = 0;
+            for (const auto& source : stations) {
+                for (const auto& destination : stations) {
+                    if (all_pairs_max_trains[{source.first, destination.first}] > all_pairs_max_trains_after_removal[{source.first, destination.first}])
+                    {
+                        total_affected_stations++;
+                    }
+                }
+            }
+
+            // Re-add the segment
+            addSegment(seg);
+
+            // Store the result
+            result.push_back(std::make_tuple(seg.getSource(), seg.getDestination(), total_affected_stations));
         }
     }
 
-    // Calculate the initial max flow
-    int initial_max_flow = edmonds_karp_max_flow(source, destination);
+    // Sort the result by the number of affected stations in descending order
+    std::sort(result.begin(), result.end(), [](const std::tuple<std::string, std::string, int>& a, const std::tuple<std::string, std::string, int>& b) {
+        return std::get<2>(a) > std::get<2>(b);
+    });
 
-    // Iterate through all segments
-    for (const auto& src : adjacency_list) {
-        for (const auto& seg : src.second) {
-            // Remove the segment temporarily
-            int original_capacity = seg.getCapacity();
-            const_cast<Segment&>(seg).setCapacity(0);
+    // Resize the result vector to contain only the top-k elements
+    if (result.size() > k) {
+        result.resize(k);
+    }
 
-            // Calculate the max flow after the segment removal
-            int new_max_flow = edmonds_karp_max_flow(source, destination);
+    return result;
+}
 
-            // Restore the segment capacity
-            const_cast<Segment&>(seg).setCapacity(original_capacity);
 
-            // Calculate the flow difference due to the segment removal
-            int flow_difference = initial_max_flow - new_max_flow;
+std::unordered_map<std::pair<std::string, std::string>, int, PairHash> Graph::all_pairs_max_trains_floyd_warshall() const {
+    std::unordered_map<std::string, int> station_indices;
+    int index = 0;
+    for (const auto& station : stations) {
+        station_indices[station.first] = index++;
+    }
 
-            // If there is a difference, add the affected stations to the map
-            if (flow_difference > 0) {
-                affected_stations[seg].push_back(seg.getSource());
-                affected_stations[seg].push_back(seg.getDestination());
+    int num_stations = stations.size();
+    std::vector<std::vector<int>> max_flow(num_stations, std::vector<int>(num_stations, 0));
+
+    for (const auto& source : adjacency_list) {
+        for (const auto& segment : source.second) {
+            int u = station_indices[source.first];
+            int v = station_indices[segment.getDestination()];
+            max_flow[u][v] = segment.getCapacity();
+        }
+    }
+
+    for (int k = 0; k < num_stations; k++) {
+        for (int i = 0; i < num_stations; i++) {
+            for (int j = 0; j < num_stations; j++) {
+                max_flow[i][j] = std::max(max_flow[i][j], std::min(max_flow[i][k], max_flow[k][j]));
             }
         }
     }
 
-    return affected_stations;
+    std::unordered_map<std::pair<std::string, std::string>, int, PairHash> result;
+    for (const auto& src : station_indices) {
+        for (const auto& dest : station_indices) {
+            if (src.first != dest.first) {
+                result[{src.first, dest.first}] = max_flow[src.second][dest.second];
+            }
+        }
+    }
+
+    return result;
 }
+
 
 
 

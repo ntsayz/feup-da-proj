@@ -86,6 +86,8 @@ public:
     static void get_string(std::string &f1);
 
     static std::string getName(std::string purpose);
+
+    static double getDoubleInput(double min, double max);
 };
 
 
