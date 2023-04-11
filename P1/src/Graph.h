@@ -75,6 +75,9 @@ public:
     int edmonds_karp_max_flow(const std::string &source, const std::string &destination) const;
 
     std::unordered_map<Segment, std::vector<std::string>> most_affected_stations_by_segment_failure() const;
+
+    int max_trains_at_station(const std::string &station) const;
+
 private:
     /**
      * @brief Adjacency list representing all stations as nodes and segments as edges.
