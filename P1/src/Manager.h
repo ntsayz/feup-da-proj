@@ -96,28 +96,80 @@ public:
 	*/
     void main_menu();
     /**
-     * Function t
+     * Function to search for stations
      */
-    /// 1st Option in the Main menu; Shows the 'Search Stations' section
+    ///
     /// \param notARecursiveCall Since we need to use this function multiple times within the same call chain, it should be recursive. This was a way to handle recursion appropriately
     void search_stations(bool notARecursiveCall);
 
+    /**
+ * @brief Finds the top k districts and municipalities based on the number of stations.
+ *
+ * This function analyzes the data to determine the top k districts and municipalities
+ * with the highest number of train stations.
+ */
     void topkdistrictsmunicipalities();
 
+/**
+ * @brief Analyzes the reduced connectivity of the train network.
+ *
+ * This function examines the train network and determines the impact of
+ * reduced connectivity on the overall system.
+ */
     void reducedconnectivity();
 
+/**
+ * @brief Gets a vector of stations located within a specific municipality.
+ *
+ * @return A vector of Station objects within the specified municipality.
+ */
     std::vector<Station> get_stations_in_municipality();
+
+/**
+ * @brief Gets a vector of stations located within a specific district.
+ *
+ * @return A vector of Station objects within the specified district.
+ */
     std::vector<Station> get_stations_in_district();
+
+/**
+ * @brief Gets a specific station by its name.
+ *
+ * @return A Station object with the specified name, if found.
+ */
     Station get_station_by_name();
 
-    void show_stations();
-
+/**
+ * @brief Calculates the maximum number of trains that can operate in the network.
+ *
+ * This function analyzes the capacity of each segment and determines the maximum
+ * number of trains that can operate simultaneously.
+ */
     void max_Number_of_trains();
 
+/**
+ * @brief Finds the station pairs that require the most trains to operate.
+ *
+ * This function analyzes the train network to determine which pairs of stations
+ * require the most trains to operate effectively.
+ */
     void stations_pairs_require_most_trains();
 
+/**
+ * @brief Identifies the most affected stations in case of segment failure.
+ *
+ * This function examines the train network and determines which stations would
+ * be most affected if a segment were to fail, based on factors such as
+ * connectivity and capacity.
+ */
     void most_affected_stations_seg_failure();
 
+/**
+ * @brief Calculates the maximum number of trains at each station.
+ *
+ * This function analyzes the train network and determines the maximum number of
+ * trains that can be present at each station at any given time.
+ */
     void max_trains_at_station();
 };
 
