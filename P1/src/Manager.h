@@ -117,6 +117,8 @@ public:
     void stations_most_trains();
 
     void most_affected_stations_seg_failure();
+
+    void max_trains_at_station();
 };
 
 

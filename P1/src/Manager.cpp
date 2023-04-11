@@ -63,13 +63,24 @@ void Manager::main_menu(){
             case 5:
                 most_affected_stations_seg_failure();
                 break;
+            case 6:
+                max_trains_at_station();
+                break;
             case 9:
                 globalSession = false;
         }
     }
 }
 
-
+void Manager::max_trains_at_station(){
+    Utility::clear_screen();
+    localSession = true;
+    while ((localSession)){
+        Station station = get_station_by_name();
+        int n = railway_network.max_trains_at_station(station.getName());
+        printf("The Maximum Number of trains that can simultaneously arrive at Station %s is %d", station.getName().c_str(), n);
+    }
+}
 
 void Manager::topkdistrictsmunicipalities() {
     Utility::clear_screen();

@@ -212,6 +212,21 @@ int Graph::max_trains_between_stations(const std::string& source, const std::str
     return max_number_of_trains;
 }
 
+int Graph::max_trains_at_station(const std::string& station) const {
+    int max_trains = 0;
+
+    for (const auto& src : adjacency_list) {
+        if (src.first == station) {
+            continue;
+        }
+
+        int flow = edmonds_karp_max_flow(src.first, station);
+        max_trains = std::max(max_trains, flow);
+    }
+
+    return max_trains;
+}
+
 // O(n^3) -- Floyd-Warshall (altered)
 std::vector<std::tuple<std::string, std::string, int>> Graph::stations_require_most_trains() const {
     std::unordered_map<std::string, int> station_indices;
