@@ -102,74 +102,68 @@ public:
     /// \param notARecursiveCall Since we need to use this function multiple times within the same call chain, it should be recursive. This was a way to handle recursion appropriately
     void search_stations(bool notARecursiveCall);
 
-    /**
- * @brief Finds the top k districts and municipalities based on the number of stations.
- *
- * This function analyzes the data to determine the top k districts and municipalities
- * with the highest number of train stations.
- */
+        /**
+     * @brief Finds the top k municipalities and districts with the highest traffic volume
+     */
     void topkdistrictsmunicipalities();
 
-/**
- * @brief Analyzes the reduced connectivity of the train network.
- *
- * This function examines the train network and determines the impact of
- * reduced connectivity on the overall system.
- */
+    /**
+     * @brief Analyzes the reduced connectivity of the train network.
+     *
+     * Examines the train network and determines the impact of
+     * reduced connectivity between two stations.
+     */
     void reducedconnectivity();
 
-/**
- * @brief Gets a vector of stations located within a specific municipality.
- *
- * @return A vector of Station objects within the specified municipality.
- */
+    /**
+     * @brief Gets a vector of stations in a municipality.
+     *
+     * @return A vector of station objects in a municipality.
+     */
     std::vector<Station> get_stations_in_municipality();
 
-/**
- * @brief Gets a vector of stations located within a specific district.
- *
- * @return A vector of Station objects within the specified district.
- */
+    /**
+     * @brief Gets a vector of stations located in a district.
+     *
+     * @return A vector of station objects in a district.
+     */
     std::vector<Station> get_stations_in_district();
 
-/**
- * @brief Gets a specific station by its name.
- *
- * @return A Station object with the specified name, if found.
- */
+    /**
+     * @brief Gets a specific station by its name.
+     *
+     * @return A station object.
+     */
     Station get_station_by_name();
 
-/**
- * @brief Calculates the maximum number of trains that can operate in the network.
- *
- * This function analyzes the capacity of each segment and determines the maximum
- * number of trains that can operate simultaneously.
- */
+    /**
+     * @brief Calculates the maximum number of trains bt each station
+     *
+     * This function calculates the maximum number of trains between two stations
+     */
     void max_Number_of_trains();
 
-/**
- * @brief Finds the station pairs that require the most trains to operate.
- *
- * This function analyzes the train network to determine which pairs of stations
- * require the most trains to operate effectively.
- */
+    /**
+     * @brief Finds the station pairs that require the most trains to operate.
+     *
+        *Pairs of stations that require the most amount of trains when taking full advantage of the network capacity
+     */
     void stations_pairs_require_most_trains();
 
-/**
- * @brief Identifies the most affected stations in case of segment failure.
- *
- * This function examines the train network and determines which stations would
- * be most affected if a segment were to fail, based on factors such as
- * connectivity and capacity.
- */
+    /**
+     * @brief Identifies the most affected stations in case of segment failure.
+     *
+     * This function examines the train network and determines which stations would
+     * be most affected if a segment were to fail, based on factors such as
+     * connectivity and capacity.
+     */
     void most_affected_stations_seg_failure();
 
-/**
- * @brief Calculates the maximum number of trains at each station.
- *
- * This function analyzes the train network and determines the maximum number of
- * trains that can be present at each station at any given time.
- */
+    /**
+     * @brief Calculates the maximum number of trains that can arrive simultaneously at a given station .
+     *
+     * This function calculates the maximum number of trains that can arrive simultaneously at a given station
+     */
     void max_trains_at_station();
 
     void max_trains_min_cost();

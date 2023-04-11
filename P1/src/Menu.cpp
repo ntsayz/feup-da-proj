@@ -9,7 +9,7 @@ unsigned int Menu::Main() {
     Utility::header("Main Menu");
     Utility::body("Choose",
   {"1. Top K Municipalities ","2.Maximum Number of Trains Between Two Stations(Reduced Connectivity)",
-   "3. Maximum Number Of Trains Between Two Stations", "4. Pairs of Stations Require Most Trains","5. Most affected stations by segment failure", "6. Maximum Number of trains that can arrive simultaneously at given station", "7. Maximum Number of trains with minimum cost between two stations"});
+   "3. Maximum Number Of Trains Between Two Stations", "4. Pairs of Stations Require Most Trains","5. Most affected stations by segment failure (very inefficient)", "6. Maximum Number of trains that can arrive simultaneously at given station", "7. Maximum Number of trains with minimum cost between two stations"});
     Utility::footer("9.Quit");
     std::cin >> choice;
     Utility::clear_screen();

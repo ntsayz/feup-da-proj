@@ -273,11 +273,9 @@ std::vector<std::tuple<std::string, std::string, int>> Graph::top_k_affected_sta
 
     // Create a vector to store the results
     std::vector<std::tuple<std::string, std::string, int>> result;
-    int c = 0;
+
     // Iterate through all segments
     for (const auto& source : adjacency_list) {
-        std::cout << c;
-        c++;
         for (const auto& seg : source.second) {
             // Temporarily remove the segment
             removeSegment(seg.getSource(), seg.getDestination());
@@ -289,8 +287,7 @@ std::vector<std::tuple<std::string, std::string, int>> Graph::top_k_affected_sta
             int total_affected_stations = 0;
             for (const auto& source : stations) {
                 for (const auto& destination : stations) {
-                    if (all_pairs_max_trains[{source.first, destination.first}] > all_pairs_max_trains_after_removal[{source.first, destination.first}])
-                    {
+                    if (all_pairs_max_trains[{source.first, destination.first}] > all_pairs_max_trains_after_removal[{source.first, destination.first}]) {
                         total_affected_stations++;
                     }
                 }
@@ -300,12 +297,12 @@ std::vector<std::tuple<std::string, std::string, int>> Graph::top_k_affected_sta
             addSegment(seg);
 
             // Store the result
-            result.push_back(std::make_tuple(seg.getSource(), seg.getDestination(), total_affected_stations));
+            result.emplace_back(seg.getSource(), seg.getDestination(), total_affected_stations);
         }
     }
 
     // Sort the result by the number of affected stations in descending order
-    std::sort(result.begin(), result.end(), [](const std::tuple<std::string, std::string, int>& a, const std::tuple<std::string, std::string, int>& b) {
+    std::partial_sort(result.begin(), result.begin() + k, result.end(), [](const std::tuple<std::string, std::string, int>& a, const std::tuple<std::string, std::string, int>& b) {
         return std::get<2>(a) > std::get<2>(b);
     });
 
@@ -316,6 +313,7 @@ std::vector<std::tuple<std::string, std::string, int>> Graph::top_k_affected_sta
 
     return result;
 }
+
 
 
 std::unordered_map<std::pair<std::string, std::string>, int, PairHash> Graph::all_pairs_max_trains_floyd_warshall() const {
