@@ -5,6 +5,9 @@
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+#include <queue>
+#include <limits>
+#include <string>
 #include "Segment.h"
 #include "Station.h"
 #ifndef SRC_GRAPH_H
@@ -84,6 +87,8 @@ public:
     int max_trains_between_stations_reduced_connectivity(const std::string &source, const std::string &destination,
                                                          double reduction_factor);
     int max_trains_at_station(const std::string &station) const;
+
+    std::unordered_map<std::string, double> dijkstra_shortest_path(const std::string& source) const;
 private:
     /**
      * @brief Adjacency list representing all stations as nodes and segments as edges.
@@ -103,7 +108,7 @@ private:
     Graph generate_reduced_connectivity_graph(double reduction_factor) const;
 
 
-
+    int max_trains_with_min_cost(const std::string &source, const std::string &destination);
 };
 
 

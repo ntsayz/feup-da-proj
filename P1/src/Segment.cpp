@@ -39,3 +39,9 @@ void Segment::setService(const std::string &service) {
 const std::string &Segment::getSource() const {
     return source;
 }
+
+double Segment::getCost() const {
+    if(this->service == "STANDARD") return 2;
+    return 4;
+}
+

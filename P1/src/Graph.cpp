@@ -357,6 +357,83 @@ std::unordered_map<std::pair<std::string, std::string>, int, PairHash> Graph::al
 }
 
 
+std::unordered_map<std::string, double> Graph::dijkstra_shortest_path(const std::string& source) const {
+    std::unordered_map<std::string, double> distances;
+    for (const auto& station : stations) {
+        distances[station.first] = std::numeric_limits<double>::max();
+    }
+    distances[source] = 0;
+
+    using QueueElement = std::pair<double, std::string>;
+    std::priority_queue<QueueElement, std::vector<QueueElement>, std::greater<QueueElement>> queue;
+    queue.push({0, source});
+
+    while (!queue.empty()) {
+        auto current = queue.top();
+        queue.pop();
+
+        double current_distance = current.first;
+        std::string current_station = current.second;
+
+        if (current_distance > distances[current_station]) {
+            continue;
+        }
+
+        for (const auto& segment : adjacency_list.at(current_station)) {
+            double cost = segment.getCost();
+            double new_distance = current_distance + cost;
+
+            std::string destination = segment.getDestination();
+            if (new_distance < distances[destination]) {
+                distances[destination] = new_distance;
+                queue.push({new_distance, destination});
+            }
+        }
+    }
+
+    return distances;
+}
+
+int Graph::max_trains_with_min_cost(const std::string &source, const std::string &destination) {
+    std::unordered_map<std::string, double> distances;
+    std::unordered_set<std::string> visited;
+
+    for (const auto &node : adjacency_list) {
+        distances[node.first] = std::numeric_limits<double>::max();
+    }
+    distances[source] = 0;
+
+    std::priority_queue<std::pair<double, std::string>, std::vector<std::pair<double, std::string>>, std::greater<>> pq;
+    pq.push({0, source});
+
+    while (!pq.empty()) {
+        std::string current = pq.top().second;
+        pq.pop();
+
+        if (visited.count(current)) {
+            continue;
+        }
+        visited.insert(current);
+
+        for (const auto &segment : adjacency_list.at(current)) {
+            std::string neighbor = segment.getDestination();
+            if (visited.count(neighbor)) {
+                continue;
+            }
+
+            double new_distance = distances[current] + segment.getCost();
+            if (new_distance < distances[neighbor]) {
+                distances[neighbor] = new_distance;
+                pq.push({new_distance, neighbor});
+            }
+        }
+    }
+
+    // Calculate the maximum number of trains based on the minimum cost path
+    int max_trains = max_trains_between_stations(source, destination);
+    return max_trains;
+}
+
 
 
 

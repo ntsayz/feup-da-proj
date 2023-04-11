@@ -34,9 +34,18 @@ private:
     * @brief The
     */
     std::string service;
+    /**
+    * @brief The
+    */
+public:
+    double getCost() const;
+
+
 public:
     Segment(std::string source , std::string destination ,double capacity, std::string service):
-    source(std::move(source)),destination(std::move(destination)),capacity(capacity),service(std::move(service)){}
+    source(std::move(source)),destination(std::move(destination)),capacity(capacity),service(std::move(service)){
+
+    }
 
     /**
        @brief Creates an Segment object from a string in .csv format
