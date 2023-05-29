@@ -5,7 +5,7 @@
 #include "Menu.h"
 unsigned int Menu::Main() {
     int choice;
-    Utility::header("Portugal Railway");
+    Utility::header("Graphs");
     Utility::header("Main Menu");
     Utility::body("Choose",{"1.TBD","2.Feature #2"});
     Utility::footer("9.Quit");
@@ -16,21 +16,21 @@ unsigned int Menu::Main() {
 
 unsigned int Menu::DataLoader(std::string& f1, std::string& f2) {
     int choice;
-    Utility::header("Portugal Railway");
+    Utility::header("Graphs");
     Utility::header("Import data from files");
     Utility::body("Path of files to import data from at the moment",{f1,f2,""});
     Utility::body("Choose from which files would you like to import the data from:"
-            ,{"1. Default (Given in the dataset)"
-      ,"2. Custom"});
+            ,{"Toy Graphs"
+      ,"1.Shipping","2.Stadiums","3.Tourism","Real Graphs","4. Graph 1","5. Graph 2","6. Graph 3"});
     Utility::footer("9.Continue");
     std::cin >> choice;
     Utility::clear_screen();
-    return Utility::getInput(choice,1,2);
+    return Utility::getInput(choice,1,6);
 }
 
 void Menu::GetCustomFiles() {
     Utility::clear_screen();
-    Utility::header("Portugal Railway");
+    Utility::header("Graphs");
     Utility::header("File names");
     Utility::body("Write the stations and network file name (in order)",{"Make sure that all files are in the src/dataset directory","","Write the names of the files for the stations(1st) and network(2nd). eg:. your_stations.csv | your_network.csv)"});
     Utility::footer();

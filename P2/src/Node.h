@@ -36,7 +36,7 @@ public:
         @param iss An std::istringstream object containing the string from the line in the file
         @return A node object
     */
-    static Node fromCSVLine(std::istringstream& iss) {
+    static Node fromCSVLine(std::istringstream& iss, bool hasLabel) {
         std::string id_str, latitude_str, longitude_str;
 
         std::getline(iss, id_str, ',');

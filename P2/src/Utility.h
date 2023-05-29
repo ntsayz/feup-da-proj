@@ -62,7 +62,7 @@ public:
     /// \param filename
     /// \return
     template <typename T>
-    static std::vector<T> loadDataFromCSV(std::string filename) {
+    static std::vector<T> loadDataFromCSV(std::string filename,bool hasLabel) {
         std::vector<T> data;
         std::ifstream file(filename);
 
@@ -74,7 +74,7 @@ public:
         std::string line;
         while (std::getline(file, line)) {
             std::istringstream iss(line);
-            T object = T::fromCSVLine(iss);
+            T object = T::fromCSVLine(iss,hasLabel);
             data.push_back(object);
         }
 

@@ -47,6 +47,8 @@ private:
     *
     */
 
+    Graph graph;
+
 
     /** @} end of Manager's Data Structures */
 public:
