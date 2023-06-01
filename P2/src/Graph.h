@@ -47,6 +47,17 @@ public:
      */
     Node getNodeObj(int id) const;
 
+    void printGraph() const {
+        for (const auto& node : adjacency_list) {
+            std::cout << "Node " << node.first << " is connected to: \n";
+            for (const auto& edge : node.second) {
+                std::cout << "Node " << edge.getDestination() << " with a distance of " << edge.getDistance() << "\n";
+            }
+            std::cout << "------\n";
+        }
+    }
+
+
 private:
     /**
      * @brief Adjacency list representing all nodes as nodes and edges as edges.
