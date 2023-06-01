@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include "Edge.h"
 #include "Node.h"
+#include "Utility.h"
 
 #ifndef SRC_GRAPH_H
 #define SRC_GRAPH_H
@@ -18,13 +19,13 @@ public:
  * @param nodeId The ID of the node to be added
  */
     void addNode(int nodeId);
-    void addNode(const Node &nodeId);
+    void addNode(Node &nodeId);
 
     /**
      * @brief Adds an edge to the graph
      * @param edge The edge to be added
      */
-    void addEdge(const Edge& edge);
+    void addEdge(Edge& edge);
 
     /**
      * @brief Returns a vector of all edges going out from a specified node
@@ -48,13 +49,16 @@ public:
     Node getNodeObj(int id) const;
 
     void printGraph() const {
+        auto size = adjacency_list.size();
+
         for (const auto& node : adjacency_list) {
-            std::cout << "Node " << node.first << " is connected to: \n";
+            Utility::safe_print("Node " + std::to_string(node.first) + " is connected to:");
             for (const auto& edge : node.second) {
-                std::cout << "Node " << edge.getDestination() << " with a distance of " << edge.getDistance() << "\n";
+                Utility::safe_print("Node "+ std::to_string(edge.getDestination()) + " with a distance of " + std::to_string(edge.getDistance()));
             }
-            std::cout << "------\n";
+            Utility::safe_print("-----");
         }
+        Utility::safe_print("This has " + std::to_string(size) + " nodes");
     }
 
 

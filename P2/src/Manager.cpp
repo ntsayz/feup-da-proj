@@ -117,20 +117,20 @@ bool Manager::load_data() {
 
     }
 
-    graph.reset();
+    Manager::graph.reset();
 
     std::vector<Edge> edgesVEC = Utility::loadDataFromCSV<Edge>(edges_fname,hasLabel);
 
     if(nodes_fname != "no file chosen"){
         std::vector<Node> nodesVEC = Utility::loadDataFromCSV<Node>(nodes_fname,hasLabel);
         for(const auto& node: nodesVEC){
-            graph.addNode(node.getId());
+            Manager::graph.addNode(node.getId());
         }
         nodesVEC.clear();
     }
 
-    for(const auto& edge: edgesVEC){
-        graph.addEdge(edge);
+    for(auto& edge: edgesVEC){
+        Manager::graph.addEdge(edge);
     }
     edgesVEC.clear();
 

@@ -3,6 +3,7 @@
 //
 
 #include "Utility.h"
+std::mutex Utility::print_mutex;
 
 
 int  Utility::getInput(int choice, int min, int max)  {

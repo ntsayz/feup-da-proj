@@ -44,6 +44,7 @@ public:
         // If it's the first line, skip it
 
 
+
         std::string id_str, latitude_str, longitude_str;
 
         std::getline(iss, id_str, ',');

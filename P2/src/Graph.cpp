@@ -8,10 +8,10 @@
 void Graph::addNode(int nodeId) {
     nodes.emplace(nodeId, Node(nodeId));
 }
-void Graph::addNode(const Node &node) {
+void Graph::addNode(Node &node) {
     nodes.emplace(node.getId(),node);
 }
-void Graph::addEdge(const Edge &edge) {
+void Graph::addEdge(Edge &edge) {
     adjacency_list[edge.getSource()].push_back(edge);
 }
 
@@ -55,6 +55,7 @@ std::vector<Edge> Graph::getEdgesFromNode(int nodeId) const {
 void Graph::reset() {
     adjacency_list.clear();
     nodes.clear();
+    std::printf("adj list %zu nodes %zu\n",adjacency_list.size(),nodes.size());
 }
 
 void Graph::solve_tsp_backtracking() {
