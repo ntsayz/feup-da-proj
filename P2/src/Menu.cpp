@@ -7,7 +7,7 @@ unsigned int Menu::Main() {
     int choice;
     Utility::header("Graphs");
     Utility::header("Main Menu");
-    Utility::body("Choose",{"1.TBD","2.Feature #2"});
+    Utility::body("Choose",{"1.Choose file(s) to load data from","2.Start"});
     Utility::footer("9.Quit");
     std::cin >> choice;
     Utility::clear_screen();
@@ -18,14 +18,14 @@ unsigned int Menu::DataLoader(std::string& f1, std::string& f2) {
     int choice;
     Utility::header("Graphs");
     Utility::header("Import data from files");
-    Utility::body("Path of files to import data from at the moment",{f1,f2,""});
+    Utility::body("Path of files to import data from at the moment",{"Nodes- "+ f1,"Edges- "+ f2,""});
     Utility::body("Choose from which files would you like to import the data from:"
             ,{"Toy Graphs"
-      ,"1.Shipping","2.Stadiums","3.Tourism","Real Graphs","4. Graph 1","5. Graph 2","6. Graph 3"});
+                          ,"1.Shipping","2.Stadiums","3.Tourism","Real Graphs","4. Graph 1","5. Graph 2","6. Graph 3"});
     Utility::footer("9.Continue");
     std::cin >> choice;
     Utility::clear_screen();
-    return Utility::getInput(choice,1,6);
+    return Utility::getInput(choice,1,9);
 }
 
 void Menu::GetCustomFiles() {

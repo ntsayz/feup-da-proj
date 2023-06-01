@@ -22,14 +22,13 @@ bool Manager::load_data() {
                 edges_fname = "../dataset/Toy-Graphs/shipping.csv";
                 break;
             case 2:
-               // Utility::get_filenames(nodes_fname, edges_fname);
                 edges_fname = "../dataset/Toy-Graphs/stadiums.csv";
                 break;
             case 3:
                 hasLabel = true;
                 edges_fname = "../dataset/Toy-Graphs/tourism.csv";
                 break;
-            // TODO: Adicionar outros ficheiros
+                // TODO: Adicionar outros ficheiros
             case 9:
                 localSession = false;
                 break;
@@ -41,9 +40,7 @@ bool Manager::load_data() {
     if(nodes_fname != "no file chosen"){
         std::vector<Node> nodesVEC = Utility::loadDataFromCSV<Node>(nodes_fname,hasLabel);
         for(const auto& node: nodesVEC){
-            //graph.addNode(node);
-            // municipalities[station.getMunicipality()].push_back(station);
-            //districts[station.getDistrict()].push_back(station);
+            graph.addNode(node.getId());
         }
 
     }
@@ -51,6 +48,7 @@ bool Manager::load_data() {
     for(const auto& edge: edgesVEC){
         graph.addEdge(edge);
     }
+    edgesVEC.clear();
 
     return true;
 }
@@ -61,13 +59,14 @@ void Manager::main_menu(){
         Utility::clear_screen();
         switch (Menu::Main()) {
             case 1:
-                std::printf("Nothing to show here yet");
+                load_data();
                 break;
             case 2:
-                std::printf("Don't look for shit you know its not there sir");
+                std::printf("");
                 break;
             case 9:
                 globalSession = false;
+                break;
         }
     }
 }

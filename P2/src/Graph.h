@@ -18,6 +18,7 @@ public:
  * @param nodeId The ID of the node to be added
  */
     void addNode(int nodeId);
+    void addNode(const Node &nodeId);
 
     /**
      * @brief Adds an edge to the graph
@@ -58,7 +59,8 @@ private:
     std::unordered_map<int, Node> nodes;
 
 
-};
 
+};
+//
 #endif //SRC_GRAPH_H
 

@@ -16,13 +16,16 @@ int  Utility::getInput(int choice, int min, int max)  {
         }else if (choice < min || choice > max) {
             return -1;
         }
-
         return choice;
     }
 }
 
 void Utility::clear_screen() {
+#ifdef _WIN32
+    std::system("cls");
+#else
     std::system("clear");
+#endif
 }
 void Utility::header(const std::string& title){
     int n = (int)(title.size() + LENGTH) / 2;

@@ -31,6 +31,8 @@ public:
 
     Node() : id(), latitude(), longitude() {}
 
+    explicit Node(int id);
+
     /**
         @brief Creates a Node object from a string in .csv format
         @param iss An std::istringstream object containing the string from the line in the file
@@ -49,6 +51,18 @@ public:
 
         return {id, latitude, longitude};
     }
+
+    int getId() const;
+
+    void setId(int id);
+
+    double getLatitude() const;
+
+    void setLatitude(double latitude);
+
+    double getLongitude() const;
+
+    void setLongitude(double longitude);
 };
 
 
