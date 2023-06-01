@@ -3,6 +3,8 @@
 //
 
 #include "Manager.h"
+#include "Graph.h"
+#include "Edge.h"
 
 void Manager::run() {
     main_menu();
