@@ -11,6 +11,6 @@ CTestTestfile.cmake
 cmake-build-debug/
 .idea/
 _deps
-Real-world-Graphs/
+Real-world Graphs/
 Extra_Fully_Connected_Graphs
 
