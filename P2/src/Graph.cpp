@@ -15,3 +15,8 @@ void Graph::addEdge(const Edge &edge) {
     adjacency_list[edge.getSource()].push_back(edge);
 }
 
+void Graph::reset() {
+    adjacency_list.clear();
+    nodes.clear();
+}
+

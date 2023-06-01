@@ -58,6 +58,8 @@ public:
     }
 
 
+    void reset();
+
 private:
     /**
      * @brief Adjacency list representing all nodes as nodes and edges as edges.
@@ -68,7 +70,6 @@ private:
      * @brief Hashtable with node IDs being mapped to their objects
      */
     std::unordered_map<int, Node> nodes;
-
 
 
 };

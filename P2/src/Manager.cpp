@@ -112,6 +112,8 @@ bool Manager::load_data() {
 
     }
 
+    graph.reset();
+
     std::vector<Edge> edgesVEC = Utility::loadDataFromCSV<Edge>(edges_fname,hasLabel);
 
     if(nodes_fname != "no file chosen"){
