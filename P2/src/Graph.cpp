@@ -16,6 +16,26 @@ void Graph::addEdge(Edge &edge) {
     Edge reverseEdge = Edge(edge.getDestination(), edge.getSource(), edge.getDistance());
     adjacency_list[reverseEdge.getSource()].push_back(reverseEdge);
 }
+void Graph::fillNodesFromAdjList() {
+    // Iterate over the adjacency list
+    for (const auto& entry : adjacency_list) {
+        // Check if the node ID is not already in the nodes unordered_map
+        if (nodes.find(entry.first) == nodes.end()) {
+            // Add the node ID and its corresponding Node object to the nodes unordered_map
+            nodes[entry.first] = Node(entry.first);  // Assumes Node(int id) constructor initializes a Node
+        }
+
+        // Now iterate over edges for each node in adjacency_list
+        for (const auto& edge : entry.second) {
+            // Check if the destination node ID is not already in the nodes unordered_map
+            if (nodes.find(edge.getDestination()) == nodes.end()) {
+                // Add the destination node ID and its corresponding Node object to the nodes unordered_map
+                nodes[edge.getDestination()] = Node(edge.getDestination());  // Assumes Node(int id) constructor initializes a Node
+            }
+        }
+    }
+}
+
 
 bool Graph::hasEdge(int source, int destination) {
     if (adjacency_list.find(source) != adjacency_list.end()) {
@@ -82,6 +102,9 @@ void Graph::solve_tsp_backtracking() {
         std::cout << node << " ";
     }
     std::cout << "\nMinimum Distance: " << minDistance << std::endl;
+    int choice;
+    std::cin >> choice;
+    Utility::getInput(choice,1,2);
 }
 
 
@@ -120,4 +143,5 @@ void Graph::solve_tsp_backtracking_helper(std::vector<int>& visited, double& min
         }
     }
 }
+
 

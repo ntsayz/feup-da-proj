@@ -134,6 +134,8 @@ bool Manager::load_data() {
     }
     edgesVEC.clear();
 
+    graph.fillNodesFromAdjList();
+
     return true;
 }
 

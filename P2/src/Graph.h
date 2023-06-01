@@ -66,6 +66,8 @@ public:
 
     void solve_tsp_backtracking();
 
+    void fillNodesFromAdjList();
+
 private:
     bool hasEdge(int source, int destination);
 
@@ -79,17 +81,7 @@ private:
      */
     std::unordered_map<int, Node> nodes;
 
-
-    void tsp_backtracking(int curr_pos, std::vector<bool> &visited, int n, int count, double cost,
-                          std::vector<int> &path, double &min_cost);
-
-    int getNumNodes();
-
     double getEdgeWeight(int source, int destination);
-
-    void
-    solve_tsp_backtracking_helper(std::vector<int> &visited, double &minDistance, double currentDistance,
-                                  int currentNode);
 
     Edge getEdge(int source, int destination);
 
@@ -97,6 +89,7 @@ private:
     solve_tsp_backtracking_helper(std::vector<int> &visited, double &minDistance, double currentDistance,
                                   int currentNode,
                                   std::vector<int> &currentPath, std::vector<int> &minPath);
+
 };
 //
 #endif //SRC_GRAPH_H
