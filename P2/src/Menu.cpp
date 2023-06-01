@@ -5,7 +5,7 @@
 #include "Menu.h"
 unsigned int Menu::Main() {
     int choice;
-    Utility::header("Routing Algorithm for Ocean Shipping and Urban Deliveries");
+    Utility::header("Routing Algorithms for Ocean Shipping and Urban Deliveries");
     Utility::header("Main Menu");
     Utility::body("Choose",{"1.Choose file(s) to load data from","2.Show data from current Graph(testing)"});
     Utility::footer("9.Quit");
@@ -17,7 +17,7 @@ unsigned int Menu::Main() {
 
 void Menu::GetCustomFiles() {
     Utility::clear_screen();
-    Utility::header("Routing Algorithm for Ocean Shipping and Urban Deliveries");
+    Utility::header("Routing Algorithms for Ocean Shipping and Urban Deliveries");
     Utility::header("File names");
     Utility::body("Write the stations and network file name (in order)",{"Make sure that all files are in the src/dataset directory","","Write the names of the files for the stations(1st) and network(2nd). eg:. your_stations.csv | your_network.csv)"});
     Utility::footer();
@@ -26,10 +26,10 @@ void Menu::GetCustomFiles() {
 
 unsigned int Menu::DataLoader(std::string& f1, std::string& f2) {
     int choice;
-    Utility::header("Routing Algorithm for Ocean Shipping and Urban Deliveries");
+    Utility::header("Routing Algorithms for Ocean Shipping and Urban Deliveries");
     Utility::header("Import data from files");
     Utility::body("Path of files to import data from at the moment",{"Nodes- "+ f1,"Edges- "+ f2,""});
-    Utility::body("Choose from which files would you like to import the data from:",
+    Utility::body("Choose from which files you would like to import the data from:",
                   {
                           "Toy Graphs",
                           "-----------",
