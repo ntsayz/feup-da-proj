@@ -40,12 +40,6 @@ public:
             int source = std::stoi(source_str);
             int destination = std::stoi(destination_str);
             double distance = std::stod(distance_str);
-
-            if (hasLabels) {
-                std::getline(iss, source_label_str, ',');
-                std::getline(iss, destination_label_str);
-                return {source, destination, distance, source_label_str, destination_label_str};
-            }
             return {source, destination, distance};
         } catch (std::invalid_argument const &e) {
             std::cout << "Bad input: std::invalid_argument thrown. Invalid numbers in line." << '\n';
