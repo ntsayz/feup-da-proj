@@ -23,6 +23,9 @@ void Manager::main_menu(){
             case 2:
                 graph.printGraph();
                 break;
+            case 3:
+                graph.solve_tsp_backtracking();
+                break;
             case 9:
                 globalSession = false;
                 break;
@@ -113,6 +116,9 @@ bool Manager::load_data() {
         }
 
     }
+
+    graph.reset();
+
     std::vector<Edge> edgesVEC = Utility::loadDataFromCSV<Edge>(edges_fname,hasLabel);
 
     if(nodes_fname != "no file chosen"){

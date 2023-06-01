@@ -41,6 +41,9 @@ public:
         @return A node object
     */
     static Node fromCSVLine(std::istringstream& iss, bool hasLabel) {
+        // If it's the first line, skip it
+
+
         std::string id_str, latitude_str, longitude_str;
 
         std::getline(iss, id_str, ',');
@@ -61,6 +64,7 @@ public:
         }
         return {};  // Return a default Node if something goes wrong.
     }
+
 
 
     int getId() const;

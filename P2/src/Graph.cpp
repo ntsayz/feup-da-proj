@@ -15,64 +15,27 @@ void Graph::addEdge(const Edge &edge) {
     adjacency_list[edge.getSource()].push_back(edge);
 }
 
-
-bool Graph::hasEdge(int source, int destination)  {
-    const std::vector<Edge>& edges = adjacency_list.at(source);
-    for (const Edge& edge : edges) {
-        if (edge.getDestination() == destination) {
-            return true;
+bool Graph::hasEdge(int source, int destination) {
+    if (adjacency_list.find(source) != adjacency_list.end()) {
+        for (const auto& edge : adjacency_list[source]) {
+            if (edge.getDestination() == destination) {
+                return true;
+            }
         }
     }
     return false;
 }
 
-
-void Graph::tsp_backtracking(int curr_pos, std::vector<bool>& visited, int n, int count, double cost, std::vector<int>& path, double& min_cost) {
-    if (count == n && hasEdge(curr_pos, 0)) {
-        path.push_back(0);
-        min_cost = std::min(min_cost, cost + getEdgeWeight(curr_pos, 0));
-        path.pop_back();
-        return;
-    }
-
-    for (const auto& edge : getEdgesFromNode(curr_pos)) {
-        int next_node = edge.getDestination();
-        if (!visited[next_node]) {
-            visited[next_node] = true;
-            path.push_back(next_node);
-
-            tsp_backtracking(next_node, visited, n, count + 1, cost + edge.getDistance(), path, min_cost);
-
-            path.pop_back();
-            visited[next_node] = false;
+Edge Graph::getEdge(int source, int destination) {
+    if (hasEdge(source, destination)) {
+        for (const auto& edge : adjacency_list.at(source)) {
+            if (edge.getDestination() == destination) {
+                return edge;
+            }
         }
     }
-}
-
-void Graph::solve_tsp_backtracking() {
-    int n = getNumNodes();
-
-    std::vector<bool> visited(n, false);
-    visited[0] = true;
-
-    std::vector<int> path;
-    path.push_back(0);
-
-    double min_cost = std::numeric_limits<double>::max();
-
-    tsp_backtracking( 0, visited, n, 1, 0.0, path, min_cost);
-
-    std::cout << "Optimal Tour: ";
-    for (int node : path) {
-        std::cout << node << " -> ";
-    }
-    std::cout << "0" << std::endl;
-
-    std::cout << "Optimal Cost: " << min_cost << std::endl;
-}
-
-int Graph::getNumNodes()  {
-    return nodes.size();
+    // If the edge is not found, return a default-constructed Edge
+    return Edge();
 }
 
 double Graph::getEdgeWeight(int source, int destination) {
@@ -87,5 +50,71 @@ double Graph::getEdgeWeight(int source, int destination) {
 
 std::vector<Edge> Graph::getEdgesFromNode(int nodeId) const {
     return adjacency_list.at(nodeId);
+}
+
+void Graph::reset() {
+    adjacency_list.clear();
+    nodes.clear();
+}
+
+void Graph::solve_tsp_backtracking() {
+    // Initialize variables
+    std::vector<int> visited;
+    double minDistance = std::numeric_limits<double>::max();
+    double currentDistance = 0.0;
+    std::vector<int> currentPath;
+    std::vector<int> minPath;
+
+    // Start the backtracking algorithm from node 0
+    int startingNode = 0;
+    visited.push_back(startingNode);
+    currentPath.push_back(startingNode);
+
+    // Call the backtracking helper function
+    solve_tsp_backtracking_helper(visited, minDistance, currentDistance, startingNode, currentPath, minPath);
+
+    // Print the minimum path
+    std::cout << "Minimum Path: ";
+    for (const auto& node : minPath) {
+        std::cout << node << " ";
+    }
+    std::cout << "\nMinimum Distance: " << minDistance << std::endl;
+}
+
+
+void Graph::solve_tsp_backtracking_helper(std::vector<int>& visited, double& minDistance, double currentDistance, int currentNode, std::vector<int>& currentPath, std::vector<int>& minPath) {
+    // Base case: All nodes have been visited
+    if (visited.size() == nodes.size()) {
+        // Check if the current tour is better than the minimum tour distance found so far
+        if (currentDistance + getEdge(currentNode, 0).getDistance() < minDistance) {
+            minDistance = currentDistance + getEdge(currentNode, 0).getDistance();
+            minPath = currentPath;
+            minPath.push_back(0);  // Append the starting node to complete the path
+        }
+        return;
+    }
+
+    // Iterate over all unvisited nodes
+    for (const auto& edge : adjacency_list[currentNode]) {
+        int nextNode = edge.getDestination();
+
+        // Check if the next node has been visited
+        if (std::find(visited.begin(), visited.end(), nextNode) == visited.end()) {
+            // Add the current node to the visited list and path
+            visited.push_back(nextNode);
+            currentPath.push_back(nextNode);
+
+            // Update the current tour distance
+            currentDistance += edge.getDistance();
+
+            // Recursively call the backtracking function with the next node
+            solve_tsp_backtracking_helper(visited, minDistance, currentDistance, nextNode, currentPath, minPath);
+
+            // Remove the current node from the visited list, path, and update the current tour distance
+            visited.pop_back();
+            currentPath.pop_back();
+            currentDistance -= edge.getDistance();
+        }
+    }
 }
 
