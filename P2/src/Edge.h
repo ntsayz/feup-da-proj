@@ -29,7 +29,6 @@ public:
             : source(source), destination(destination), distance(distance), source_label(std::move(source_label)), destination_label(std::move(destination_label)) {}
 
     static Edge fromCSVLine(std::istringstream& iss, bool hasLabels) {
-
         std::string source_str, destination_str, distance_str;
         std::string source_label_str, destination_label_str;
 
@@ -41,7 +40,6 @@ public:
             int source = std::stoi(source_str);
             int destination = std::stoi(destination_str);
             double distance = std::stod(distance_str);
-
             return {source, destination, distance};
         } catch (std::invalid_argument const &e) {
             std::cout << "Bad input: std::invalid_argument thrown. Invalid numbers in line." << '\n';

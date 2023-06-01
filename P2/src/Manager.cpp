@@ -3,6 +3,8 @@
 //
 
 #include "Manager.h"
+#include "Graph.h"
+#include "Edge.h"
 
 void Manager::run() {
     main_menu();
@@ -20,6 +22,9 @@ void Manager::main_menu(){
                 break;
             case 2:
                 graph.printGraph();
+                break;
+            case 3:
+                graph.solve_tsp_backtracking();
                 break;
             case 9:
                 globalSession = false;

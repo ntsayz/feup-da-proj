@@ -60,7 +60,11 @@ public:
 
     void reset();
 
+    void solve_tsp_backtracking();
+
 private:
+    bool hasEdge(int source, int destination);
+
     /**
      * @brief Adjacency list representing all nodes as nodes and edges as edges.
      *        Each node is mapped to a vector of edges going out from that node.
@@ -72,6 +76,23 @@ private:
     std::unordered_map<int, Node> nodes;
 
 
+    void tsp_backtracking(int curr_pos, std::vector<bool> &visited, int n, int count, double cost,
+                          std::vector<int> &path, double &min_cost);
+
+    int getNumNodes();
+
+    double getEdgeWeight(int source, int destination);
+
+    void
+    solve_tsp_backtracking_helper(std::vector<int> &visited, double &minDistance, double currentDistance,
+                                  int currentNode);
+
+    Edge getEdge(int source, int destination);
+
+    void
+    solve_tsp_backtracking_helper(std::vector<int> &visited, double &minDistance, double currentDistance,
+                                  int currentNode,
+                                  std::vector<int> &currentPath, std::vector<int> &minPath);
 };
 //
 #endif //SRC_GRAPH_H
