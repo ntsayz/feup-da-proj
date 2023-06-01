@@ -13,6 +13,8 @@ void Graph::addNode(Node &node) {
 }
 void Graph::addEdge(Edge &edge) {
     adjacency_list[edge.getSource()].push_back(edge);
+    Edge reverseEdge = Edge(edge.getDestination(), edge.getSource(), edge.getDistance());
+    adjacency_list[reverseEdge.getSource()].push_back(reverseEdge);
 }
 
 bool Graph::hasEdge(int source, int destination) {
