@@ -5,9 +5,6 @@
 #include "Manager.h"
 
 void Manager::run() {
-    if(!load_data()){
-        return;
-    }
     main_menu();
 
 }
