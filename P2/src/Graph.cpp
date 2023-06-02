@@ -82,7 +82,6 @@ std::vector<Edge> Graph::getEdgesFromNode(int nodeId) const {
 void Graph::reset() {
     adjacency_list.clear();
     nodes.clear();
-    std::printf("adj list %zu nodes %zu\n",adjacency_list.size(),nodes.size());
 }
 
 void Graph::solve_tsp_backtracking() {
