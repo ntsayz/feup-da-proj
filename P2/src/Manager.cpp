@@ -21,10 +21,13 @@ void Manager::main_menu(){
                 load_data();
                 break;
             case 2:
-                graph.printGraph();
+                graph.solve_tsp_backtracking();
                 break;
             case 3:
-                graph.solve_tsp_backtracking();
+                graph.solve_tsp_2approximation();
+                break;
+            case 4:
+                graph.printGraph();
                 break;
             case 9:
                 globalSession = false;
@@ -117,20 +120,20 @@ bool Manager::load_data() {
 
     }
 
-    Manager::graph.reset();
+    graph.reset();
 
     std::vector<Edge> edgesVEC = Utility::loadDataFromCSV<Edge>(edges_fname,hasLabel);
 
     if(nodes_fname != "no file chosen"){
         std::vector<Node> nodesVEC = Utility::loadDataFromCSV<Node>(nodes_fname,hasLabel);
         for(const auto& node: nodesVEC){
-            Manager::graph.addNode(node.getId());
+            graph.addNode(node.getId());
         }
         nodesVEC.clear();
     }
 
     for(auto& edge: edgesVEC){
-        Manager::graph.addEdge(edge);
+        graph.addEdge(edge);
     }
     edgesVEC.clear();
 

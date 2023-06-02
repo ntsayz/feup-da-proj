@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <chrono>
 #include "Edge.h"
 #include "Node.h"
 #include "Utility.h"
@@ -61,6 +62,8 @@ public:
         Utility::safe_print("This has " + std::to_string(size) + " nodes");
     }
 
+    void solve_tsp_2approximation();
+
 
     void reset();
 
@@ -89,6 +92,14 @@ private:
     solve_tsp_backtracking_helper(std::vector<int> &visited, double &minDistance, double currentDistance,
                                   int currentNode,
                                   std::vector<int> &currentPath, std::vector<int> &minPath);
+
+    std::unordered_map<int, std::vector<Edge>> createMST();
+
+    void
+    dfs_preorder(const std::unordered_map<int, std::vector<Edge>> &mst, int node,
+                 std::unordered_map<int, bool> &visited,
+                 std::vector<int> &preorder);
+
 
 };
 //
