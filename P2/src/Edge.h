@@ -71,6 +71,11 @@ public:
     const std::optional<std::string> &getDestinationLabel() const;
 
     void setDestinationLabel(const std::optional<std::string> &destinationLabel);
+
+    bool operator>(const Edge& other) const {
+        // Assuming getWeight() returns the weight of the edge
+        return this->getDistance() > other.getDistance();
+    }
 };
 
 

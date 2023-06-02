@@ -2,7 +2,12 @@
 // Created by ntsayz on 09-03-2023.
 //
 
+#include <queue>
+#include <unordered_set>
 #include "Graph.h"
+
+
+
 
 
 void Graph::addNode(int nodeId) {
@@ -81,6 +86,7 @@ void Graph::reset() {
 }
 
 void Graph::solve_tsp_backtracking() {
+    auto start = std::chrono::high_resolution_clock::now();
     // Initialize variables
     std::vector<int> visited;
     double minDistance = std::numeric_limits<double>::max();
@@ -96,6 +102,11 @@ void Graph::solve_tsp_backtracking() {
     // Call the backtracking helper function
     solve_tsp_backtracking_helper(visited, minDistance, currentDistance, startingNode, currentPath, minPath);
 
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+    std::cout << "Elapsed time: " << elapsed.count() << " s\n";
+
     // Print the minimum path
     std::cout << "Minimum Path: ";
     for (const auto& node : minPath) {
@@ -104,7 +115,6 @@ void Graph::solve_tsp_backtracking() {
     std::cout << "\nMinimum Distance: " << minDistance << std::endl;
     int choice;
     std::cin >> choice;
-    Utility::getInput(choice,1,2);
 }
 
 
@@ -143,5 +153,88 @@ void Graph::solve_tsp_backtracking_helper(std::vector<int>& visited, double& min
         }
     }
 }
+
+void Graph::solve_tsp_2approximation() {
+    auto start = std::chrono::high_resolution_clock::now();
+    // Create MST
+    auto mst = createMST();
+
+    // Traversal of the MST
+    std::vector<int> traversal;
+    std::unordered_map<int, bool> visited;
+
+    std::stack<int> stack;
+    stack.push(0);
+
+    while (!stack.empty()) {
+        int node = stack.top();
+        stack.pop();
+        if (!visited[node]) {
+            visited[node] = true;
+            traversal.push_back(node);
+            for (const auto& edge : mst[node]) {
+                stack.push(edge.getDestination());
+            }
+        }
+    }
+
+    // Add the starting node to make it a cycle
+    traversal.push_back(0);
+
+    double totalDistance = 0.0;
+    for (size_t i = 0; i < traversal.size() - 1; ++i) {
+        int node1 = traversal[i];
+        int node2 = traversal[i + 1];
+        totalDistance += getEdge(node1, node2).getDistance();
+    }
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+    std::cout << "Elapsed time: " << elapsed.count() << " s\n";
+
+    Utility::safe_print("Approximate TSP path using 2-approximation based on triangular inequality (MST):");
+    for (const auto& node : traversal) {
+        std::cout << node << " -> ";
+    }
+    Utility::safe_print("Total distance: "+ std::to_string(totalDistance));
+    int i ;
+    std::cin >>i;
+}
+
+std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
+    std::unordered_map<int, std::vector<Edge>> mst;  // The MST represented as an adj list
+    std::priority_queue<Edge, std::vector<Edge>,std::greater<>> minHeap;  // Min-heap for the edges
+    std::unordered_set<int> visited;
+
+    for (const auto& edge : adjacency_list[0]) {
+        minHeap.push(edge);
+    }
+    visited.insert(0);
+
+    while (!minHeap.empty()) {
+        Edge edge = minHeap.top();
+        minHeap.pop();
+
+        int source = edge.getSource();
+        int destination = edge.getDestination();
+
+        if (visited.count(destination) == 0) {
+            mst[source].push_back(edge);
+
+            visited.insert(destination);
+
+            for (const auto& nextEdge : adjacency_list[destination]) {
+                minHeap.push(nextEdge);
+            }
+        }
+    }
+
+    return mst;
+}
+
+
+
+
 
 
