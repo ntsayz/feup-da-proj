@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_map>
 #include <chrono>
+#include <cmath>
 #include "Edge.h"
 #include "Node.h"
 #include "Utility.h"
@@ -60,7 +61,24 @@ public:
             Utility::safe_print("-----");
         }
         Utility::safe_print("This has " + std::to_string(size) + " nodes");
+
+
     }
+
+    // Constants for Haversine formula
+    const double EARTH_RADIUS_KM = 6371.0;
+    const double PI = 3.141592653589793;
+
+// Add a new data member to store the node data
+    std::unordered_map<int, Node> node_data;
+
+// Function to convert degree to radian
+    double deg2rad(double deg) const {
+        return (deg * PI / 180);
+    }
+
+// Haversine formula to calculate the distance between two points given their latitudes and longitudes
+    double haversine_distance(double lat1, double lon1, double lat2, double lon2);
 
     void solve_tsp_2approximation();
 
@@ -95,12 +113,12 @@ private:
 
     std::unordered_map<int, std::vector<Edge>> createMST();
 
-    void
-    dfs_preorder(const std::unordered_map<int, std::vector<Edge>> &mst, int node,
+    void dfs_preorder(const std::unordered_map<int, std::vector<Edge>> &mst, int node,
                  std::unordered_map<int, bool> &visited,
                  std::vector<int> &preorder);
 
 
+    Edge getEdgeDistance(int node1, int node2);
 };
 //
 #endif //SRC_GRAPH_H

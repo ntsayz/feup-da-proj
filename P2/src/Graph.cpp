@@ -184,7 +184,7 @@ void Graph::solve_tsp_2approximation() {
     for (size_t i = 0; i < traversal.size() - 1; ++i) {
         int node1 = traversal[i];
         int node2 = traversal[i + 1];
-        totalDistance += getEdge(node1, node2).getDistance();
+        totalDistance += getEdgeDistance(node1, node2).getDistance();
     }
 
     auto finish = std::chrono::high_resolution_clock::now();
@@ -199,6 +199,19 @@ void Graph::solve_tsp_2approximation() {
     Utility::safe_print("Total distance: "+ std::to_string(totalDistance));
     int i ;
     std::cin >>i;
+}
+
+Edge Graph::getEdgeDistance(int node1, int node2) {
+    if (adjacency_list.count(node1)) {
+        for(const auto& edge : adjacency_list[node1]){
+            if(edge.getDestination() == node2)
+                return edge;
+        }
+    }
+    // If edge is not in the adjacency list, calculate distance and create an edge
+    double distance = haversine_distance(node_data[node1].getLatitude(), node_data[node1].getLongitude(),
+                                         node_data[node2].getLatitude(), node_data[node2].getLongitude());
+    return Edge(node1, node2, distance);
 }
 
 std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
@@ -230,6 +243,24 @@ std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
     }
 
     return mst;
+}
+
+double Graph::haversine_distance(double lat1, double lon1, double lat2, double lon2) {
+lat1 = deg2rad(lat1);
+lon1 = deg2rad(lon1);
+lat2 = deg2rad(lat2);
+lon2 = deg2rad(lon2);
+
+double dlat = lat2 - lat1;
+double dlon = lon2 - lon1;
+
+double a = pow(sin(dlat / 2), 2) +
+           cos(lat1) * cos(lat2) *
+           pow(sin(dlon / 2), 2);
+
+double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+return EARTH_RADIUS_KM * c;
 }
 
 

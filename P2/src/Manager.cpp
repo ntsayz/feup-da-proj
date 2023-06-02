@@ -45,13 +45,16 @@ bool Manager::load_data() {
         switch (Menu::DataLoader(nodes_fname, edges_fname)) {
             case 1:
                 edges_fname = "../dataset/Toy-Graphs/shipping.csv";
+                nodes_fname = "no file chosen";
                 break;
             case 2:
                 edges_fname = "../dataset/Toy-Graphs/stadiums.csv";
+                nodes_fname = "no file chosen";
                 break;
             case 3:
                 hasLabel = true;
                 edges_fname = "../dataset/Toy-Graphs/tourism.csv";
+                nodes_fname = "no file chosen";
                 break;
             case 4:
                 edges_fname = "../dataset/Real-world Graphs/graph1/edges.csv";
