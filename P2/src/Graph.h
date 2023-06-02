@@ -71,6 +71,8 @@ public:
 
     void fillNodesFromAdjList();
 
+    void solve_tsp_christofides();
+
 private:
     bool hasEdge(int source, int destination);
 
@@ -95,11 +97,13 @@ private:
 
     std::unordered_map<int, std::vector<Edge>> createMST();
 
-    void
-    dfs_preorder(const std::unordered_map<int, std::vector<Edge>> &mst, int node,
-                 std::unordered_map<int, bool> &visited,
-                 std::vector<int> &preorder);
 
+    std::unordered_map<int, std::vector<Edge>>
+    findMinimumSpanningPerfectMatching(const std::unordered_map<int, std::vector<Edge>> &subgraph);
+
+    std::unordered_map<int, std::vector<Edge>> createSubgraph(const std::vector<int> &oddDegreeNodes);
+
+    std::vector<int> findOddDegreeNodes();
 
 };
 //

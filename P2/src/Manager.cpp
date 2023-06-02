@@ -29,6 +29,9 @@ void Manager::main_menu(){
             case 4:
                 graph.printGraph();
                 break;
+            case 5:
+                graph.solve_tsp_christofides();
+                break;
             case 9:
                 globalSession = false;
                 break;

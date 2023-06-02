@@ -7,8 +7,11 @@
 #include "Graph.h"
 
 
+std::vector<int> findEulerianTour(std::unordered_map<int, std::vector<Edge>> map);
 
+std::vector<int> findHamiltonianPath(std::vector<int> vector1);
 
+double calculatePathDistance(std::vector<int> vector1);
 
 void Graph::addNode(int nodeId) {
     nodes.emplace(nodeId, Node(nodeId));
@@ -109,7 +112,7 @@ void Graph::solve_tsp_backtracking() {
     // Print the minimum path
     std::cout << "Minimum Path: ";
     for (const auto& node : minPath) {
-        std::cout << node << " ";
+        std::cout << node << " -> ";
     }
     std::cout << "\nMinimum Distance: " << minDistance << std::endl;
     int choice;
@@ -196,7 +199,7 @@ void Graph::solve_tsp_2approximation() {
     for (const auto& node : traversal) {
         std::cout << node << " -> ";
     }
-    Utility::safe_print("Total distance: "+ std::to_string(totalDistance));
+    Utility::safe_print("\nTotal distance: "+ std::to_string(totalDistance));
     int i ;
     std::cin >>i;
 }
@@ -231,6 +234,126 @@ std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
 
     return mst;
 }
+
+void Graph::solve_tsp_christofides() {
+    auto start = std::chrono::high_resolution_clock::now();
+
+    // Step 1: Create a minimum spanning tree (MST) of the graph
+    std::unordered_map<int, std::vector<Edge>> mst = createMST();
+
+    // Step 2: Find the set of vertices with odd degrees
+    std::vector<int> oddDegreeNodes = findOddDegreeNodes();
+
+    // Step 3: Create a subgraph induced by the odd degree vertices
+    std::unordered_map<int, std::vector<Edge>> subgraph = createSubgraph(oddDegreeNodes);
+
+    // Step 4: Find the minimum spanning perfect matching of the subgraph
+    std::unordered_map<int, std::vector<Edge>> matching = findMinimumSpanningPerfectMatching(subgraph);
+
+    // Step 5: Combine the MST and the matching edges to form a multigraph
+    for (const auto& node : matching) {
+        for (const auto& edge : node.second) {
+            mst[edge.getSource()].push_back(edge);
+            mst[edge.getDestination()].push_back(edge);
+        }
+    }
+
+    // Step 6: Find an Eulerian tour in the multigraph
+    std::vector<int> eulerianTour = findEulerianTour(mst);
+
+    // Step 7: Find a Hamiltonian path from the Eulerian tour
+    std::vector<int> hamiltonianPath = findHamiltonianPath(eulerianTour);
+
+    // Step 8: Calculate the total distance of the Hamiltonian path
+    double minDistance = calculatePathDistance(hamiltonianPath);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+    // Print the results
+    Utility::safe_print("TSP (Christofides) Solution:");
+    Utility::safe_print(std::string("Path: ") + Utility::vectorToString(hamiltonianPath));
+    Utility::safe_print("Total Distance: " + std::to_string(minDistance));
+    Utility::safe_print("Time taken: " + std::to_string(duration.count()) + " milliseconds");
+}
+
+double calculatePathDistance(std::vector<int> vector1) {
+    return 0;
+}
+
+std::vector<int> findHamiltonianPath(std::vector<int> vector1) {
+    return std::vector<int>();
+}
+
+std::vector<int> findEulerianTour(std::unordered_map<int, std::vector<Edge>> map) {
+    return std::vector<int>();
+}
+
+std::vector<int> Graph::findOddDegreeNodes() {
+    std::vector<int> oddDegreeNodes;
+
+    for (const auto& node : nodes) {
+        int nodeId = node.first;
+        if (adjacency_list[nodeId].size() % 2 != 0) {
+            oddDegreeNodes.push_back(nodeId);
+        }
+    }
+
+    return oddDegreeNodes;
+}
+
+std::unordered_map<int, std::vector<Edge>> Graph::createSubgraph(const std::vector<int>& oddDegreeNodes) {
+    std::unordered_map<int, std::vector<Edge>> subgraph;
+
+    for (int node : oddDegreeNodes) {
+        subgraph[node] = adjacency_list[node];
+    }
+
+    return subgraph;
+}
+struct CompareEdge {
+    bool operator()(const Edge& edge1, const Edge& edge2) {
+        return edge1.getDistance() > edge2.getDistance();
+    }
+};
+
+
+std::unordered_map<int, std::vector<Edge>> Graph::findMinimumSpanningPerfectMatching(const std::unordered_map<int, std::vector<Edge>>& subgraph) {
+    std::unordered_map<int, std::vector<Edge>> matching;
+
+    std::unordered_set<int> visited;
+    std::priority_queue<Edge, std::vector<Edge>, CompareEdge> pq;
+
+    // Add all edges from the subgraph to the priority queue
+    for (const auto& node : subgraph) {
+        for (const auto& edge : node.second) {
+            pq.push(edge);
+        }
+    }
+
+    // Construct the minimum spanning perfect matching
+    while (!pq.empty()) {
+        Edge currentEdge = pq.top();
+        pq.pop();
+
+        int source = currentEdge.getSource();
+        int destination = currentEdge.getDestination();
+
+        // Check if adding the edge will form a cycle
+        if (visited.find(source) != visited.end() || visited.find(destination) != visited.end())
+            continue;
+
+        // Add the edge to the matching
+        matching[source].push_back(currentEdge);
+        matching[destination].push_back(currentEdge);
+
+        visited.insert(source);
+        visited.insert(destination);
+    }
+
+    return matching;
+}
+
 
 
 
