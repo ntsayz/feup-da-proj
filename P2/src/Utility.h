@@ -12,6 +12,11 @@
 #include <sstream>
 #include <regex>
 #include "Menu.h"
+#include <iostream>
+#include <mutex>
+
+
+
 /**
     @class Utility
     @brief Seeing that a lot of functionality is used very often, to avoid repeated code we created a helper class that encapsulated and made our easier throughout the development of this application
@@ -19,7 +24,7 @@
 
 class Utility {
 private:
-    static const int LENGTH = 150;
+    static const int LENGTH = 75;
 public:
     /// Auxiliary function, to get a number from user input given a range
     /// \param choice
@@ -65,6 +70,7 @@ public:
     static std::vector<T> loadDataFromCSV(std::string filename,bool hasLabel) {
         std::vector<T> data;
         std::ifstream file(filename);
+        int i = 0;
 
         if (!file.is_open()) {
             std::cerr << "Error: Could not open file " << filename << std::endl;
@@ -73,15 +79,28 @@ public:
 
         std::string line;
         while (std::getline(file, line)) {
+            if(i == 0){
+                i++;
+                continue;
+            }
             std::istringstream iss(line);
             T object = T::fromCSVLine(iss,hasLabel);
             data.push_back(object);
+            i++;
         }
+
 
         return data;
     }
 
     static void footer(std::string text);
+
+    static std::mutex print_mutex;
+
+    static void safe_print(std::string text) {
+        std::lock_guard<std::mutex> lock(print_mutex);
+        std::cout << text << std::endl;
+    }
 };
 
 

@@ -5,27 +5,46 @@
 #include "Edge.h"
 
 
-void Edge::setSource(const std::string &source) {
+int Edge::getSource() const {
+    return source;
+}
+
+void Edge::setSource(int source) {
     Edge::source = source;
 }
 
-const std::string &Edge::getDestination() const {
+int Edge::getDestination() const {
     return destination;
 }
 
-void Edge::setDestination(const std::string &destination) {
+void Edge::setDestination(int destination) {
     Edge::destination = destination;
 }
 
-unsigned int Edge::getCapacity() const {
-    return weight;
+double Edge::getDistance() const {
+    return distance;
 }
 
-void Edge::setWeight(unsigned int weight) {
-    Edge::weight = weight;
+void Edge::setDistance(double distance) {
+    Edge::distance = distance;
 }
 
+const std::optional<std::string> &Edge::getSourceLabel() const {
+    return source_label;
+}
 
-const std::string &Edge::getSource() const {
-    return source;
+void Edge::setSourceLabel(const std::optional<std::string> &sourceLabel) {
+    source_label = sourceLabel;
+}
+
+const std::optional<std::string> &Edge::getDestinationLabel() const {
+    return destination_label;
+}
+
+void Edge::setDestinationLabel(const std::optional<std::string> &destinationLabel) {
+    destination_label = destinationLabel;
+}
+
+Edge::Edge() {
+
 }

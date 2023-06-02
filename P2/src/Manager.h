@@ -12,6 +12,7 @@
 */
 
 #include <string>
+#include <chrono>
 #include "Utility.h"
 #include "Node.h"
 #include "Edge.h"
