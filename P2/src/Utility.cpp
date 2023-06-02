@@ -89,3 +89,7 @@ void Utility::get_filenames(std::string& f1, std::string& f2) {
     }
 }
 
+const char *Utility::vectorToString(std::vector<int> vector1) {
+    return nullptr;
+}
+
