@@ -131,6 +131,15 @@ private:
     std::string curr_nodesfname;
 public:
     void setCurrNodesfname(const std::string &currNodesfname);
+
+    double calculatePathDistance(std::vector<int> &path);
+
+    std::vector<int> findHamiltonianPath(std::vector<int> &eulerianTour);
+
+    std::vector<int> findEulerianTour(std::unordered_map<int, std::vector<Edge>> &graph);
+
+
+    void solve_tsp_nearest_neighbor();
 };
 //
 #endif //SRC_GRAPH_H

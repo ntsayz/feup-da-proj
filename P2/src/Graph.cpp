@@ -7,11 +7,27 @@
 #include "Graph.h"
 
 
-std::vector<int> findEulerianTour(std::unordered_map<int, std::vector<Edge>> map);
+double Graph::haversine_distance(double lat1, double lon1, double lat2, double lon2) {
+    lat1 = deg2rad(lat1);
+    lon1 = deg2rad(lon1);
+    lat2 = deg2rad(lat2);
+    lon2 = deg2rad(lon2);
 
-std::vector<int> findHamiltonianPath(std::vector<int> vector1);
+    double dlat = lat2 - lat1;
+    double dlon = lon2 - lon1;
 
-double calculatePathDistance(std::vector<int> vector1);
+    double a = pow(sin(dlat / 2), 2) +
+               cos(lat1) * cos(lat2) *
+               pow(sin(dlon / 2), 2);
+
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    return EARTH_RADIUS_KM * c;
+}
+
+void Graph::setCurrNodesfname(const std::string &currNodesfname) {
+    curr_nodesfname = currNodesfname;
+}
 
 void Graph::addNode(int nodeId) {
     nodes.emplace(nodeId, Node(nodeId));
@@ -253,27 +269,7 @@ std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
     return mst;
 }
 
-double Graph::haversine_distance(double lat1, double lon1, double lat2, double lon2) {
-lat1 = deg2rad(lat1);
-lon1 = deg2rad(lon1);
-lat2 = deg2rad(lat2);
-lon2 = deg2rad(lon2);
 
-double dlat = lat2 - lat1;
-double dlon = lon2 - lon1;
-
-double a = pow(sin(dlat / 2), 2) +
-           cos(lat1) * cos(lat2) *
-           pow(sin(dlon / 2), 2);
-
-double c = 2 * atan2(sqrt(a), sqrt(1 - a));
-
-return EARTH_RADIUS_KM * c;
-}
-
-void Graph::setCurrNodesfname(const std::string &currNodesfname) {
-    curr_nodesfname = currNodesfname;
-}
 
 void Graph::solve_tsp_christofides() {
     auto start = std::chrono::high_resolution_clock::now();
@@ -317,17 +313,52 @@ void Graph::solve_tsp_christofides() {
     Utility::safe_print("Time taken: " + std::to_string(duration.count()) + " milliseconds");
 }
 
-double calculatePathDistance(std::vector<int> vector1) {
-    return 0;
+
+
+std::vector<int> Graph::findHamiltonianPath(std::vector<int>& eulerianTour) {
+    std::vector<int> hamiltonianPath;
+    std::unordered_set<int> visited;
+    for (int vertex : eulerianTour) {
+        if (visited.count(vertex) == 0) {
+            visited.insert(vertex);
+            hamiltonianPath.push_back(vertex);
+        }
+    }
+    return hamiltonianPath;
 }
 
-std::vector<int> findHamiltonianPath(std::vector<int> vector1) {
-    return std::vector<int>();
+
+std::vector<int> Graph::findEulerianTour(std::unordered_map<int, std::vector<Edge>>& graph) {
+    std::vector<int> tour;
+    std::stack<int> stack;
+    int current_vertex = 0; // Starting from vertex 0
+
+    // Check if graph[current_vertex] exists before accessing it
+    while (!stack.empty() || (graph.find(current_vertex) != graph.end() && !graph[current_vertex].empty())) {
+        if (graph[current_vertex].empty()) {
+            tour.push_back(current_vertex);
+            current_vertex = stack.top();
+            stack.pop();
+        } else {
+            stack.push(current_vertex);
+            int next_vertex = graph[current_vertex].back().getDestination();
+            graph[current_vertex].pop_back();
+            current_vertex = next_vertex;
+        }
+    }
+    tour.push_back(current_vertex); // push the last vertex
+    return tour;
 }
 
-std::vector<int> findEulerianTour(std::unordered_map<int, std::vector<Edge>> map) {
-    return std::vector<int>();
+
+double Graph::calculatePathDistance(std::vector<int>& path) {
+    double totalDistance = 0.0;
+    for (size_t i = 0; i < path.size() - 1; ++i) {
+        totalDistance += getEdge(path[i], path[i+1]).getDistance();
+    }
+    return totalDistance;
 }
+
 
 std::vector<int> Graph::findOddDegreeNodes() {
     std::vector<int> oddDegreeNodes;
@@ -380,7 +411,7 @@ std::unordered_map<int, std::vector<Edge>> Graph::findMinimumSpanningPerfectMatc
         int destination = currentEdge.getDestination();
 
         // Check if adding the edge will form a cycle
-        if (visited.find(source) != visited.end() || visited.find(destination) != visited.end())
+        if (visited.find(source) != visited.end() && visited.find(destination) != visited.end())
             continue;
 
         // Add the edge to the matching
@@ -393,6 +424,131 @@ std::unordered_map<int, std::vector<Edge>> Graph::findMinimumSpanningPerfectMatc
 
     return matching;
 }
+
+void Graph::solve_tsp_nearest_neighbor() {
+    if (adjacency_list.empty()) {
+        return;
+    }
+
+    // Choose an arbitrary start node
+    int startNode = adjacency_list.begin()->first;
+    std::vector<int> path;  // Stores the TSP path
+    std::unordered_set<int> visited;  // Stores visited nodes
+    double totalDistance = 0.0;
+
+    int currentNode = startNode;
+    visited.insert(currentNode);
+    path.push_back(currentNode);
+
+    while (visited.size() < adjacency_list.size()) {
+        int nextNode = -1;
+        double minDistance = INFINITY;
+
+        // Find the closest non-visited node
+        for (const auto& edge : adjacency_list[currentNode]) {
+            if (visited.find(edge.getDestination()) == visited.end()) {
+                double distance = edge.getDistance();
+                if (distance < minDistance) {
+                    nextNode = edge.getDestination();
+                    minDistance = distance;
+                }
+            }
+        }
+
+        visited.insert(nextNode);
+        path.push_back(nextNode);
+        totalDistance += minDistance;  // add the distance to the total
+        currentNode = nextNode;
+    }
+
+    // Add the distance from the last node to the start node
+    totalDistance += getEdgeWeight(currentNode, startNode);
+
+    // Return to the start node to complete the cycle
+    path.push_back(startNode);
+
+    // Print the TSP path
+    Utility::safe_print("Approximate TSP path using Nearest Neighbor heuristic:");
+    for (int i = 0; i < path.size(); ++i) {
+        std::cout << path[i] ;
+        if (i != path.size() - 1) {
+            std::cout <<" -> ";
+        }
+    }
+    Utility::safe_print("\nTotal distance: " + std::to_string(totalDistance));
+    int choice;
+    std::cin >> choice;
+}
+
+void Graph::solve_tsp_nearest_neighbor() {
+    if (adjacency_list.empty()) {
+        return;
+    }
+
+    // Choose an arbitrary start node
+    int startNode = adjacency_list.begin()->first;
+    std::vector<int> path;  // Stores the TSP path
+    std::unordered_set<int> visited;  // Stores visited nodes
+    double totalDistance = 0.0;
+
+    int currentNode = startNode;
+    visited.insert(currentNode);
+    path.push_back(currentNode);
+
+    while (visited.size() < adjacency_list.size()) {
+        int nextNode = -1;
+        double minDistance = INFINITY;
+
+        // Find the closest non-visited node
+        for (const auto& edge : adjacency_list[currentNode]) {
+            if (visited.find(edge.getDestination()) == visited.end()) {
+                double distance = edge.getDistance();
+                if (distance < minDistance) {
+                    nextNode = edge.getDestination();
+                    minDistance = distance;
+                }
+            }
+        }
+
+        // Skip if no nextNode is found
+        if (nextNode == -1) {
+            break;
+        }
+
+        visited.insert(nextNode);
+        path.push_back(nextNode);
+        totalDistance += minDistance;  // add the distance to the total
+        currentNode = nextNode;
+    }
+
+    // Check if there's an edge from the last node to the start node
+    if (adjacency_list[currentNode].end() != find_if(adjacency_list[currentNode].begin(), adjacency_list[currentNode].end(), [&startNode](const Edge& edge) {
+        return edge.getDestination() == startNode;
+    })) {
+        // Add the distance from the last node to the start node
+        totalDistance += getEdgeWeight(currentNode, startNode);
+
+        // Return to the start node to complete the cycle
+        path.push_back(startNode);
+    }
+
+    // Print the TSP path
+    Utility::safe_print("Approximate TSP path using Nearest Neighbor heuristic:");
+    for (int i = 0; i < path.size(); ++i) {
+        std::cout << path[i] ;
+        if (i != path.size() - 1) {
+            std::cout <<" -> ";
+        }
+    }
+    Utility::safe_print("\nTotal distance: " + std::to_string(totalDistance));
+    int choice;
+    std::cin >> choice;
+}
+
+
+
+
+
 
 
 

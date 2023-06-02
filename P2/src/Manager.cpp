@@ -32,6 +32,9 @@ void Manager::main_menu(){
             case 5:
                 graph.solve_tsp_christofides();
                 break;
+            case 6:
+                graph.solve_tsp_nearest_neighbor();
+                break;
             case 9:
                 globalSession = false;
                 break;
