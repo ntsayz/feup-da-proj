@@ -123,6 +123,7 @@ bool Manager::load_data() {
 
     }
 
+    graph.setCurrNodesfname(nodes_fname);
     graph.reset();
 
     std::vector<Edge> edgesVEC = Utility::loadDataFromCSV<Edge>(edges_fname,hasLabel);

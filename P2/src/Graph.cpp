@@ -184,7 +184,12 @@ void Graph::solve_tsp_2approximation() {
     for (size_t i = 0; i < traversal.size() - 1; ++i) {
         int node1 = traversal[i];
         int node2 = traversal[i + 1];
-        totalDistance += getEdgeDistance(node1, node2).getDistance();
+        if(curr_nodesfname != "no files chosen"){
+            totalDistance += getEdgeDistance(node1, node2);
+        }else{
+            totalDistance += getEdge(node1, node2).getDistance();
+        }
+
     }
 
     auto finish = std::chrono::high_resolution_clock::now();
@@ -201,17 +206,17 @@ void Graph::solve_tsp_2approximation() {
     std::cin >>i;
 }
 
-Edge Graph::getEdgeDistance(int node1, int node2) {
+double Graph::getEdgeDistance(int node1, int node2) {
     if (adjacency_list.count(node1)) {
         for(const auto& edge : adjacency_list[node1]){
             if(edge.getDestination() == node2)
-                return edge;
+                return edge.getDistance();
         }
     }
     // If edge is not in the adjacency list, calculate distance and create an edge
-    double distance = haversine_distance(node_data[node1].getLatitude(), node_data[node1].getLongitude(),
+    return  haversine_distance(node_data[node1].getLatitude(), node_data[node1].getLongitude(),
                                          node_data[node2].getLatitude(), node_data[node2].getLongitude());
-    return Edge(node1, node2, distance);
+
 }
 
 std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
@@ -261,6 +266,10 @@ double a = pow(sin(dlat / 2), 2) +
 double c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
 return EARTH_RADIUS_KM * c;
+}
+
+void Graph::setCurrNodesfname(const std::string &currNodesfname) {
+    curr_nodesfname = currNodesfname;
 }
 
 

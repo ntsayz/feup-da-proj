@@ -118,7 +118,11 @@ private:
                  std::vector<int> &preorder);
 
 
-    Edge getEdgeDistance(int node1, int node2);
+    double getEdgeDistance(int node1, int node2);
+
+    std::string curr_nodesfname;
+public:
+    void setCurrNodesfname(const std::string &currNodesfname);
 };
 //
 #endif //SRC_GRAPH_H
