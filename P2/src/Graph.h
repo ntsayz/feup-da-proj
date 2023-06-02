@@ -61,6 +61,8 @@ public:
             Utility::safe_print("-----");
         }
         Utility::safe_print("This has " + std::to_string(size) + " nodes");
+
+
     }
 
     // Constants for Haversine formula

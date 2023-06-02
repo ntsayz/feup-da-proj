@@ -193,6 +193,8 @@ void Graph::solve_tsp_2approximation() {
             totalDistance += getEdge(node1, node2).getDistance();
         }
 
+    }
+
     auto finish = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> elapsed = finish - start;
