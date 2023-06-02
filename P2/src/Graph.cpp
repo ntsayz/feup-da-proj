@@ -7,8 +7,11 @@
 #include "Graph.h"
 
 
+std::vector<int> findEulerianTour(std::unordered_map<int, std::vector<Edge>> map);
 
+std::vector<int> findHamiltonianPath(std::vector<int> vector1);
 
+double calculatePathDistance(std::vector<int> vector1);
 
 void Graph::addNode(int nodeId) {
     nodes.emplace(nodeId, Node(nodeId));
@@ -184,12 +187,7 @@ void Graph::solve_tsp_2approximation() {
     for (size_t i = 0; i < traversal.size() - 1; ++i) {
         int node1 = traversal[i];
         int node2 = traversal[i + 1];
-        if(curr_nodesfname != "no files chosen"){
-            totalDistance += getEdgeDistance(node1, node2);
-        }else{
-            totalDistance += getEdge(node1, node2).getDistance();
-        }
-
+        totalDistance += getEdge(node1, node2).getDistance();
     }
 
     auto finish = std::chrono::high_resolution_clock::now();
@@ -204,19 +202,6 @@ void Graph::solve_tsp_2approximation() {
     Utility::safe_print("Total distance: "+ std::to_string(totalDistance));
     int i ;
     std::cin >>i;
-}
-
-double Graph::getEdgeDistance(int node1, int node2) {
-    if (adjacency_list.count(node1)) {
-        for(const auto& edge : adjacency_list[node1]){
-            if(edge.getDestination() == node2)
-                return edge.getDistance();
-        }
-    }
-    // If edge is not in the adjacency list, calculate distance and create an edge
-    return  haversine_distance(node_data[node1].getLatitude(), node_data[node1].getLongitude(),
-                                         node_data[node2].getLatitude(), node_data[node2].getLongitude());
-
 }
 
 std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
@@ -248,28 +233,6 @@ std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
     }
 
     return mst;
-}
-
-double Graph::haversine_distance(double lat1, double lon1, double lat2, double lon2) {
-lat1 = deg2rad(lat1);
-lon1 = deg2rad(lon1);
-lat2 = deg2rad(lat2);
-lon2 = deg2rad(lon2);
-
-double dlat = lat2 - lat1;
-double dlon = lon2 - lon1;
-
-double a = pow(sin(dlat / 2), 2) +
-           cos(lat1) * cos(lat2) *
-           pow(sin(dlon / 2), 2);
-
-double c = 2 * atan2(sqrt(a), sqrt(1 - a));
-
-return EARTH_RADIUS_KM * c;
-}
-
-void Graph::setCurrNodesfname(const std::string &currNodesfname) {
-    curr_nodesfname = currNodesfname;
 }
 
 

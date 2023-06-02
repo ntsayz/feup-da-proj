@@ -101,6 +101,8 @@ public:
         std::lock_guard<std::mutex> lock(print_mutex);
         std::cout << text << std::endl;
     }
+
+    static const char *vectorToString(std::vector<int> vector1);
 };
 
 
