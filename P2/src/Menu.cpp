@@ -7,11 +7,13 @@ unsigned int Menu::Main() {
     int choice;
     Utility::header("Routing Algorithms for Ocean Shipping and Urban Deliveries");
     Utility::header("Main Menu");
-    Utility::body("Choose",{"1. Choose file(s) to load data from", "2. Backtracking", "3. Triangular Approximation","4. Show data from current Graph", "5. Cristofides","6. NN"});
+    Utility::body("Choose",{"1. Choose file(s) to load data from", "2. Backtracking",
+                            "3. Triangular Approximation","4. Show data from current Graph",
+                            "5. Cristofides","6. Greedy 2opt","7. Nearest Neighbour"});
     Utility::footer("9.Quit");
     std::cin >> choice;
     Utility::clear_screen();
-    return Utility::getInput(choice,1,6);
+    return Utility::getInput(choice,1,7);
 }
 
 

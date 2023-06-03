@@ -21,49 +21,12 @@ public:
  * @param nodeId The ID of the node to be added
  */
     void addNode(int nodeId);
-    void addNode(Node &nodeId);
 
     /**
      * @brief Adds an edge to the graph
      * @param edge The edge to be added
      */
     void addEdge(Edge& edge);
-
-    /**
-     * @brief Returns a vector of all edges going out from a specified node
-     * @param nodeId The ID of the node to get the edges for
-     * @return A vector of all edges going out from the specified node
-     */
-    std::vector<Edge> getEdgesFromNode(int nodeId) const;
-
-    /**
-     * @brief Returns a vector of all edges going into a specified node
-     * @param nodeId The ID of the node to get the edges for
-     * @return A vector of all edges going into the specified node
-     */
-    std::vector<Edge> getEdgesToNode(int nodeId) const;
-
-    /**
-     * @brief Returns a node obj
-     * @param id The id of the node to get
-     * @return Node
-     */
-    Node getNodeObj(int id) const;
-
-    void printGraph() const {
-        auto size = adjacency_list.size();
-
-        for (const auto& node : adjacency_list) {
-            Utility::safe_print("Node " + std::to_string(node.first) + " is connected to:");
-            for (const auto& edge : node.second) {
-                Utility::safe_print("Node "+ std::to_string(edge.getDestination()) + " with a distance of " + std::to_string(edge.getDistance()));
-            }
-            Utility::safe_print("-----");
-        }
-        Utility::safe_print("This has " + std::to_string(size) + " nodes");
-
-
-    }
 
     // Constants for Haversine formula
     const double EARTH_RADIUS_KM = 6371.0;
@@ -93,7 +56,6 @@ public:
 
 private:
     bool hasEdge(int source, int destination);
-
     /**
      * @brief Adjacency list representing all nodes as nodes and edges as edges.
      *        Each node is mapped to a vector of edges going out from that node.
@@ -115,10 +77,6 @@ private:
 
     std::unordered_map<int, std::vector<Edge>> createMST();
 
-    void dfs_preorder(const std::unordered_map<int, std::vector<Edge>> &mst, int node,
-                 std::unordered_map<int, bool> &visited,
-                 std::vector<int> &preorder);
-
     std::unordered_map<int, std::vector<Edge>>
     findMinimumSpanningPerfectMatching(const std::unordered_map<int, std::vector<Edge>> &subgraph);
 
@@ -138,8 +96,15 @@ public:
 
     std::vector<int> findEulerianTour(std::unordered_map<int, std::vector<Edge>> &graph);
 
-
     void solve_tsp_nearest_neighbor();
+
+    void solve_tsp_nearest_neighbor2();
+
+    void greedy_2opt_tsp();
+
+    void printGraph() const;
+
+    std::vector<Edge> getEdgesFromNode(int nodeId) const;
 };
 //
 #endif //SRC_GRAPH_H
