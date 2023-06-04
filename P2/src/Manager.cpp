@@ -21,12 +21,18 @@ void Manager::main_menu(){
                 load_data();
                 break;
             case 2:
-                graph.solve_tsp_backtracking();
+                graph.backtracking_tsp();
                 break;
             case 3:
-                graph.solve_tsp_2approximation();
+                graph.triangular_apprx();
                 break;
             case 4:
+                graph.greedy_2opt_hrstc();
+                break;
+            case 5:
+                graph.nearest_neighbor_hrstc();
+                break;
+            case 6:
                 graph.printGraph();
                 break;
             case 9:

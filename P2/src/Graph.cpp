@@ -4,38 +4,64 @@
 
 #include <queue>
 #include <unordered_set>
+#include <random>
 #include "Graph.h"
 
+void Graph::printGraph() const {
+    auto size = adjacency_list.size();
+
+    for (const auto& node : adjacency_list) {
+        Utility::safe_print("Node " + std::to_string(node.first) + " is connected to:");
+        for (const auto& edge : node.second) {
+            Utility::safe_print("Node "+ std::to_string(edge.getDestination()) + " with a distance of " + std::to_string(edge.getDistance()));
+        }
+        Utility::safe_print("-----");
+    }
+    Utility::safe_print("This has " + std::to_string(size) + " nodes");
 
 
+}
 
+double Graph::haversine_distance(double lat1, double lon1, double lat2, double lon2) {
+    lat1 = deg2rad(lat1);
+    lon1 = deg2rad(lon1);
+    lat2 = deg2rad(lat2);
+    lon2 = deg2rad(lon2);
+
+    double dlat = lat2 - lat1;
+    double dlon = lon2 - lon1;
+
+    double a = pow(sin(dlat / 2), 2) +
+               cos(lat1) * cos(lat2) *
+               pow(sin(dlon / 2), 2);
+
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    return EARTH_RADIUS_KM * c;
+}
+
+void Graph::setCurrNodesfname(const std::string &currNodesfname) {
+    curr_nodesfname = currNodesfname;
+}
 
 void Graph::addNode(int nodeId) {
     nodes.emplace(nodeId, Node(nodeId));
 }
-void Graph::addNode(Node &node) {
-    nodes.emplace(node.getId(),node);
-}
+
 void Graph::addEdge(Edge &edge) {
     adjacency_list[edge.getSource()].push_back(edge);
     Edge reverseEdge = Edge(edge.getDestination(), edge.getSource(), edge.getDistance());
     adjacency_list[reverseEdge.getSource()].push_back(reverseEdge);
 }
 void Graph::fillNodesFromAdjList() {
-    // Iterate over the adjacency list
+    //this will not be pretty code
     for (const auto& entry : adjacency_list) {
-        // Check if the node ID is not already in the nodes unordered_map
         if (nodes.find(entry.first) == nodes.end()) {
-            // Add the node ID and its corresponding Node object to the nodes unordered_map
-            nodes[entry.first] = Node(entry.first);  // Assumes Node(int id) constructor initializes a Node
+            nodes[entry.first] = Node(entry.first);
         }
-
-        // Now iterate over edges for each node in adjacency_list
         for (const auto& edge : entry.second) {
-            // Check if the destination node ID is not already in the nodes unordered_map
             if (nodes.find(edge.getDestination()) == nodes.end()) {
-                // Add the destination node ID and its corresponding Node object to the nodes unordered_map
-                nodes[edge.getDestination()] = Node(edge.getDestination());  // Assumes Node(int id) constructor initializes a Node
+                nodes[edge.getDestination()] = Node(edge.getDestination());
             }
         }
     }
@@ -61,7 +87,7 @@ Edge Graph::getEdge(int source, int destination) {
             }
         }
     }
-    // If the edge is not found, return a default-constructed Edge
+
     return Edge();
 }
 
@@ -84,68 +110,65 @@ void Graph::reset() {
     nodes.clear();
 }
 
-void Graph::solve_tsp_backtracking() {
+void Graph::backtracking_tsp() {
     auto start = std::chrono::high_resolution_clock::now();
-    // Initialize variables
+
     std::vector<int> visited;
     double minDistance = std::numeric_limits<double>::max();
     double currentDistance = 0.0;
     std::vector<int> currentPath;
     std::vector<int> minPath;
 
-    // Start the backtracking algorithm from node 0
     int startingNode = 0;
     visited.push_back(startingNode);
     currentPath.push_back(startingNode);
 
-    // Call the backtracking helper function
-    solve_tsp_backtracking_helper(visited, minDistance, currentDistance, startingNode, currentPath, minPath);
+    backtracking_helper(visited, minDistance, currentDistance, startingNode, currentPath, minPath);
 
     auto finish = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> elapsed = finish - start;
     std::cout << "Elapsed time: " << elapsed.count() << " s\n";
 
-    // Print the minimum path
     std::cout << "Minimum Path: ";
     for (const auto& node : minPath) {
-        std::cout << node << " ";
+        std::cout << node << " -> ";
     }
-    std::cout << "\nMinimum Distance: " << minDistance << std::endl;
+    std::cout << "\nTotal Distance: " << minDistance << std::endl;
     int choice;
     std::cin >> choice;
 }
 
 
-void Graph::solve_tsp_backtracking_helper(std::vector<int>& visited, double& minDistance, double currentDistance, int currentNode, std::vector<int>& currentPath, std::vector<int>& minPath) {
-    // Base case: All nodes have been visited
+void Graph::backtracking_helper(std::vector<int>& visited, double& minDistance, double currentDistance, int currentNode, std::vector<int>& currentPath, std::vector<int>& minPath) {
+
     if (visited.size() == nodes.size()) {
-        // Check if the current tour is better than the minimum tour distance found so far
+        // check se o current path e better than the minimum path distance found ate agora
         if (currentDistance + getEdge(currentNode, 0).getDistance() < minDistance) {
             minDistance = currentDistance + getEdge(currentNode, 0).getDistance();
             minPath = currentPath;
-            minPath.push_back(0);  // Append the starting node to complete the path
+            minPath.push_back(0);
         }
         return;
     }
 
-    // Iterate over all unvisited nodes
+    // itera over all nodes nao visitados
     for (const auto& edge : adjacency_list[currentNode]) {
         int nextNode = edge.getDestination();
 
-        // Check if the next node has been visited
+
         if (std::find(visited.begin(), visited.end(), nextNode) == visited.end()) {
-            // Add the current node to the visited list and path
+
             visited.push_back(nextNode);
             currentPath.push_back(nextNode);
 
-            // Update the current tour distance
+
             currentDistance += edge.getDistance();
 
-            // Recursively call the backtracking function with the next node
-            solve_tsp_backtracking_helper(visited, minDistance, currentDistance, nextNode, currentPath, minPath);
 
-            // Remove the current node from the visited list, path, and update the current tour distance
+            backtracking_helper(visited, minDistance, currentDistance, nextNode, currentPath, minPath);
+
+
             visited.pop_back();
             currentPath.pop_back();
             currentDistance -= edge.getDistance();
@@ -153,12 +176,12 @@ void Graph::solve_tsp_backtracking_helper(std::vector<int>& visited, double& min
     }
 }
 
-void Graph::solve_tsp_2approximation() {
+void Graph::triangular_apprx() {
     auto start = std::chrono::high_resolution_clock::now();
-    // Create MST
+    // create MST
     auto mst = createMST();
 
-    // Traversal of the MST
+    // traverse the MST
     std::vector<int> traversal;
     std::unordered_map<int, bool> visited;
 
@@ -177,7 +200,6 @@ void Graph::solve_tsp_2approximation() {
         }
     }
 
-    // Add the starting node to make it a cycle
     traversal.push_back(0);
 
     double totalDistance = 0.0;
@@ -201,7 +223,7 @@ void Graph::solve_tsp_2approximation() {
     for (const auto& node : traversal) {
         std::cout << node << " -> ";
     }
-    Utility::safe_print("Total distance: "+ std::to_string(totalDistance));
+    Utility::safe_print("\nTotal distance: "+ std::to_string(totalDistance));
     int i ;
     std::cin >>i;
 }
@@ -213,15 +235,15 @@ double Graph::getEdgeDistance(int node1, int node2) {
                 return edge.getDistance();
         }
     }
-    // If edge is not in the adjacency list, calculate distance and create an edge
+    // se a edge nao estiver na adj calcula a distancia a usar haversine (this is important)
     return  haversine_distance(node_data[node1].getLatitude(), node_data[node1].getLongitude(),
                                          node_data[node2].getLatitude(), node_data[node2].getLongitude());
 
 }
 
 std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
-    std::unordered_map<int, std::vector<Edge>> mst;  // The MST represented as an adj list
-    std::priority_queue<Edge, std::vector<Edge>,std::greater<>> minHeap;  // Min-heap for the edges
+    std::unordered_map<int, std::vector<Edge>> mst;
+    std::priority_queue<Edge, std::vector<Edge>,std::greater<>> minHeap;  // min-heap for the edges
     std::unordered_set<int> visited;
 
     for (const auto& edge : adjacency_list[0]) {
@@ -250,27 +272,161 @@ std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
     return mst;
 }
 
-double Graph::haversine_distance(double lat1, double lon1, double lat2, double lon2) {
-lat1 = deg2rad(lat1);
-lon1 = deg2rad(lon1);
-lat2 = deg2rad(lat2);
-lon2 = deg2rad(lon2);
 
-double dlat = lat2 - lat1;
-double dlon = lon2 - lon1;
 
-double a = pow(sin(dlat / 2), 2) +
-           cos(lat1) * cos(lat2) *
-           pow(sin(dlon / 2), 2);
 
-double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+void Graph::nearest_neighbor_hrstc() {
+    auto start = std::chrono::high_resolution_clock::now();
+    if (adjacency_list.empty()) {
+        return;
+    }
 
-return EARTH_RADIUS_KM * c;
+    int startNode = 0;
+    std::vector<int> path;
+    std::unordered_set<int> visited;
+    double totalDistance = 0.0;
+
+    int currentNode = startNode;
+    visited.insert(currentNode);
+    path.push_back(currentNode);
+
+    while (visited.size() < adjacency_list.size()) {
+        int nextNode = -1;
+        double minDistance = INFINITY;
+
+        //find the closest node nao visitado
+        for (const auto& edge : adjacency_list[currentNode]) {
+            if (visited.find(edge.getDestination()) == visited.end()) {
+                double distance = edge.getDistance();
+                if (distance < minDistance) {
+                    nextNode = edge.getDestination();
+                    minDistance = distance;
+                }
+            }
+        }
+
+
+        if (nextNode == -1) {
+            break;
+        }
+
+        visited.insert(nextNode);
+        path.push_back(nextNode);
+        totalDistance += minDistance;  // add the distance to the total
+        currentNode = nextNode;
+    }
+
+    // if the last node in the path is not the start node
+    if (currentNode != startNode) {
+        // find the closest node that has a direct edge to the start node
+        int nextNode = -1;
+        double minDistance = INFINITY;
+        for (const auto& node : path) {
+            auto iter = find_if(adjacency_list[node].begin(), adjacency_list[node].end(), [&startNode](const Edge& edge) {
+                return edge.getDestination() == startNode;
+            });
+            if (iter != adjacency_list[node].end()) {
+                if (iter->getDistance() < minDistance) {
+                    nextNode = node;
+                    minDistance = iter->getDistance();
+                }
+            }
+        }
+        if (nextNode != -1) {
+            totalDistance += getEdgeWeight(currentNode, nextNode) + minDistance;
+            path.push_back(nextNode);
+        }
+        path.push_back(startNode);
+    }
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+    std::cout << "Elapsed time: " << elapsed.count() << " s\n";
+
+
+    Utility::safe_print("Approximate TSP path using Nearest Neighbor heuristic:");
+    for (int i = 0; i < path.size(); ++i) {
+        std::cout << path[i] ;
+        if (i != path.size() - 1) {
+            std::cout <<" -> ";
+        }
+    }
+    Utility::safe_print("\nTotal distance: " + std::to_string(totalDistance));
+    int choice;
+    std::cin >> choice;
 }
 
-void Graph::setCurrNodesfname(const std::string &currNodesfname) {
-    curr_nodesfname = currNodesfname;
+
+void Graph::greedy_2opt_hrstc() {
+    auto start = std::chrono::high_resolution_clock::now();
+
+    std::vector<bool> visited(nodes.size(), false);
+    std::vector<int> path;
+    double total_distance = 0.0;
+
+    int current_node = 0;
+    path.push_back(current_node);
+    visited[current_node] = true;
+
+    while (path.size() < nodes.size()) {
+        double min_distance = std::numeric_limits<double>::max();
+        int closest_node;
+
+        for (const auto& edge : adjacency_list[current_node]) {
+            if (!visited[edge.getDestination()] && edge.getDistance() < min_distance) {
+                min_distance = edge.getDistance();
+                closest_node = edge.getDestination();
+            }
+        }
+
+        current_node = closest_node;
+        path.push_back(current_node);
+        visited[current_node] = true;
+        total_distance += min_distance;
+    }
+
+
+    total_distance += getEdge(current_node, 0).getDistance();
+    path.push_back(0);
+
+    // apply the 2-opt hrstc to improve the tour
+    bool improvement = true;
+    while (improvement) {
+        improvement = false;
+
+        for (int i = 0; i < path.size() - 2; i++) {
+            for (int j = i + 2; j < path.size() - 1; j++) {
+                double old_distance = getEdge(path[i], path[i + 1]).getDistance() + getEdge(path[j], path[j + 1]).getDistance();
+                double new_distance = getEdge(path[i], path[j]).getDistance() + getEdge(path[i + 1], path[j + 1]).getDistance();
+
+                if (new_distance < old_distance) {
+                    std::reverse(path.begin() + i + 1, path.begin() + j + 1);
+                    total_distance = total_distance - old_distance + new_distance; // Update the total distance
+                    improvement = true;
+                }
+            }
+        }
+    }
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+    std::cout << "Elapsed time: " << elapsed.count() << " s\n";
+
+    for (const auto& node : path)
+        std::cout << node << " ";
+    std::cout << std::endl;
+
+    std::cout << "Total distance: " << total_distance << std::endl;
+    int choice;
+    std::cin >> choice;
 }
+
+
+
+
+
 
 
 
