@@ -1,0 +1,175 @@
+.TH "Utility" 3 "Sun Jun 4 2023" "Version 1.0" "DA PROJ 2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Utility \- Seeing that a lot of functionality is used very often, to avoid repeated code we created a helper class that encapsulated and made our easier throughout the development of this application\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Utility\&.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBgetInput\fP (int choice, int min, int max)"
+.br
+.ti -1c
+.RI "static int \fBgetCode\fP (int code)"
+.br
+.ti -1c
+.RI "static void \fBclear_screen\fP ()"
+.br
+.RI "Clear screen (Cross-Platform) "
+.ti -1c
+.RI "static void \fBfooter\fP ()"
+.br
+.RI "Auxiliary function, to print the menu's footer\&. "
+.ti -1c
+.RI "static void \fBheader\fP (const std::string &title)"
+.br
+.RI "Auxiliary function, to print the menu's header\&. "
+.ti -1c
+.RI "static void \fBbody\fP (const std::string &description, std::vector< std::string > options)"
+.br
+.RI "Auxiliary function, to print the menu's body\&. "
+.ti -1c
+.RI "static bool \fBisSubstring\fP (std::string str, std::string sub)"
+.br
+.ti -1c
+.RI "static void \fBget_filenames\fP (std::string &f1, std::string &f2)"
+.br
+.ti -1c
+.RI "template<typename T > static std::vector< T > \fBloadDataFromCSV\fP (std::string filename, bool hasLabel)"
+.br
+.ti -1c
+.RI "static void \fBfooter\fP (std::string text)"
+.br
+.ti -1c
+.RI "static void \fBsafe_print\fP (std::string text)"
+.br
+.ti -1c
+.RI "static const char * \fBvectorToString\fP (std::vector< int > vector1)"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static std::mutex \fBprint_mutex\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Seeing that a lot of functionality is used very often, to avoid repeated code we created a helper class that encapsulated and made our easier throughout the development of this application\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void Utility::body (const std::string & description, std::vector< std::string > options)\fC [static]\fP"
+
+.PP
+Auxiliary function, to print the menu's body\&. 
+.SS "void Utility::clear_screen ()\fC [static]\fP"
+
+.PP
+Clear screen (Cross-Platform) 
+.SS "void Utility::footer ()\fC [static]\fP"
+
+.PP
+Auxiliary function, to print the menu's footer\&. 
+.SS "void Utility::footer (std::string text)\fC [static]\fP"
+
+.SS "void Utility::get_filenames (std::string & f1, std::string & f2)\fC [static]\fP"
+Gets file names from user 
+.PP
+\fBParameters\fP
+.RS 4
+\fIstr\fP String to check 
+.br
+\fIsub\fP Substring 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "static int Utility::getCode (int code)\fC [static]\fP"
+Auxiliary function, to get a number from user input 
+.PP
+\fBParameters\fP
+.RS 4
+\fIcode\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "int Utility::getInput (int choice, int min, int max)\fC [static]\fP"
+Auxiliary function, to get a number from user input given a range 
+.PP
+\fBParameters\fP
+.RS 4
+\fIchoice\fP 
+.br
+\fImin\fP 
+.br
+\fImax\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "void Utility::header (const std::string & title)\fC [static]\fP"
+
+.PP
+Auxiliary function, to print the menu's header\&. 
+.SS "bool Utility::isSubstring (std::string str, std::string sub)\fC [static]\fP"
+Checks if a string is contained in another 
+.PP
+\fBParameters\fP
+.RS 4
+\fIstr\fP String to check 
+.br
+\fIsub\fP Substring 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "template<typename T > static std::vector< T > Utility::loadDataFromCSV (std::string filename, bool hasLabel)\fC [inline]\fP, \fC [static]\fP"
+Loads data from the \&.csv files 
+.PP
+\fBTemplate Parameters\fP
+.RS 4
+\fIT\fP Guarantees that any datatype can be used 
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIfilename\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "static void Utility::safe_print (std::string text)\fC [inline]\fP, \fC [static]\fP"
+
+.SS "const char * Utility::vectorToString (std::vector< int > vector1)\fC [static]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::mutex Utility::print_mutex\fC [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DA PROJ 2 from the source code\&.

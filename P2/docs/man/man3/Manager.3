@@ -1,0 +1,69 @@
+.TH "Manager" 3 "Sun Jun 4 2023" "Version 1.0" "DA PROJ 2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Manager \- Manages the application\&. Stores its most important data structures, manages the application state\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Manager\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBManager\fP ()=default"
+.br
+.RI "\fBManager\fP's constructor\&. "
+.ti -1c
+.RI "void \fBrun\fP ()"
+.br
+.RI "Function to start the application, called by the only instance of the manager function\&. "
+.ti -1c
+.RI "bool \fBload_data\fP ()"
+.br
+.ti -1c
+.RI "void \fBmain_menu\fP ()"
+.br
+.RI "Main menu of the application\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Manages the application\&. Stores its most important data structures, manages the application state\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Manager::Manager ()\fC [default]\fP"
+
+.PP
+\fBManager\fP's constructor\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "bool Manager::load_data ()"
+Function to load the data from the \&.csv files from the dataset\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIfname1\fP Path to nodes file 
+.br
+\fIfname2\fP Path to edges file 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+It compares the size of the data structures that the data was loaded into, to determine if they're according to spec 
+.RE
+.PP
+
+.SS "void Manager::main_menu ()"
+
+.PP
+Main menu of the application\&. 
+.SS "void Manager::run ()"
+
+.PP
+Function to start the application, called by the only instance of the manager function\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DA PROJ 2 from the source code\&.

@@ -1,0 +1,80 @@
+\hypertarget{_edge_8h_source}{}\doxysection{Edge.\+h}
+\mbox{\hyperlink{_edge_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ ntsayz\ on\ 09-\/03-\/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ SRC\_EDGE\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ SRC\_EDGE\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_edge}{Edge}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ source;\ \ \textcolor{comment}{//\ The\ ID\ of\ the\ source\ node}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ destination;\ \ \textcolor{comment}{//\ The\ ID\ of\ the\ destination\ node}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{double}\ distance;\ \ \textcolor{comment}{//\ The\ distance\ of\ the\ edge}}
+\DoxyCodeLine{00023\ \ \ \ \ std::optional<std::string>\ source\_label;\ \ \textcolor{comment}{//\ An\ optional\ label\ for\ the\ source\ node}}
+\DoxyCodeLine{00024\ \ \ \ \ std::optional<std::string>\ destination\_label;\ \ \textcolor{comment}{//\ An\ optional\ label\ for\ the\ destination\ node}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_edge_a3106b11d60125009dbf7a738ce540fdf}{Edge}}();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_edge_a11b606585c3c0f9119100e4b4f455980}{Edge}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ destination,\ \textcolor{keywordtype}{double}\ distance,\ std::optional<std::string>\ source\_label\ =\ \{\},\ std::optional<std::string>\ destination\_label\ =\ \{\})}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ :\ source(source),\ destination(destination),\ distance(distance),\ source\_label(std::move(source\_label)),\ destination\_label(std::move(destination\_label))\ \{\}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_edge}{Edge}}\ \mbox{\hyperlink{class_edge_adb3e1f7701fc8b95df0d0dd75d1b0ce8}{fromCSVLine}}(std::istringstream\&\ iss,\ \textcolor{keywordtype}{bool}\ hasLabels)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::string\ source\_str,\ destination\_str,\ distance\_str;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ std::string\ source\_label\_str,\ destination\_label\_str;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::getline(iss,\ source\_str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::getline(iss,\ destination\_str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::getline(iss,\ distance\_str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ source\ =\ std::stoi(source\_str);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ destination\ =\ std::stoi(destination\_str);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ distance\ =\ std::stod(distance\_str);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{source,\ destination,\ distance\};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (std::invalid\_argument\ \textcolor{keyword}{const}\&\ e)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Bad\ input:\ std::invalid\_argument\ thrown.\ Invalid\ numbers\ in\ line."{}}\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ You\ can\ return\ an\ "{}invalid"{}\ Edge\ here,\ or\ throw\ your\ own\ exception,\ or\ handle\ this\ error\ in\ some\ other\ way.}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (std::out\_of\_range\ \textcolor{keyword}{const}\&\ e)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Integer\ overflow:\ std::out\_of\_range\ thrown"{}}\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Same\ here.}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_edge_ad673f1ad057bc439b048142ec218ec21}{getSource}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_edge_a308e99d51c6c25ce94e609513d86529b}{getDestination}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_edge_afd6d96365c7158f369125bf2958ca511}{getDistance}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_edge_a8289a84d979069420b4ff73933bdedcd}{operator>}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_edge}{Edge}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assuming\ getDistance()\ returns\ the\ weight\ of\ the\ edge}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>\mbox{\hyperlink{class_edge_afd6d96365c7158f369125bf2958ca511}{getDistance}}()\ >\ other.\mbox{\hyperlink{class_edge_afd6d96365c7158f369125bf2958ca511}{getDistance}}();}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_edge_a4ef40a1611642451d3e93af386f6da49}{setDistance}}(\textcolor{keywordtype}{double}\ distance);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_edge_ad9b61f561b2c2e4f91d8f1df2474e982}{setDestination}}(\textcolor{keywordtype}{int}\ destination);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_edge_a016e91188abc49a94ea04255410dfc81}{setSource}}(\textcolor{keywordtype}{int}\ source);}
+\DoxyCodeLine{00111\ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SRC\_EDGE\_H}}
+
+\end{DoxyCode}

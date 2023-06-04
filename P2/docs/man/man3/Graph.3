@@ -1,0 +1,208 @@
+.TH "Graph" 3 "Sun Jun 4 2023" "Version 1.0" "DA PROJ 2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Graph
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Graph\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBaddNode\fP (int nodeId)"
+.br
+.RI "Adds a node ID to the graph\&. "
+.ti -1c
+.RI "void \fBaddEdge\fP (\fBEdge\fP &edge)"
+.br
+.RI "Adds an edge to the graph\&. "
+.ti -1c
+.RI "double \fBdeg2rad\fP (double deg) const"
+.br
+.RI "Converts degree to radian\&. "
+.ti -1c
+.RI "double \fBhaversine_distance\fP (double lat1, double lon1, double lat2, double lon2)"
+.br
+.RI "Calculates the Haversine distance between two points on Earth's surface\&. "
+.ti -1c
+.RI "void \fBtriangular_apprx\fP ()"
+.br
+.RI "Applies the Triangular Approximation algorithm to solve the Traveling Salesman Problem\&. "
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.RI "Resets the graph to its initial state\&. "
+.ti -1c
+.RI "void \fBbacktracking_tsp\fP ()"
+.br
+.RI "Applies the Backtracking algorithm to solve the Traveling Salesman Problem\&. "
+.ti -1c
+.RI "void \fBfillNodesFromAdjList\fP ()"
+.br
+.RI "Fills the node data from the adjacency list\&. "
+.ti -1c
+.RI "void \fBsetCurrNodesfname\fP (const std::string &currNodesfname)"
+.br
+.RI "Sets the current nodes file name\&. "
+.ti -1c
+.RI "void \fBnearest_neighbor_hrstc\fP ()"
+.br
+.RI "Applies the Nearest Neighbor heuristic to solve the Traveling Salesman Problem\&. "
+.ti -1c
+.RI "void \fBgreedy_2opt_hrstc\fP ()"
+.br
+.RI "Applies the Greedy 2-Opt heuristic to solve the Traveling Salesman Problem\&. "
+.ti -1c
+.RI "void \fBprintGraph\fP () const"
+.br
+.RI "Prints the graph\&. "
+.ti -1c
+.RI "std::vector< \fBEdge\fP > \fBgetEdgesFromNode\fP (int nodeId) const"
+.br
+.RI "Returns a vector of edges going out from a specified node\&. "
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "const double \fBEARTH_RADIUS_KM\fP = 6371\&.0"
+.br
+.ti -1c
+.RI "const double \fBPI\fP = 3\&.141592653589793"
+.br
+.ti -1c
+.RI "std::unordered_map< int, \fBNode\fP > \fBnode_data\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void Graph::addEdge (\fBEdge\fP & edge)"
+
+.PP
+Adds an edge to the graph\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIedge\fP The edge to be added 
+.RE
+.PP
+
+.SS "void Graph::addNode (int nodeId)"
+
+.PP
+Adds a node ID to the graph\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fInodeId\fP The ID of the node to be added 
+.RE
+.PP
+
+.SS "void Graph::backtracking_tsp ()"
+
+.PP
+Applies the Backtracking algorithm to solve the Traveling Salesman Problem\&. 
+.SS "double Graph::deg2rad (double deg) const\fC [inline]\fP"
+
+.PP
+Converts degree to radian\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdeg\fP Degree value to convert 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Radian value 
+.RE
+.PP
+
+.SS "void Graph::fillNodesFromAdjList ()"
+
+.PP
+Fills the node data from the adjacency list\&. 
+.SS "std::vector< \fBEdge\fP > Graph::getEdgesFromNode (int nodeId) const"
+
+.PP
+Returns a vector of edges going out from a specified node\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fInodeId\fP The ID of the node to get the edges for 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A vector of edges going out from the specified node 
+.RE
+.PP
+
+.SS "void Graph::greedy_2opt_hrstc ()"
+
+.PP
+Applies the Greedy 2-Opt heuristic to solve the Traveling Salesman Problem\&. 
+.SS "double Graph::haversine_distance (double lat1, double lon1, double lat2, double lon2)"
+
+.PP
+Calculates the Haversine distance between two points on Earth's surface\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlat1\fP Latitude of the first point 
+.br
+\fIlon1\fP Longitude of the first point 
+.br
+\fIlat2\fP Latitude of the second point 
+.br
+\fIlon2\fP Longitude of the second point 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Haversine distance in kilometers 
+.RE
+.PP
+
+.SS "void Graph::nearest_neighbor_hrstc ()"
+
+.PP
+Applies the Nearest Neighbor heuristic to solve the Traveling Salesman Problem\&. 
+.SS "void Graph::printGraph () const"
+
+.PP
+Prints the graph\&. 
+.SS "void Graph::reset ()"
+
+.PP
+Resets the graph to its initial state\&. 
+.SS "void Graph::setCurrNodesfname (const std::string & currNodesfname)"
+
+.PP
+Sets the current nodes file name\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIcurrNodesfname\fP The file name of the nodes 
+.RE
+.PP
+
+.SS "void Graph::triangular_apprx ()"
+
+.PP
+Applies the Triangular Approximation algorithm to solve the Traveling Salesman Problem\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "const double Graph::EARTH_RADIUS_KM = 6371\&.0"
+
+.SS "std::unordered_map<int, \fBNode\fP> Graph::node_data"
+
+.SS "const double Graph::PI = 3\&.141592653589793"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DA PROJ 2 from the source code\&.

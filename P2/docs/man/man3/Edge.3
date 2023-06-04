@@ -1,0 +1,163 @@
+.TH "Edge" 3 "Sun Jun 4 2023" "Version 1.0" "DA PROJ 2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Edge \- Represents an edge between two nodes in a graph\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Edge\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEdge\fP ()"
+.br
+.RI "Default constructor for \fBEdge\fP\&. "
+.ti -1c
+.RI "\fBEdge\fP (int source, int destination, double distance, std::optional< std::string > source_label={}, std::optional< std::string > destination_label={})"
+.br
+.RI "Constructor for \fBEdge\fP with specified source, destination, distance, source_label, and destination_label\&. "
+.ti -1c
+.RI "int \fBgetSource\fP () const"
+.br
+.RI "Getter for the source ID of the edge\&. "
+.ti -1c
+.RI "int \fBgetDestination\fP () const"
+.br
+.RI "Getter for the destination ID of the edge\&. "
+.ti -1c
+.RI "double \fBgetDistance\fP () const"
+.br
+.RI "Getter for the distance of the edge\&. "
+.ti -1c
+.RI "bool \fBoperator>\fP (const \fBEdge\fP &other) const"
+.br
+.RI "Overloaded > operator for comparing edges based on their distances\&. "
+.ti -1c
+.RI "void \fBsetDistance\fP (double distance)"
+.br
+.ti -1c
+.RI "void \fBsetDestination\fP (int destination)"
+.br
+.ti -1c
+.RI "void \fBsetSource\fP (int source)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBEdge\fP \fBfromCSVLine\fP (std::istringstream &iss, bool hasLabels)"
+.br
+.RI "Creates an \fBEdge\fP object from a string in \&.csv format\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Represents an edge between two nodes in a graph\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Edge::Edge ()"
+
+.PP
+Default constructor for \fBEdge\fP\&. 
+.SS "Edge::Edge (int source, int destination, double distance, std::optional< std::string > source_label = \fC{}\fP, std::optional< std::string > destination_label = \fC{}\fP)\fC [inline]\fP"
+
+.PP
+Constructor for \fBEdge\fP with specified source, destination, distance, source_label, and destination_label\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsource\fP The ID of the source node 
+.br
+\fIdestination\fP The ID of the destination node 
+.br
+\fIdistance\fP The distance of the edge 
+.br
+\fIsource_label\fP Optional label for the source node 
+.br
+\fIdestination_label\fP Optional label for the destination node 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "static \fBEdge\fP Edge::fromCSVLine (std::istringstream & iss, bool hasLabels)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+Creates an \fBEdge\fP object from a string in \&.csv format\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIiss\fP An std::istringstream object containing the string from the line in the file 
+.br
+\fIhasLabels\fP Indicates if the CSV contains labels (not used in this code) 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+An \fBEdge\fP object 
+.RE
+.PP
+
+.SS "int Edge::getDestination () const"
+
+.PP
+Getter for the destination ID of the edge\&. 
+.PP
+\fBReturns\fP
+.RS 4
+The ID of the destination node 
+.RE
+.PP
+
+.SS "double Edge::getDistance () const"
+
+.PP
+Getter for the distance of the edge\&. 
+.PP
+\fBReturns\fP
+.RS 4
+The distance of the edge 
+.RE
+.PP
+
+.SS "int Edge::getSource () const"
+
+.PP
+Getter for the source ID of the edge\&. 
+.PP
+\fBReturns\fP
+.RS 4
+The ID of the source node 
+.RE
+.PP
+
+.SS "bool Edge::operator> (const \fBEdge\fP & other) const\fC [inline]\fP"
+
+.PP
+Overloaded > operator for comparing edges based on their distances\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIother\fP The other edge to compare with 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+True if this edge's distance is greater than the other edge's distance, False otherwise 
+.RE
+.PP
+
+.SS "void Edge::setDestination (int destination)"
+
+.SS "void Edge::setDistance (double distance)"
+
+.SS "void Edge::setSource (int source)"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DA PROJ 2 from the source code\&.

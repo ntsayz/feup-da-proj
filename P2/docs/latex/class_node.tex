@@ -1,0 +1,200 @@
+\hypertarget{class_node}{}\doxysection{Node Class Reference}
+\label{class_node}\index{Node@{Node}}
+
+
+Represents a node in a graph.  
+
+
+
+
+{\ttfamily \#include $<$Node.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_node_a98db01d6afb7b7552e89c42d1080e9a3}{Node}} (int id, double latitude, double longitude)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{class_node}{Node}} object with the given ID, latitude, and longitude. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_node_ad7a34779cad45d997bfd6d3d8043c75f}{Node}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \mbox{\hyperlink{class_node}{Node}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_node_a7f1af54cb91467d9717155c8a2ac0fde}{Node}} (int id)
+\begin{DoxyCompactList}\small\item\em Explicit constructor for \mbox{\hyperlink{class_node}{Node}} with only the ID. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_node_a04d6761bf0ead66eb628a6ef5abc34e1}{get\+Id}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the ID of the node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_node_acb4f7b27553efe25aeb0045f5f3b9798}{set\+Id}} (int id)
+\begin{DoxyCompactList}\small\item\em Setter for the ID of the node. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_node_a6a76240688eddc8a2942618074e28c92}{get\+Latitude}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the latitude of the node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_node_ac62ad99961481d9e4b21dd4332717927}{set\+Latitude}} (double latitude)
+\begin{DoxyCompactList}\small\item\em Setter for the latitude of the node. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_node_ad4a79ebbcca46dae4638ffbe4d732399}{get\+Longitude}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the longitude of the node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_node_a1c64b31b2afe1d39a10809da9198a016}{set\+Longitude}} (double longitude)
+\begin{DoxyCompactList}\small\item\em Setter for the longitude of the node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_node}{Node}} \mbox{\hyperlink{class_node_a2522af7c0c2091633ea3762b2601096a}{from\+CSVLine}} (std\+::istringstream \&iss, bool has\+Label)
+\begin{DoxyCompactList}\small\item\em Creates a \mbox{\hyperlink{class_node}{Node}} object from a string in .csv format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a node in a graph. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_node_a98db01d6afb7b7552e89c42d1080e9a3}\label{class_node_a98db01d6afb7b7552e89c42d1080e9a3}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{double}]{latitude,  }\item[{double}]{longitude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \mbox{\hyperlink{class_node}{Node}} object with the given ID, latitude, and longitude. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the node \\
+\hline
+{\em latitude} & The latitude of the node \\
+\hline
+{\em longitude} & The longitude of the node \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_node_ad7a34779cad45d997bfd6d3d8043c75f}\label{class_node_ad7a34779cad45d997bfd6d3d8043c75f}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor for \mbox{\hyperlink{class_node}{Node}}. 
+
+\mbox{\Hypertarget{class_node_a7f1af54cb91467d9717155c8a2ac0fde}\label{class_node_a7f1af54cb91467d9717155c8a2ac0fde}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Explicit constructor for \mbox{\hyperlink{class_node}{Node}} with only the ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the node \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_node_a2522af7c0c2091633ea3762b2601096a}\label{class_node_a2522af7c0c2091633ea3762b2601096a}} 
+\index{Node@{Node}!fromCSVLine@{fromCSVLine}}
+\index{fromCSVLine@{fromCSVLine}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{fromCSVLine()}{fromCSVLine()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{class_node}{Node}} Node\+::from\+CSVLine (\begin{DoxyParamCaption}\item[{std\+::istringstream \&}]{iss,  }\item[{bool}]{has\+Label }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates a \mbox{\hyperlink{class_node}{Node}} object from a string in .csv format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iss} & An std\+::istringstream object containing the string from the line in the file \\
+\hline
+{\em has\+Label} & Indicates if the CSV contains a label (not used in this code) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A \mbox{\hyperlink{class_node}{Node}} object 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_node_a04d6761bf0ead66eb628a6ef5abc34e1}\label{class_node_a04d6761bf0ead66eb628a6ef5abc34e1}} 
+\index{Node@{Node}!getId@{getId}}
+\index{getId@{getId}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily int Node\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter for the ID of the node. 
+
+\begin{DoxyReturn}{Returns}
+The ID of the node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_node_a6a76240688eddc8a2942618074e28c92}\label{class_node_a6a76240688eddc8a2942618074e28c92}} 
+\index{Node@{Node}!getLatitude@{getLatitude}}
+\index{getLatitude@{getLatitude}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getLatitude()}{getLatitude()}}
+{\footnotesize\ttfamily double Node\+::get\+Latitude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter for the latitude of the node. 
+
+\begin{DoxyReturn}{Returns}
+The latitude of the node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_node_ad4a79ebbcca46dae4638ffbe4d732399}\label{class_node_ad4a79ebbcca46dae4638ffbe4d732399}} 
+\index{Node@{Node}!getLongitude@{getLongitude}}
+\index{getLongitude@{getLongitude}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{getLongitude()}{getLongitude()}}
+{\footnotesize\ttfamily double Node\+::get\+Longitude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter for the longitude of the node. 
+
+\begin{DoxyReturn}{Returns}
+The longitude of the node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_node_acb4f7b27553efe25aeb0045f5f3b9798}\label{class_node_acb4f7b27553efe25aeb0045f5f3b9798}} 
+\index{Node@{Node}!setId@{setId}}
+\index{setId@{setId}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setId()}{setId()}}
+{\footnotesize\ttfamily void Node\+::set\+Id (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+
+
+Setter for the ID of the node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the node \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_node_ac62ad99961481d9e4b21dd4332717927}\label{class_node_ac62ad99961481d9e4b21dd4332717927}} 
+\index{Node@{Node}!setLatitude@{setLatitude}}
+\index{setLatitude@{setLatitude}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setLatitude()}{setLatitude()}}
+{\footnotesize\ttfamily void Node\+::set\+Latitude (\begin{DoxyParamCaption}\item[{double}]{latitude }\end{DoxyParamCaption})}
+
+
+
+Setter for the latitude of the node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em latitude} & The latitude of the node \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_node_a1c64b31b2afe1d39a10809da9198a016}\label{class_node_a1c64b31b2afe1d39a10809da9198a016}} 
+\index{Node@{Node}!setLongitude@{setLongitude}}
+\index{setLongitude@{setLongitude}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{setLongitude()}{setLongitude()}}
+{\footnotesize\ttfamily void Node\+::set\+Longitude (\begin{DoxyParamCaption}\item[{double}]{longitude }\end{DoxyParamCaption})}
+
+
+
+Setter for the longitude of the node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em longitude} & The longitude of the node \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_node_8h}{Node.\+h}}\item 
+\mbox{\hyperlink{_node_8cpp}{Node.\+cpp}}\end{DoxyCompactItemize}

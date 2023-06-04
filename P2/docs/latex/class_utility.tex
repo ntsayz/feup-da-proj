@@ -1,0 +1,206 @@
+\hypertarget{class_utility}{}\doxysection{Utility Class Reference}
+\label{class_utility}\index{Utility@{Utility}}
+
+
+Seeing that a lot of functionality is used very often, to avoid repeated code we created a helper class that encapsulated and made our easier throughout the development of this application.  
+
+
+
+
+{\ttfamily \#include $<$Utility.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{class_utility_a39d5d7fb64b8e2ef2cec09ad21019d93}{get\+Input}} (int choice, int min, int max)
+\item 
+static int \mbox{\hyperlink{class_utility_a29edc4ede26ae1888f1c764fe4ff6be2}{get\+Code}} (int code)
+\item 
+static void \mbox{\hyperlink{class_utility_a34f05bd315eda43a811774d7f9d9ec07}{clear\+\_\+screen}} ()
+\begin{DoxyCompactList}\small\item\em Clear screen (Cross-\/\+Platform) \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_utility_a8d34a4c10ae4de754372ab8f6aa8f031}{footer}} ()
+\begin{DoxyCompactList}\small\item\em Auxiliary function, to print the menu\textquotesingle{}s footer. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_utility_a5ca2bdb48ec616350a96753978ec2a70}{header}} (const std\+::string \&title)
+\begin{DoxyCompactList}\small\item\em Auxiliary function, to print the menu\textquotesingle{}s header. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_utility_ae62c4dbbcf6fbbdc2f513c74fb3436d7}{body}} (const std\+::string \&description, std\+::vector$<$ std\+::string $>$ options)
+\begin{DoxyCompactList}\small\item\em Auxiliary function, to print the menu\textquotesingle{}s body. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_utility_afb97f93021d82bda76e9e906e4eeec78}{is\+Substring}} (std\+::string str, std\+::string sub)
+\item 
+static void \mbox{\hyperlink{class_utility_a71e56421b6ac091c585dbdbe1ad783d9}{get\+\_\+filenames}} (std\+::string \&f1, std\+::string \&f2)
+\item 
+{\footnotesize template$<$typename T $>$ }\\static std\+::vector$<$ T $>$ \mbox{\hyperlink{class_utility_a0062a4d66859a1b52923cf195d801a0f}{load\+Data\+From\+CSV}} (std\+::string filename, bool has\+Label)
+\item 
+static void \mbox{\hyperlink{class_utility_afb4ba368ded93576fa0f7ad8310e110b}{footer}} (std\+::string text)
+\item 
+static void \mbox{\hyperlink{class_utility_a365dbdc4c9feca5424e77be3e8290018}{safe\+\_\+print}} (std\+::string text)
+\item 
+static const char $\ast$ \mbox{\hyperlink{class_utility_a2699c8723b5a9c59da75012ada1dd5a3}{vector\+To\+String}} (std\+::vector$<$ int $>$ vector1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::mutex \mbox{\hyperlink{class_utility_afd04ea51804d82d0ab7aa2ac7a123ded}{print\+\_\+mutex}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Seeing that a lot of functionality is used very often, to avoid repeated code we created a helper class that encapsulated and made our easier throughout the development of this application. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_utility_ae62c4dbbcf6fbbdc2f513c74fb3436d7}\label{class_utility_ae62c4dbbcf6fbbdc2f513c74fb3436d7}} 
+\index{Utility@{Utility}!body@{body}}
+\index{body@{body}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{body()}{body()}}
+{\footnotesize\ttfamily void Utility\+::body (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description,  }\item[{std\+::vector$<$ std\+::string $>$}]{options }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Auxiliary function, to print the menu\textquotesingle{}s body. 
+
+\mbox{\Hypertarget{class_utility_a34f05bd315eda43a811774d7f9d9ec07}\label{class_utility_a34f05bd315eda43a811774d7f9d9ec07}} 
+\index{Utility@{Utility}!clear\_screen@{clear\_screen}}
+\index{clear\_screen@{clear\_screen}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{clear\_screen()}{clear\_screen()}}
+{\footnotesize\ttfamily void Utility\+::clear\+\_\+screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Clear screen (Cross-\/\+Platform) 
+
+\mbox{\Hypertarget{class_utility_a8d34a4c10ae4de754372ab8f6aa8f031}\label{class_utility_a8d34a4c10ae4de754372ab8f6aa8f031}} 
+\index{Utility@{Utility}!footer@{footer}}
+\index{footer@{footer}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{footer()}{footer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Utility\+::footer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Auxiliary function, to print the menu\textquotesingle{}s footer. 
+
+\mbox{\Hypertarget{class_utility_afb4ba368ded93576fa0f7ad8310e110b}\label{class_utility_afb4ba368ded93576fa0f7ad8310e110b}} 
+\index{Utility@{Utility}!footer@{footer}}
+\index{footer@{footer}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{footer()}{footer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Utility\+::footer (\begin{DoxyParamCaption}\item[{std\+::string}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_utility_a71e56421b6ac091c585dbdbe1ad783d9}\label{class_utility_a71e56421b6ac091c585dbdbe1ad783d9}} 
+\index{Utility@{Utility}!get\_filenames@{get\_filenames}}
+\index{get\_filenames@{get\_filenames}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{get\_filenames()}{get\_filenames()}}
+{\footnotesize\ttfamily void Utility\+::get\+\_\+filenames (\begin{DoxyParamCaption}\item[{std\+::string \&}]{f1,  }\item[{std\+::string \&}]{f2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Gets file names from user 
+\begin{DoxyParams}{Parameters}
+{\em str} & String to check \\
+\hline
+{\em sub} & Substring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_utility_a29edc4ede26ae1888f1c764fe4ff6be2}\label{class_utility_a29edc4ede26ae1888f1c764fe4ff6be2}} 
+\index{Utility@{Utility}!getCode@{getCode}}
+\index{getCode@{getCode}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{getCode()}{getCode()}}
+{\footnotesize\ttfamily static int Utility\+::get\+Code (\begin{DoxyParamCaption}\item[{int}]{code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Auxiliary function, to get a number from user input 
+\begin{DoxyParams}{Parameters}
+{\em code} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_utility_a39d5d7fb64b8e2ef2cec09ad21019d93}\label{class_utility_a39d5d7fb64b8e2ef2cec09ad21019d93}} 
+\index{Utility@{Utility}!getInput@{getInput}}
+\index{getInput@{getInput}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{getInput()}{getInput()}}
+{\footnotesize\ttfamily int Utility\+::get\+Input (\begin{DoxyParamCaption}\item[{int}]{choice,  }\item[{int}]{min,  }\item[{int}]{max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Auxiliary function, to get a number from user input given a range 
+\begin{DoxyParams}{Parameters}
+{\em choice} & \\
+\hline
+{\em min} & \\
+\hline
+{\em max} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_utility_a5ca2bdb48ec616350a96753978ec2a70}\label{class_utility_a5ca2bdb48ec616350a96753978ec2a70}} 
+\index{Utility@{Utility}!header@{header}}
+\index{header@{header}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{header()}{header()}}
+{\footnotesize\ttfamily void Utility\+::header (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{title }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Auxiliary function, to print the menu\textquotesingle{}s header. 
+
+\mbox{\Hypertarget{class_utility_afb97f93021d82bda76e9e906e4eeec78}\label{class_utility_afb97f93021d82bda76e9e906e4eeec78}} 
+\index{Utility@{Utility}!isSubstring@{isSubstring}}
+\index{isSubstring@{isSubstring}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{isSubstring()}{isSubstring()}}
+{\footnotesize\ttfamily bool Utility\+::is\+Substring (\begin{DoxyParamCaption}\item[{std\+::string}]{str,  }\item[{std\+::string}]{sub }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Checks if a string is contained in another 
+\begin{DoxyParams}{Parameters}
+{\em str} & String to check \\
+\hline
+{\em sub} & Substring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_utility_a0062a4d66859a1b52923cf195d801a0f}\label{class_utility_a0062a4d66859a1b52923cf195d801a0f}} 
+\index{Utility@{Utility}!loadDataFromCSV@{loadDataFromCSV}}
+\index{loadDataFromCSV@{loadDataFromCSV}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{loadDataFromCSV()}{loadDataFromCSV()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+static std\+::vector$<$ T $>$ Utility\+::load\+Data\+From\+CSV (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{bool}]{has\+Label }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Loads data from the .csv files 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Guarantees that any datatype can be used \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_utility_a365dbdc4c9feca5424e77be3e8290018}\label{class_utility_a365dbdc4c9feca5424e77be3e8290018}} 
+\index{Utility@{Utility}!safe\_print@{safe\_print}}
+\index{safe\_print@{safe\_print}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{safe\_print()}{safe\_print()}}
+{\footnotesize\ttfamily static void Utility\+::safe\+\_\+print (\begin{DoxyParamCaption}\item[{std\+::string}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_utility_a2699c8723b5a9c59da75012ada1dd5a3}\label{class_utility_a2699c8723b5a9c59da75012ada1dd5a3}} 
+\index{Utility@{Utility}!vectorToString@{vectorToString}}
+\index{vectorToString@{vectorToString}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{vectorToString()}{vectorToString()}}
+{\footnotesize\ttfamily const char $\ast$ Utility\+::vector\+To\+String (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$}]{vector1 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_utility_afd04ea51804d82d0ab7aa2ac7a123ded}\label{class_utility_afd04ea51804d82d0ab7aa2ac7a123ded}} 
+\index{Utility@{Utility}!print\_mutex@{print\_mutex}}
+\index{print\_mutex@{print\_mutex}!Utility@{Utility}}
+\doxysubsubsection{\texorpdfstring{print\_mutex}{print\_mutex}}
+{\footnotesize\ttfamily std\+::mutex Utility\+::print\+\_\+mutex\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_utility_8h}{Utility.\+h}}\item 
+\mbox{\hyperlink{_utility_8cpp}{Utility.\+cpp}}\end{DoxyCompactItemize}
