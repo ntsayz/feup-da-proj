@@ -284,6 +284,220 @@ std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
 
 
 
+
+void Graph::solve_tsp_nearest_neighbor() {
+    auto start = std::chrono::high_resolution_clock::now();
+    if (adjacency_list.empty()) {
+        return;
+    }
+
+    // Choose an arbitrary start node
+    int startNode = 0;
+    std::vector<int> path;  // Stores the TSP path
+    std::unordered_set<int> visited;  // Stores visited nodes
+    double totalDistance = 0.0;
+
+    int currentNode = startNode;
+    visited.insert(currentNode);
+    path.push_back(currentNode);
+
+    while (visited.size() < adjacency_list.size()) {
+        int nextNode = -1;
+        double minDistance = INFINITY;
+
+        // Find the closest non-visited node
+        for (const auto& edge : adjacency_list[currentNode]) {
+            if (visited.find(edge.getDestination()) == visited.end()) {
+                double distance = edge.getDistance();
+                if (distance < minDistance) {
+                    nextNode = edge.getDestination();
+                    minDistance = distance;
+                }
+            }
+        }
+
+        // Skip if no nextNode is found
+        if (nextNode == -1) {
+            break;
+        }
+
+        visited.insert(nextNode);
+        path.push_back(nextNode);
+        totalDistance += minDistance;  // add the distance to the total
+        currentNode = nextNode;
+    }
+
+    // If the last node in the path is not the start node
+    if (currentNode != startNode) {
+        // Find the closest node that has a direct edge to the start node
+        int nextNode = -1;
+        double minDistance = INFINITY;
+        for (const auto& node : path) {
+            auto iter = find_if(adjacency_list[node].begin(), adjacency_list[node].end(), [&startNode](const Edge& edge) {
+                return edge.getDestination() == startNode;
+            });
+            if (iter != adjacency_list[node].end()) {
+                if (iter->getDistance() < minDistance) {
+                    nextNode = node;
+                    minDistance = iter->getDistance();
+                }
+            }
+        }
+        if (nextNode != -1) {
+            totalDistance += getEdgeWeight(currentNode, nextNode) + minDistance;
+            path.push_back(nextNode);
+        }
+        path.push_back(startNode);
+    }
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+    std::cout << "Elapsed time: " << elapsed.count() << " s\n";
+
+    // Print the TSP path
+    Utility::safe_print("Approximate TSP path using Nearest Neighbor heuristic:");
+    for (int i = 0; i < path.size(); ++i) {
+        std::cout << path[i] ;
+        if (i != path.size() - 1) {
+            std::cout <<" -> ";
+        }
+    }
+    Utility::safe_print("\nTotal distance: " + std::to_string(totalDistance));
+    int choice;
+    std::cin >> choice;
+}
+
+
+void Graph::greedy_2opt_tsp() {
+    auto start = std::chrono::high_resolution_clock::now();
+
+    std::vector<bool> visited(nodes.size(), false);
+    std::vector<int> path;
+    double total_distance = 0.0;
+
+    int current_node = 0;  // Starting node
+    path.push_back(current_node);
+    visited[current_node] = true;
+
+    while (path.size() < nodes.size()) {
+        double min_distance = std::numeric_limits<double>::max();
+        int closest_node;
+
+        for (const auto& edge : adjacency_list[current_node]) {
+            if (!visited[edge.getDestination()] && edge.getDistance() < min_distance) {
+                min_distance = edge.getDistance();
+                closest_node = edge.getDestination();
+            }
+        }
+
+        current_node = closest_node;
+        path.push_back(current_node);
+        visited[current_node] = true;
+        total_distance += min_distance; // Add the distance to the total
+    }
+
+    // Add the distance from the last node to the first one to close the tour.
+    total_distance += getEdge(current_node, 0).getDistance();
+    path.push_back(0);  // Close the tour.
+
+    // Apply the 2-opt heuristic to improve the tour.
+    bool improvement = true;
+    while (improvement) {
+        improvement = false;
+
+        for (int i = 0; i < path.size() - 2; i++) {
+            for (int j = i + 2; j < path.size() - 1; j++) {
+                double old_distance = getEdge(path[i], path[i + 1]).getDistance() + getEdge(path[j], path[j + 1]).getDistance();
+                double new_distance = getEdge(path[i], path[j]).getDistance() + getEdge(path[i + 1], path[j + 1]).getDistance();
+
+                if (new_distance < old_distance) {
+                    std::reverse(path.begin() + i + 1, path.begin() + j + 1);
+                    total_distance = total_distance - old_distance + new_distance; // Update the total distance
+                    improvement = true;
+                }
+            }
+        }
+    }
+
+    auto finish = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = finish - start;
+    std::cout << "Elapsed time: " << elapsed.count() << " s\n";
+
+    for (const auto& node : path)
+        std::cout << node << " ";
+    std::cout << std::endl;
+
+    std::cout << "Total distance: " << total_distance << std::endl;
+    int choice;
+    std::cin >> choice;
+}
+
+/* void Graph::solve_tsp_nearest_neighbor() {
+    if (adjacency_list.empty()) {
+        return;
+    }
+
+    // Choose an arbitrary start node
+    int startNode = 0;
+    std::vector<int> path;  // Stores the TSP path
+    std::unordered_set<int> visited;  // Stores visited nodes
+    double totalDistance = 0.0;
+
+    int currentNode = startNode;
+    visited.insert(currentNode);
+    path.push_back(currentNode);
+
+    while (visited.size() < adjacency_list.size()) {
+        int nextNode = -1;
+        double minDistance = INFINITY;
+
+        // Find the closest non-visited node
+        for (const auto& edge : adjacency_list[currentNode]) {
+            if (visited.find(edge.getDestination()) == visited.end()) {
+                double distance = edge.getDistance();
+                if (distance < minDistance) {
+                    nextNode = edge.getDestination();
+                    minDistance = distance;
+                }
+            }
+        }
+
+        // Break if no nextNode is found (graph is not fully connected)
+        if (nextNode == -1) {
+            break;
+        }
+
+        visited.insert(nextNode);
+        path.push_back(nextNode);
+        totalDistance += minDistance;  // add the distance to the total
+        currentNode = nextNode;
+    }
+
+    // Always add the distance back to the start node
+    if (currentNode != startNode) {
+        for (const auto& edge : adjacency_list[currentNode]) {
+            if (edge.getDestination() == startNode) {
+                totalDistance += edge.getDistance();
+                path.push_back(startNode);
+                break;
+            }
+        }
+    }
+
+    // Print the TSP path
+    Utility::safe_print("Approximate TSP path using Nearest Neighbor heuristic:");
+    for (int i = 0; i < path.size(); ++i) {
+        std::cout << path[i] ;
+        if (i != path.size() - 1) {
+            std::cout <<" -> ";
+        }
+    }
+    Utility::safe_print("\nTotal distance: " + std::to_string(totalDistance));
+}
+
+
 void Graph::solve_tsp_christofides() {
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -438,265 +652,7 @@ std::unordered_map<int, std::vector<Edge>> Graph::findMinimumSpanningPerfectMatc
     return matching;
 }
 
-void Graph::solve_tsp_nearest_neighbor() {
-    if (adjacency_list.empty()) {
-        return;
-    }
-
-    // Choose an arbitrary start node
-    int startNode = 0;
-    std::vector<int> path;  // Stores the TSP path
-    std::unordered_set<int> visited;  // Stores visited nodes
-    double totalDistance = 0.0;
-
-    int currentNode = startNode;
-    visited.insert(currentNode);
-    path.push_back(currentNode);
-
-    while (visited.size() < adjacency_list.size()) {
-        int nextNode = -1;
-        double minDistance = INFINITY;
-
-        // Find the closest non-visited node
-        for (const auto& edge : adjacency_list[currentNode]) {
-            if (visited.find(edge.getDestination()) == visited.end()) {
-                double distance = edge.getDistance();
-                if (distance < minDistance) {
-                    nextNode = edge.getDestination();
-                    minDistance = distance;
-                }
-            }
-        }
-
-        // Skip if no nextNode is found
-        if (nextNode == -1) {
-            break;
-        }
-
-        visited.insert(nextNode);
-        path.push_back(nextNode);
-        totalDistance += minDistance;  // add the distance to the total
-        currentNode = nextNode;
-    }
-
-    // If the last node in the path is not the start node
-    if (currentNode != startNode) {
-        // Find the closest node that has a direct edge to the start node
-        int nextNode = -1;
-        double minDistance = INFINITY;
-        for (const auto& node : path) {
-            auto iter = find_if(adjacency_list[node].begin(), adjacency_list[node].end(), [&startNode](const Edge& edge) {
-                return edge.getDestination() == startNode;
-            });
-            if (iter != adjacency_list[node].end()) {
-                if (iter->getDistance() < minDistance) {
-                    nextNode = node;
-                    minDistance = iter->getDistance();
-                }
-            }
-        }
-        if (nextNode != -1) {
-            totalDistance += getEdgeWeight(currentNode, nextNode) + minDistance;
-            path.push_back(nextNode);
-        }
-        path.push_back(startNode);
-    }
-
-    // Print the TSP path
-    Utility::safe_print("Approximate TSP path using Nearest Neighbor heuristic:");
-    for (int i = 0; i < path.size(); ++i) {
-        std::cout << path[i] ;
-        if (i != path.size() - 1) {
-            std::cout <<" -> ";
-        }
-    }
-    Utility::safe_print("\nTotal distance: " + std::to_string(totalDistance));
-    int choice;
-    std::cin >> choice;
-}
-
-
-
-// Nearest Neighbor heuristic
-void Graph::solve_tsp_nearest_neighbor2() {
-    if(nodes.empty())
-        return;
-
-    std::unordered_map<int, bool> visited;
-    double total_distance = 0.0; // Initialize total distance to 0
-
-    for(auto& node : nodes)
-        visited[node.first] = false;
-
-    // Choose an arbitrary starting node. We'll choose the first one for simplicity
-    int start_node_id = 0;
-
-    std::vector<int> path; // Holds the final path of the TSP tour
-    path.push_back(start_node_id);
-
-    visited[start_node_id] = true; // Mark the starting node as visited
-
-    int current_node_id = start_node_id; // Begin the tour from the starting node
-    int next_node_id;
-
-    // While not all nodes have been visited, find the closest node and visit it
-    while(path.size() < nodes.size()) {
-        double min_distance = std::numeric_limits<double>::max(); // Initialize min_distance to a large value
-        int next_node_id;
-
-        for(auto& edge : adjacency_list[current_node_id]) {
-            // Check if the node has been visited and if the distance to the node is less than the current min_distance
-            if(!visited[edge.getDestination()] && edge.getDistance() < min_distance) {
-                min_distance = edge.getDistance(); // Update the min_distance
-                next_node_id = edge.getDestination(); // Update the next node to visit
-            }
-        }
-
-        if (visited[next_node_id]) {
-            break;
-        }
-
-        visited[next_node_id] = true; // Mark the next node as visited
-        path.push_back(next_node_id); // Add the next node to the tour path
-        total_distance += min_distance; // Add the distance to the next node to the total distance
-        current_node_id = next_node_id; // Move to the next node
-    }
-
-    // Add the distance back to the start node to complete the tour
-    total_distance += getEdgeWeight(current_node_id, start_node_id);
-    path.push_back(start_node_id);
-
-    // You can now print the path or return it or do whatever you want with it
-    for(auto& node_id : path)
-        std::cout << node_id << " ";
-    std::cout << "\nTotal distance: " << total_distance << std::endl;
-
-    int choice;
-    std::cin >> choice;
-}
-
-void Graph::greedy_2opt_tsp() {
-    // Use a greedy algorithm to generate an initial tour.
-    std::vector<bool> visited(nodes.size(), false);
-    std::vector<int> path;
-    double total_distance = 0.0;
-
-    int current_node = 0;  // Starting node
-    path.push_back(current_node);
-    visited[current_node] = true;
-
-    while (path.size() < nodes.size()) {
-        double min_distance = std::numeric_limits<double>::max();
-        int closest_node;
-
-        for (const auto& edge : adjacency_list[current_node]) {
-            if (!visited[edge.getDestination()] && edge.getDistance() < min_distance) {
-                min_distance = edge.getDistance();
-                closest_node = edge.getDestination();
-            }
-        }
-
-        current_node = closest_node;
-        path.push_back(current_node);
-        visited[current_node] = true;
-        total_distance += min_distance; // Add the distance to the total
-    }
-
-    // Add the distance from the last node to the first one to close the tour.
-    total_distance += getEdge(current_node, 0).getDistance();
-    path.push_back(0);  // Close the tour.
-
-    // Apply the 2-opt heuristic to improve the tour.
-    bool improvement = true;
-    while (improvement) {
-        improvement = false;
-
-        for (int i = 0; i < path.size() - 2; i++) {
-            for (int j = i + 2; j < path.size() - 1; j++) {
-                double old_distance = getEdge(path[i], path[i + 1]).getDistance() + getEdge(path[j], path[j + 1]).getDistance();
-                double new_distance = getEdge(path[i], path[j]).getDistance() + getEdge(path[i + 1], path[j + 1]).getDistance();
-
-                if (new_distance < old_distance) {
-                    std::reverse(path.begin() + i + 1, path.begin() + j + 1);
-                    total_distance = total_distance - old_distance + new_distance; // Update the total distance
-                    improvement = true;
-                }
-            }
-        }
-    }
-
-    // Now, you can print the path and the total distance:
-    for (const auto& node : path)
-        std::cout << node << " ";
-    std::cout << std::endl;
-
-    std::cout << "Total distance: " << total_distance << std::endl;
-    int choice;
-    std::cin >> choice;
-}
-
-/* void Graph::solve_tsp_nearest_neighbor() {
-    if (adjacency_list.empty()) {
-        return;
-    }
-
-    // Choose an arbitrary start node
-    int startNode = 0;
-    std::vector<int> path;  // Stores the TSP path
-    std::unordered_set<int> visited;  // Stores visited nodes
-    double totalDistance = 0.0;
-
-    int currentNode = startNode;
-    visited.insert(currentNode);
-    path.push_back(currentNode);
-
-    while (visited.size() < adjacency_list.size()) {
-        int nextNode = -1;
-        double minDistance = INFINITY;
-
-        // Find the closest non-visited node
-        for (const auto& edge : adjacency_list[currentNode]) {
-            if (visited.find(edge.getDestination()) == visited.end()) {
-                double distance = edge.getDistance();
-                if (distance < minDistance) {
-                    nextNode = edge.getDestination();
-                    minDistance = distance;
-                }
-            }
-        }
-
-        // Break if no nextNode is found (graph is not fully connected)
-        if (nextNode == -1) {
-            break;
-        }
-
-        visited.insert(nextNode);
-        path.push_back(nextNode);
-        totalDistance += minDistance;  // add the distance to the total
-        currentNode = nextNode;
-    }
-
-    // Always add the distance back to the start node
-    if (currentNode != startNode) {
-        for (const auto& edge : adjacency_list[currentNode]) {
-            if (edge.getDestination() == startNode) {
-                totalDistance += edge.getDistance();
-                path.push_back(startNode);
-                break;
-            }
-        }
-    }
-
-    // Print the TSP path
-    Utility::safe_print("Approximate TSP path using Nearest Neighbor heuristic:");
-    for (int i = 0; i < path.size(); ++i) {
-        std::cout << path[i] ;
-        if (i != path.size() - 1) {
-            std::cout <<" -> ";
-        }
-    }
-    Utility::safe_print("\nTotal distance: " + std::to_string(totalDistance));
-}*/
+ */
 
 
 

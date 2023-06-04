@@ -27,16 +27,13 @@ void Manager::main_menu(){
                 graph.solve_tsp_2approximation();
                 break;
             case 4:
-                graph.printGraph();
-                break;
-            case 5:
-                graph.solve_tsp_christofides();
-                break;
-            case 6:
                 graph.greedy_2opt_tsp();
                 break;
-            case 7:
+            case 5:
                 graph.solve_tsp_nearest_neighbor();
+                break;
+            case 6:
+                graph.printGraph();
                 break;
             case 9:
                 globalSession = false;
