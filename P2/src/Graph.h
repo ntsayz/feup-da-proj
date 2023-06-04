@@ -73,6 +73,7 @@ public:
      */
     void fillNodesFromAdjList();
 
+    std::unordered_map<int, Node> node_data;
     /**
      * @brief Sets the current nodes file name
      * @param currNodesfname The file name of the nodes
@@ -164,8 +165,6 @@ private:
     double getEdgeDistance(int node1, int node2);
 
     std::string curr_nodesfname;
-
-public:
 
 };
 
