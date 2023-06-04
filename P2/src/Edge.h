@@ -102,6 +102,12 @@ public:
         // Assuming getDistance() returns the weight of the edge
         return this->getDistance() > other.getDistance();
     }
+
+    void setDistance(double distance);
+
+    void setDestination(int destination);
+
+    void setSource(int source);
 };
 
 #endif //SRC_EDGE_H
