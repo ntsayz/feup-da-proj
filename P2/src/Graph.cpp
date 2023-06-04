@@ -54,20 +54,14 @@ void Graph::addEdge(Edge &edge) {
     adjacency_list[reverseEdge.getSource()].push_back(reverseEdge);
 }
 void Graph::fillNodesFromAdjList() {
-    // Iterate over the adjacency list
+    //this will not be pretty code
     for (const auto& entry : adjacency_list) {
-        // Check if the node ID is not already in the nodes unordered_map
         if (nodes.find(entry.first) == nodes.end()) {
-            // Add the node ID and its corresponding Node object to the nodes unordered_map
-            nodes[entry.first] = Node(entry.first);  // Assumes Node(int id) constructor initializes a Node
+            nodes[entry.first] = Node(entry.first);
         }
-
-        // Now iterate over edges for each node in adjacency_list
         for (const auto& edge : entry.second) {
-            // Check if the destination node ID is not already in the nodes unordered_map
             if (nodes.find(edge.getDestination()) == nodes.end()) {
-                // Add the destination node ID and its corresponding Node object to the nodes unordered_map
-                nodes[edge.getDestination()] = Node(edge.getDestination());  // Assumes Node(int id) constructor initializes a Node
+                nodes[edge.getDestination()] = Node(edge.getDestination());
             }
         }
     }
@@ -93,7 +87,7 @@ Edge Graph::getEdge(int source, int destination) {
             }
         }
     }
-    // If the edge is not found, return a default-constructed Edge
+
     return Edge();
 }
 
@@ -116,68 +110,65 @@ void Graph::reset() {
     nodes.clear();
 }
 
-void Graph::solve_tsp_backtracking() {
+void Graph::backtracking_tsp() {
     auto start = std::chrono::high_resolution_clock::now();
-    // Initialize variables
+
     std::vector<int> visited;
     double minDistance = std::numeric_limits<double>::max();
     double currentDistance = 0.0;
     std::vector<int> currentPath;
     std::vector<int> minPath;
 
-    // Start the backtracking algorithm from node 0
     int startingNode = 0;
     visited.push_back(startingNode);
     currentPath.push_back(startingNode);
 
-    // Call the backtracking helper function
-    solve_tsp_backtracking_helper(visited, minDistance, currentDistance, startingNode, currentPath, minPath);
+    backtracking_helper(visited, minDistance, currentDistance, startingNode, currentPath, minPath);
 
     auto finish = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> elapsed = finish - start;
     std::cout << "Elapsed time: " << elapsed.count() << " s\n";
 
-    // Print the minimum path
     std::cout << "Minimum Path: ";
     for (const auto& node : minPath) {
         std::cout << node << " -> ";
     }
-    std::cout << "\nMinimum Distance: " << minDistance << std::endl;
+    std::cout << "\nTotal Distance: " << minDistance << std::endl;
     int choice;
     std::cin >> choice;
 }
 
 
-void Graph::solve_tsp_backtracking_helper(std::vector<int>& visited, double& minDistance, double currentDistance, int currentNode, std::vector<int>& currentPath, std::vector<int>& minPath) {
-    // Base case: All nodes have been visited
+void Graph::backtracking_helper(std::vector<int>& visited, double& minDistance, double currentDistance, int currentNode, std::vector<int>& currentPath, std::vector<int>& minPath) {
+
     if (visited.size() == nodes.size()) {
-        // Check if the current tour is better than the minimum tour distance found so far
+        // check se o current path e better than the minimum path distance found ate agora
         if (currentDistance + getEdge(currentNode, 0).getDistance() < minDistance) {
             minDistance = currentDistance + getEdge(currentNode, 0).getDistance();
             minPath = currentPath;
-            minPath.push_back(0);  // Append the starting node to complete the path
+            minPath.push_back(0);
         }
         return;
     }
 
-    // Iterate over all unvisited nodes
+    // itera over all nodes nao visitados
     for (const auto& edge : adjacency_list[currentNode]) {
         int nextNode = edge.getDestination();
 
-        // Check if the next node has been visited
+
         if (std::find(visited.begin(), visited.end(), nextNode) == visited.end()) {
-            // Add the current node to the visited list and path
+
             visited.push_back(nextNode);
             currentPath.push_back(nextNode);
 
-            // Update the current tour distance
+
             currentDistance += edge.getDistance();
 
-            // Recursively call the backtracking function with the next node
-            solve_tsp_backtracking_helper(visited, minDistance, currentDistance, nextNode, currentPath, minPath);
 
-            // Remove the current node from the visited list, path, and update the current tour distance
+            backtracking_helper(visited, minDistance, currentDistance, nextNode, currentPath, minPath);
+
+
             visited.pop_back();
             currentPath.pop_back();
             currentDistance -= edge.getDistance();
@@ -185,12 +176,12 @@ void Graph::solve_tsp_backtracking_helper(std::vector<int>& visited, double& min
     }
 }
 
-void Graph::solve_tsp_2approximation() {
+void Graph::triangular_apprx() {
     auto start = std::chrono::high_resolution_clock::now();
-    // Create MST
+    // create MST
     auto mst = createMST();
 
-    // Traversal of the MST
+    // traverse the MST
     std::vector<int> traversal;
     std::unordered_map<int, bool> visited;
 
@@ -209,7 +200,6 @@ void Graph::solve_tsp_2approximation() {
         }
     }
 
-    // Add the starting node to make it a cycle
     traversal.push_back(0);
 
     double totalDistance = 0.0;
@@ -245,15 +235,15 @@ double Graph::getEdgeDistance(int node1, int node2) {
                 return edge.getDistance();
         }
     }
-    // If edge is not in the adjacency list, calculate distance and create an edge
+    // se a edge nao estiver na adj calcula a distancia a usar haversine (this is important)
     return  haversine_distance(node_data[node1].getLatitude(), node_data[node1].getLongitude(),
                                          node_data[node2].getLatitude(), node_data[node2].getLongitude());
 
 }
 
 std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
-    std::unordered_map<int, std::vector<Edge>> mst;  // The MST represented as an adj list
-    std::priority_queue<Edge, std::vector<Edge>,std::greater<>> minHeap;  // Min-heap for the edges
+    std::unordered_map<int, std::vector<Edge>> mst;
+    std::priority_queue<Edge, std::vector<Edge>,std::greater<>> minHeap;  // min-heap for the edges
     std::unordered_set<int> visited;
 
     for (const auto& edge : adjacency_list[0]) {
@@ -285,16 +275,15 @@ std::unordered_map<int, std::vector<Edge>> Graph::createMST() {
 
 
 
-void Graph::solve_tsp_nearest_neighbor() {
+void Graph::nearest_neighbor_hrstc() {
     auto start = std::chrono::high_resolution_clock::now();
     if (adjacency_list.empty()) {
         return;
     }
 
-    // Choose an arbitrary start node
     int startNode = 0;
-    std::vector<int> path;  // Stores the TSP path
-    std::unordered_set<int> visited;  // Stores visited nodes
+    std::vector<int> path;
+    std::unordered_set<int> visited;
     double totalDistance = 0.0;
 
     int currentNode = startNode;
@@ -305,7 +294,7 @@ void Graph::solve_tsp_nearest_neighbor() {
         int nextNode = -1;
         double minDistance = INFINITY;
 
-        // Find the closest non-visited node
+        //find the closest node nao visitado
         for (const auto& edge : adjacency_list[currentNode]) {
             if (visited.find(edge.getDestination()) == visited.end()) {
                 double distance = edge.getDistance();
@@ -316,7 +305,7 @@ void Graph::solve_tsp_nearest_neighbor() {
             }
         }
 
-        // Skip if no nextNode is found
+
         if (nextNode == -1) {
             break;
         }
@@ -327,9 +316,9 @@ void Graph::solve_tsp_nearest_neighbor() {
         currentNode = nextNode;
     }
 
-    // If the last node in the path is not the start node
+    // if the last node in the path is not the start node
     if (currentNode != startNode) {
-        // Find the closest node that has a direct edge to the start node
+        // find the closest node that has a direct edge to the start node
         int nextNode = -1;
         double minDistance = INFINITY;
         for (const auto& node : path) {
@@ -355,7 +344,7 @@ void Graph::solve_tsp_nearest_neighbor() {
     std::chrono::duration<double> elapsed = finish - start;
     std::cout << "Elapsed time: " << elapsed.count() << " s\n";
 
-    // Print the TSP path
+
     Utility::safe_print("Approximate TSP path using Nearest Neighbor heuristic:");
     for (int i = 0; i < path.size(); ++i) {
         std::cout << path[i] ;
@@ -369,14 +358,14 @@ void Graph::solve_tsp_nearest_neighbor() {
 }
 
 
-void Graph::greedy_2opt_tsp() {
+void Graph::greedy_2opt_hrstc() {
     auto start = std::chrono::high_resolution_clock::now();
 
     std::vector<bool> visited(nodes.size(), false);
     std::vector<int> path;
     double total_distance = 0.0;
 
-    int current_node = 0;  // Starting node
+    int current_node = 0;
     path.push_back(current_node);
     visited[current_node] = true;
 
@@ -394,14 +383,14 @@ void Graph::greedy_2opt_tsp() {
         current_node = closest_node;
         path.push_back(current_node);
         visited[current_node] = true;
-        total_distance += min_distance; // Add the distance to the total
+        total_distance += min_distance;
     }
 
-    // Add the distance from the last node to the first one to close the tour.
-    total_distance += getEdge(current_node, 0).getDistance();
-    path.push_back(0);  // Close the tour.
 
-    // Apply the 2-opt heuristic to improve the tour.
+    total_distance += getEdge(current_node, 0).getDistance();
+    path.push_back(0);
+
+    // apply the 2-opt hrstc to improve the tour
     bool improvement = true;
     while (improvement) {
         improvement = false;
@@ -433,226 +422,6 @@ void Graph::greedy_2opt_tsp() {
     int choice;
     std::cin >> choice;
 }
-
-/* void Graph::solve_tsp_nearest_neighbor() {
-    if (adjacency_list.empty()) {
-        return;
-    }
-
-    // Choose an arbitrary start node
-    int startNode = 0;
-    std::vector<int> path;  // Stores the TSP path
-    std::unordered_set<int> visited;  // Stores visited nodes
-    double totalDistance = 0.0;
-
-    int currentNode = startNode;
-    visited.insert(currentNode);
-    path.push_back(currentNode);
-
-    while (visited.size() < adjacency_list.size()) {
-        int nextNode = -1;
-        double minDistance = INFINITY;
-
-        // Find the closest non-visited node
-        for (const auto& edge : adjacency_list[currentNode]) {
-            if (visited.find(edge.getDestination()) == visited.end()) {
-                double distance = edge.getDistance();
-                if (distance < minDistance) {
-                    nextNode = edge.getDestination();
-                    minDistance = distance;
-                }
-            }
-        }
-
-        // Break if no nextNode is found (graph is not fully connected)
-        if (nextNode == -1) {
-            break;
-        }
-
-        visited.insert(nextNode);
-        path.push_back(nextNode);
-        totalDistance += minDistance;  // add the distance to the total
-        currentNode = nextNode;
-    }
-
-    // Always add the distance back to the start node
-    if (currentNode != startNode) {
-        for (const auto& edge : adjacency_list[currentNode]) {
-            if (edge.getDestination() == startNode) {
-                totalDistance += edge.getDistance();
-                path.push_back(startNode);
-                break;
-            }
-        }
-    }
-
-    // Print the TSP path
-    Utility::safe_print("Approximate TSP path using Nearest Neighbor heuristic:");
-    for (int i = 0; i < path.size(); ++i) {
-        std::cout << path[i] ;
-        if (i != path.size() - 1) {
-            std::cout <<" -> ";
-        }
-    }
-    Utility::safe_print("\nTotal distance: " + std::to_string(totalDistance));
-}
-
-
-void Graph::solve_tsp_christofides() {
-    auto start = std::chrono::high_resolution_clock::now();
-
-    // Step 1: Create a minimum spanning tree (MST) of the graph
-    std::unordered_map<int, std::vector<Edge>> mst = createMST();
-
-    // Step 2: Find the set of vertices with odd degrees
-    std::vector<int> oddDegreeNodes = findOddDegreeNodes();
-
-    // Step 3: Create a subgraph induced by the odd degree vertices
-    std::unordered_map<int, std::vector<Edge>> subgraph = createSubgraph(oddDegreeNodes);
-
-    // Step 4: Find the minimum spanning perfect matching of the subgraph
-    std::unordered_map<int, std::vector<Edge>> matching = findMinimumSpanningPerfectMatching(subgraph);
-
-    // Step 5: Combine the MST and the matching edges to form a multigraph
-    for (const auto& node : matching) {
-        for (const auto& edge : node.second) {
-            mst[edge.getSource()].push_back(edge);
-            mst[edge.getDestination()].push_back(edge);
-        }
-    }
-
-    // Step 6: Find an Eulerian tour in the multigraph
-    std::vector<int> eulerianTour = findEulerianTour(mst);
-
-    // Step 7: Find a Hamiltonian path from the Eulerian tour
-    std::vector<int> hamiltonianPath = findHamiltonianPath(eulerianTour);
-
-    // Step 8: Calculate the total distance of the Hamiltonian path
-    double minDistance = calculatePathDistance(hamiltonianPath);
-
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-
-    // Print the results
-    Utility::safe_print("TSP (Christofides) Solution:");
-    Utility::safe_print(std::string("Path: ") + Utility::vectorToString(hamiltonianPath));
-    Utility::safe_print("Total Distance: " + std::to_string(minDistance));
-    Utility::safe_print("Time taken: " + std::to_string(duration.count()) + " milliseconds");
-}
-
-
-
-std::vector<int> Graph::findHamiltonianPath(std::vector<int>& eulerianTour) {
-    std::vector<int> hamiltonianPath;
-    std::unordered_set<int> visited;
-    for (int vertex : eulerianTour) {
-        if (visited.count(vertex) == 0) {
-            visited.insert(vertex);
-            hamiltonianPath.push_back(vertex);
-        }
-    }
-    return hamiltonianPath;
-}
-
-
-std::vector<int> Graph::findEulerianTour(std::unordered_map<int, std::vector<Edge>>& graph) {
-    std::vector<int> tour;
-    std::stack<int> stack;
-    int current_vertex = 0; // Starting from vertex 0
-
-    // Check if graph[current_vertex] exists before accessing it
-    while (!stack.empty() || (graph.find(current_vertex) != graph.end() && !graph[current_vertex].empty())) {
-        if (graph[current_vertex].empty()) {
-            tour.push_back(current_vertex);
-            current_vertex = stack.top();
-            stack.pop();
-        } else {
-            stack.push(current_vertex);
-            int next_vertex = graph[current_vertex].back().getDestination();
-            graph[current_vertex].pop_back();
-            current_vertex = next_vertex;
-        }
-    }
-    tour.push_back(current_vertex); // push the last vertex
-    return tour;
-}
-
-
-double Graph::calculatePathDistance(std::vector<int>& path) {
-    double totalDistance = 0.0;
-    for (size_t i = 0; i < path.size() - 1; ++i) {
-        totalDistance += getEdge(path[i], path[i+1]).getDistance();
-    }
-    return totalDistance;
-}
-
-
-std::vector<int> Graph::findOddDegreeNodes() {
-    std::vector<int> oddDegreeNodes;
-
-    for (const auto& node : nodes) {
-        int nodeId = node.first;
-        if (adjacency_list[nodeId].size() % 2 != 0) {
-            oddDegreeNodes.push_back(nodeId);
-        }
-    }
-
-    return oddDegreeNodes;
-}
-
-std::unordered_map<int, std::vector<Edge>> Graph::createSubgraph(const std::vector<int>& oddDegreeNodes) {
-    std::unordered_map<int, std::vector<Edge>> subgraph;
-
-    for (int node : oddDegreeNodes) {
-        subgraph[node] = adjacency_list[node];
-    }
-
-    return subgraph;
-}
-struct CompareEdge {
-    bool operator()(const Edge& edge1, const Edge& edge2) {
-        return edge1.getDistance() > edge2.getDistance();
-    }
-};
-
-
-std::unordered_map<int, std::vector<Edge>> Graph::findMinimumSpanningPerfectMatching(const std::unordered_map<int, std::vector<Edge>>& subgraph) {
-    std::unordered_map<int, std::vector<Edge>> matching;
-
-    std::unordered_set<int> visited;
-    std::priority_queue<Edge, std::vector<Edge>, CompareEdge> pq;
-
-    // Add all edges from the subgraph to the priority queue
-    for (const auto& node : subgraph) {
-        for (const auto& edge : node.second) {
-            pq.push(edge);
-        }
-    }
-
-    // Construct the minimum spanning perfect matching
-    while (!pq.empty()) {
-        Edge currentEdge = pq.top();
-        pq.pop();
-
-        int source = currentEdge.getSource();
-        int destination = currentEdge.getDestination();
-
-        // Check if adding the edge will form a cycle
-        if (visited.find(source) != visited.end() && visited.find(destination) != visited.end())
-            continue;
-
-        // Add the edge to the matching
-        matching[source].push_back(currentEdge);
-        matching[destination].push_back(currentEdge);
-
-        visited.insert(source);
-        visited.insert(destination);
-    }
-
-    return matching;
-}
-
- */
 
 
 
