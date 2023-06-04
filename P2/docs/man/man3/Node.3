@@ -1,0 +1,184 @@
+.TH "Node" 3 "Sun Jun 4 2023" "Version 1.0" "DA PROJ 2" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Node \- Represents a node in a graph\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Node\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNode\fP (int id, double latitude, double longitude)"
+.br
+.RI "Constructs a \fBNode\fP object with the given ID, latitude, and longitude\&. "
+.ti -1c
+.RI "\fBNode\fP ()"
+.br
+.RI "Default constructor for \fBNode\fP\&. "
+.ti -1c
+.RI "\fBNode\fP (int id)"
+.br
+.RI "Explicit constructor for \fBNode\fP with only the ID\&. "
+.ti -1c
+.RI "int \fBgetId\fP () const"
+.br
+.RI "Getter for the ID of the node\&. "
+.ti -1c
+.RI "void \fBsetId\fP (int id)"
+.br
+.RI "Setter for the ID of the node\&. "
+.ti -1c
+.RI "double \fBgetLatitude\fP () const"
+.br
+.RI "Getter for the latitude of the node\&. "
+.ti -1c
+.RI "void \fBsetLatitude\fP (double latitude)"
+.br
+.RI "Setter for the latitude of the node\&. "
+.ti -1c
+.RI "double \fBgetLongitude\fP () const"
+.br
+.RI "Getter for the longitude of the node\&. "
+.ti -1c
+.RI "void \fBsetLongitude\fP (double longitude)"
+.br
+.RI "Setter for the longitude of the node\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBNode\fP \fBfromCSVLine\fP (std::istringstream &iss, bool hasLabel)"
+.br
+.RI "Creates a \fBNode\fP object from a string in \&.csv format\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Represents a node in a graph\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Node::Node (int id, double latitude, double longitude)\fC [inline]\fP"
+
+.PP
+Constructs a \fBNode\fP object with the given ID, latitude, and longitude\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIid\fP The ID of the node 
+.br
+\fIlatitude\fP The latitude of the node 
+.br
+\fIlongitude\fP The longitude of the node 
+.RE
+.PP
+
+.SS "Node::Node ()\fC [inline]\fP"
+
+.PP
+Default constructor for \fBNode\fP\&. 
+.SS "Node::Node (int id)\fC [explicit]\fP"
+
+.PP
+Explicit constructor for \fBNode\fP with only the ID\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIid\fP The ID of the node 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "static \fBNode\fP Node::fromCSVLine (std::istringstream & iss, bool hasLabel)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+Creates a \fBNode\fP object from a string in \&.csv format\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIiss\fP An std::istringstream object containing the string from the line in the file 
+.br
+\fIhasLabel\fP Indicates if the CSV contains a label (not used in this code) 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A \fBNode\fP object 
+.RE
+.PP
+
+.SS "int Node::getId () const"
+
+.PP
+Getter for the ID of the node\&. 
+.PP
+\fBReturns\fP
+.RS 4
+The ID of the node 
+.RE
+.PP
+
+.SS "double Node::getLatitude () const"
+
+.PP
+Getter for the latitude of the node\&. 
+.PP
+\fBReturns\fP
+.RS 4
+The latitude of the node 
+.RE
+.PP
+
+.SS "double Node::getLongitude () const"
+
+.PP
+Getter for the longitude of the node\&. 
+.PP
+\fBReturns\fP
+.RS 4
+The longitude of the node 
+.RE
+.PP
+
+.SS "void Node::setId (int id)"
+
+.PP
+Setter for the ID of the node\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIid\fP The ID of the node 
+.RE
+.PP
+
+.SS "void Node::setLatitude (double latitude)"
+
+.PP
+Setter for the latitude of the node\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlatitude\fP The latitude of the node 
+.RE
+.PP
+
+.SS "void Node::setLongitude (double longitude)"
+
+.PP
+Setter for the longitude of the node\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlongitude\fP The longitude of the node 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DA PROJ 2 from the source code\&.

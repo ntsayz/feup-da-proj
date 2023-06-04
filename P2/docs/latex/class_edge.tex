@@ -1,0 +1,180 @@
+\hypertarget{class_edge}{}\doxysection{Edge Class Reference}
+\label{class_edge}\index{Edge@{Edge}}
+
+
+Represents an edge between two nodes in a graph.  
+
+
+
+
+{\ttfamily \#include $<$Edge.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_edge_a3106b11d60125009dbf7a738ce540fdf}{Edge}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \mbox{\hyperlink{class_edge}{Edge}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_edge_a11b606585c3c0f9119100e4b4f455980}{Edge}} (int source, int destination, double distance, std\+::optional$<$ std\+::string $>$ source\+\_\+label=\{\}, std\+::optional$<$ std\+::string $>$ destination\+\_\+label=\{\})
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{class_edge}{Edge}} with specified source, destination, distance, source\+\_\+label, and destination\+\_\+label. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_edge_ad673f1ad057bc439b048142ec218ec21}{get\+Source}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the source ID of the edge. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_edge_a308e99d51c6c25ce94e609513d86529b}{get\+Destination}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the destination ID of the edge. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_edge_afd6d96365c7158f369125bf2958ca511}{get\+Distance}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the distance of the edge. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_edge_a8289a84d979069420b4ff73933bdedcd}{operator$>$}} (const \mbox{\hyperlink{class_edge}{Edge}} \&other) const
+\begin{DoxyCompactList}\small\item\em Overloaded \texorpdfstring{$>$}{>} operator for comparing edges based on their distances. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edge_a4ef40a1611642451d3e93af386f6da49}{set\+Distance}} (double distance)
+\item 
+void \mbox{\hyperlink{class_edge_ad9b61f561b2c2e4f91d8f1df2474e982}{set\+Destination}} (int destination)
+\item 
+void \mbox{\hyperlink{class_edge_a016e91188abc49a94ea04255410dfc81}{set\+Source}} (int source)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_edge}{Edge}} \mbox{\hyperlink{class_edge_adb3e1f7701fc8b95df0d0dd75d1b0ce8}{from\+CSVLine}} (std\+::istringstream \&iss, bool has\+Labels)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{class_edge}{Edge}} object from a string in .csv format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an edge between two nodes in a graph. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_edge_a3106b11d60125009dbf7a738ce540fdf}\label{class_edge_a3106b11d60125009dbf7a738ce540fdf}} 
+\index{Edge@{Edge}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{Edge()}{Edge()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Edge\+::\+Edge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor for \mbox{\hyperlink{class_edge}{Edge}}. 
+
+\mbox{\Hypertarget{class_edge_a11b606585c3c0f9119100e4b4f455980}\label{class_edge_a11b606585c3c0f9119100e4b4f455980}} 
+\index{Edge@{Edge}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{Edge()}{Edge()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Edge\+::\+Edge (\begin{DoxyParamCaption}\item[{int}]{source,  }\item[{int}]{destination,  }\item[{double}]{distance,  }\item[{std\+::optional$<$ std\+::string $>$}]{source\+\_\+label = {\ttfamily \{\}},  }\item[{std\+::optional$<$ std\+::string $>$}]{destination\+\_\+label = {\ttfamily \{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for \mbox{\hyperlink{class_edge}{Edge}} with specified source, destination, distance, source\+\_\+label, and destination\+\_\+label. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & The ID of the source node \\
+\hline
+{\em destination} & The ID of the destination node \\
+\hline
+{\em distance} & The distance of the edge \\
+\hline
+{\em source\+\_\+label} & Optional label for the source node \\
+\hline
+{\em destination\+\_\+label} & Optional label for the destination node \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_edge_adb3e1f7701fc8b95df0d0dd75d1b0ce8}\label{class_edge_adb3e1f7701fc8b95df0d0dd75d1b0ce8}} 
+\index{Edge@{Edge}!fromCSVLine@{fromCSVLine}}
+\index{fromCSVLine@{fromCSVLine}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{fromCSVLine()}{fromCSVLine()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{class_edge}{Edge}} Edge\+::from\+CSVLine (\begin{DoxyParamCaption}\item[{std\+::istringstream \&}]{iss,  }\item[{bool}]{has\+Labels }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Creates an \mbox{\hyperlink{class_edge}{Edge}} object from a string in .csv format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em iss} & An std\+::istringstream object containing the string from the line in the file \\
+\hline
+{\em has\+Labels} & Indicates if the CSV contains labels (not used in this code) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An \mbox{\hyperlink{class_edge}{Edge}} object 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_edge_a308e99d51c6c25ce94e609513d86529b}\label{class_edge_a308e99d51c6c25ce94e609513d86529b}} 
+\index{Edge@{Edge}!getDestination@{getDestination}}
+\index{getDestination@{getDestination}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getDestination()}{getDestination()}}
+{\footnotesize\ttfamily int Edge\+::get\+Destination (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter for the destination ID of the edge. 
+
+\begin{DoxyReturn}{Returns}
+The ID of the destination node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_edge_afd6d96365c7158f369125bf2958ca511}\label{class_edge_afd6d96365c7158f369125bf2958ca511}} 
+\index{Edge@{Edge}!getDistance@{getDistance}}
+\index{getDistance@{getDistance}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getDistance()}{getDistance()}}
+{\footnotesize\ttfamily double Edge\+::get\+Distance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter for the distance of the edge. 
+
+\begin{DoxyReturn}{Returns}
+The distance of the edge 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_edge_ad673f1ad057bc439b048142ec218ec21}\label{class_edge_ad673f1ad057bc439b048142ec218ec21}} 
+\index{Edge@{Edge}!getSource@{getSource}}
+\index{getSource@{getSource}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{getSource()}{getSource()}}
+{\footnotesize\ttfamily int Edge\+::get\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter for the source ID of the edge. 
+
+\begin{DoxyReturn}{Returns}
+The ID of the source node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_edge_a8289a84d979069420b4ff73933bdedcd}\label{class_edge_a8289a84d979069420b4ff73933bdedcd}} 
+\index{Edge@{Edge}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{operator$>$()}{operator>()}}
+{\footnotesize\ttfamily bool Edge\+::operator$>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_edge}{Edge}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloaded \texorpdfstring{$>$}{>} operator for comparing edges based on their distances. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The other edge to compare with \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if this edge\textquotesingle{}s distance is greater than the other edge\textquotesingle{}s distance, False otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_edge_ad9b61f561b2c2e4f91d8f1df2474e982}\label{class_edge_ad9b61f561b2c2e4f91d8f1df2474e982}} 
+\index{Edge@{Edge}!setDestination@{setDestination}}
+\index{setDestination@{setDestination}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setDestination()}{setDestination()}}
+{\footnotesize\ttfamily void Edge\+::set\+Destination (\begin{DoxyParamCaption}\item[{int}]{destination }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_edge_a4ef40a1611642451d3e93af386f6da49}\label{class_edge_a4ef40a1611642451d3e93af386f6da49}} 
+\index{Edge@{Edge}!setDistance@{setDistance}}
+\index{setDistance@{setDistance}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setDistance()}{setDistance()}}
+{\footnotesize\ttfamily void Edge\+::set\+Distance (\begin{DoxyParamCaption}\item[{double}]{distance }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_edge_a016e91188abc49a94ea04255410dfc81}\label{class_edge_a016e91188abc49a94ea04255410dfc81}} 
+\index{Edge@{Edge}!setSource@{setSource}}
+\index{setSource@{setSource}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setSource()}{setSource()}}
+{\footnotesize\ttfamily void Edge\+::set\+Source (\begin{DoxyParamCaption}\item[{int}]{source }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_edge_8h}{Edge.\+h}}\item 
+\mbox{\hyperlink{_edge_8cpp}{Edge.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,249 @@
+\hypertarget{class_graph}{}\doxysection{Graph Class Reference}
+\label{class_graph}\index{Graph@{Graph}}
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_graph_a3c34287a4cb9801ca23565b21a13d116}{add\+Node}} (int node\+Id)
+\begin{DoxyCompactList}\small\item\em Adds a node ID to the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a92c449c0a8a03d5a464fdb3d6ddd2b8a}{add\+Edge}} (\mbox{\hyperlink{class_edge}{Edge}} \&edge)
+\begin{DoxyCompactList}\small\item\em Adds an edge to the graph. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_a07a6f59991cfa78dcb32f9c4bbd8bb31}{deg2rad}} (double deg) const
+\begin{DoxyCompactList}\small\item\em Converts degree to radian. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_graph_adcaca37204735c22397cb0c084eaec74}{haversine\+\_\+distance}} (double lat1, double lon1, double lat2, double lon2)
+\begin{DoxyCompactList}\small\item\em Calculates the Haversine distance between two points on Earth\textquotesingle{}s surface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a14398ccdff87659943c3fd91a70eb0fb}{triangular\+\_\+apprx}} ()
+\begin{DoxyCompactList}\small\item\em Applies the Triangular Approximation algorithm to solve the Traveling Salesman Problem. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a68f211a37b40067115fc6274d46153ed}{reset}} ()
+\begin{DoxyCompactList}\small\item\em Resets the graph to its initial state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_ab2d404d8dae313101759313150e65e25}{backtracking\+\_\+tsp}} ()
+\begin{DoxyCompactList}\small\item\em Applies the Backtracking algorithm to solve the Traveling Salesman Problem. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_ae395bdab9530b30cbacf9f33e4640e91}{fill\+Nodes\+From\+Adj\+List}} ()
+\begin{DoxyCompactList}\small\item\em Fills the node data from the adjacency list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_ad8a0182762ffdf194f58bc82cfed2de3}{set\+Curr\+Nodesfname}} (const std\+::string \&curr\+Nodesfname)
+\begin{DoxyCompactList}\small\item\em Sets the current nodes file name. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a6ebcc2a6cec1e6076e670cd18bfce36c}{nearest\+\_\+neighbor\+\_\+hrstc}} ()
+\begin{DoxyCompactList}\small\item\em Applies the Nearest Neighbor heuristic to solve the Traveling Salesman Problem. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_aefd3b2df22824752e96ea47c87537d37}{greedy\+\_\+2opt\+\_\+hrstc}} ()
+\begin{DoxyCompactList}\small\item\em Applies the Greedy 2-\/Opt heuristic to solve the Traveling Salesman Problem. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_a33dcfbe6d2ec42e6b781606961caa98d}{print\+Graph}} () const
+\begin{DoxyCompactList}\small\item\em Prints the graph. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} $>$ \mbox{\hyperlink{class_graph_ae77a38f74474115274bb2c0e2ba3a819}{get\+Edges\+From\+Node}} (int node\+Id) const
+\begin{DoxyCompactList}\small\item\em Returns a vector of edges going out from a specified node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const double \mbox{\hyperlink{class_graph_a18e8b777dac775222c6024f3c7b4a4b0}{EARTH\+\_\+\+RADIUS\+\_\+\+KM}} = 6371.\+0
+\item 
+const double \mbox{\hyperlink{class_graph_a9ef19ae307aaa8330f3aba5af6086539}{PI}} = 3.\+141592653589793
+\item 
+std\+::unordered\+\_\+map$<$ int, \mbox{\hyperlink{class_node}{Node}} $>$ \mbox{\hyperlink{class_graph_a8270621a1687b749d7e97c28bf0be720}{node\+\_\+data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_graph_a92c449c0a8a03d5a464fdb3d6ddd2b8a}\label{class_graph_a92c449c0a8a03d5a464fdb3d6ddd2b8a}} 
+\index{Graph@{Graph}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}}
+{\footnotesize\ttfamily void Graph\+::add\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_edge}{Edge}} \&}]{edge }\end{DoxyParamCaption})}
+
+
+
+Adds an edge to the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edge} & The edge to be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graph_a3c34287a4cb9801ca23565b21a13d116}\label{class_graph_a3c34287a4cb9801ca23565b21a13d116}} 
+\index{Graph@{Graph}!addNode@{addNode}}
+\index{addNode@{addNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addNode()}{addNode()}}
+{\footnotesize\ttfamily void Graph\+::add\+Node (\begin{DoxyParamCaption}\item[{int}]{node\+Id }\end{DoxyParamCaption})}
+
+
+
+Adds a node ID to the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node\+Id} & The ID of the node to be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graph_ab2d404d8dae313101759313150e65e25}\label{class_graph_ab2d404d8dae313101759313150e65e25}} 
+\index{Graph@{Graph}!backtracking\_tsp@{backtracking\_tsp}}
+\index{backtracking\_tsp@{backtracking\_tsp}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{backtracking\_tsp()}{backtracking\_tsp()}}
+{\footnotesize\ttfamily void Graph\+::backtracking\+\_\+tsp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Applies the Backtracking algorithm to solve the Traveling Salesman Problem. 
+
+\mbox{\Hypertarget{class_graph_a07a6f59991cfa78dcb32f9c4bbd8bb31}\label{class_graph_a07a6f59991cfa78dcb32f9c4bbd8bb31}} 
+\index{Graph@{Graph}!deg2rad@{deg2rad}}
+\index{deg2rad@{deg2rad}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{deg2rad()}{deg2rad()}}
+{\footnotesize\ttfamily double Graph\+::deg2rad (\begin{DoxyParamCaption}\item[{double}]{deg }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Converts degree to radian. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em deg} & Degree value to convert \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Radian value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_ae395bdab9530b30cbacf9f33e4640e91}\label{class_graph_ae395bdab9530b30cbacf9f33e4640e91}} 
+\index{Graph@{Graph}!fillNodesFromAdjList@{fillNodesFromAdjList}}
+\index{fillNodesFromAdjList@{fillNodesFromAdjList}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{fillNodesFromAdjList()}{fillNodesFromAdjList()}}
+{\footnotesize\ttfamily void Graph\+::fill\+Nodes\+From\+Adj\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fills the node data from the adjacency list. 
+
+\mbox{\Hypertarget{class_graph_ae77a38f74474115274bb2c0e2ba3a819}\label{class_graph_ae77a38f74474115274bb2c0e2ba3a819}} 
+\index{Graph@{Graph}!getEdgesFromNode@{getEdgesFromNode}}
+\index{getEdgesFromNode@{getEdgesFromNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getEdgesFromNode()}{getEdgesFromNode()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} $>$ Graph\+::get\+Edges\+From\+Node (\begin{DoxyParamCaption}\item[{int}]{node\+Id }\end{DoxyParamCaption}) const}
+
+
+
+Returns a vector of edges going out from a specified node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node\+Id} & The ID of the node to get the edges for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of edges going out from the specified node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_aefd3b2df22824752e96ea47c87537d37}\label{class_graph_aefd3b2df22824752e96ea47c87537d37}} 
+\index{Graph@{Graph}!greedy\_2opt\_hrstc@{greedy\_2opt\_hrstc}}
+\index{greedy\_2opt\_hrstc@{greedy\_2opt\_hrstc}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{greedy\_2opt\_hrstc()}{greedy\_2opt\_hrstc()}}
+{\footnotesize\ttfamily void Graph\+::greedy\+\_\+2opt\+\_\+hrstc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Applies the Greedy 2-\/Opt heuristic to solve the Traveling Salesman Problem. 
+
+\mbox{\Hypertarget{class_graph_adcaca37204735c22397cb0c084eaec74}\label{class_graph_adcaca37204735c22397cb0c084eaec74}} 
+\index{Graph@{Graph}!haversine\_distance@{haversine\_distance}}
+\index{haversine\_distance@{haversine\_distance}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{haversine\_distance()}{haversine\_distance()}}
+{\footnotesize\ttfamily double Graph\+::haversine\+\_\+distance (\begin{DoxyParamCaption}\item[{double}]{lat1,  }\item[{double}]{lon1,  }\item[{double}]{lat2,  }\item[{double}]{lon2 }\end{DoxyParamCaption})}
+
+
+
+Calculates the Haversine distance between two points on Earth\textquotesingle{}s surface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lat1} & Latitude of the first point \\
+\hline
+{\em lon1} & Longitude of the first point \\
+\hline
+{\em lat2} & Latitude of the second point \\
+\hline
+{\em lon2} & Longitude of the second point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Haversine distance in kilometers 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_graph_a6ebcc2a6cec1e6076e670cd18bfce36c}\label{class_graph_a6ebcc2a6cec1e6076e670cd18bfce36c}} 
+\index{Graph@{Graph}!nearest\_neighbor\_hrstc@{nearest\_neighbor\_hrstc}}
+\index{nearest\_neighbor\_hrstc@{nearest\_neighbor\_hrstc}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{nearest\_neighbor\_hrstc()}{nearest\_neighbor\_hrstc()}}
+{\footnotesize\ttfamily void Graph\+::nearest\+\_\+neighbor\+\_\+hrstc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Applies the Nearest Neighbor heuristic to solve the Traveling Salesman Problem. 
+
+\mbox{\Hypertarget{class_graph_a33dcfbe6d2ec42e6b781606961caa98d}\label{class_graph_a33dcfbe6d2ec42e6b781606961caa98d}} 
+\index{Graph@{Graph}!printGraph@{printGraph}}
+\index{printGraph@{printGraph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{printGraph()}{printGraph()}}
+{\footnotesize\ttfamily void Graph\+::print\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Prints the graph. 
+
+\mbox{\Hypertarget{class_graph_a68f211a37b40067115fc6274d46153ed}\label{class_graph_a68f211a37b40067115fc6274d46153ed}} 
+\index{Graph@{Graph}!reset@{reset}}
+\index{reset@{reset}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void Graph\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Resets the graph to its initial state. 
+
+\mbox{\Hypertarget{class_graph_ad8a0182762ffdf194f58bc82cfed2de3}\label{class_graph_ad8a0182762ffdf194f58bc82cfed2de3}} 
+\index{Graph@{Graph}!setCurrNodesfname@{setCurrNodesfname}}
+\index{setCurrNodesfname@{setCurrNodesfname}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{setCurrNodesfname()}{setCurrNodesfname()}}
+{\footnotesize\ttfamily void Graph\+::set\+Curr\+Nodesfname (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{curr\+Nodesfname }\end{DoxyParamCaption})}
+
+
+
+Sets the current nodes file name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em curr\+Nodesfname} & The file name of the nodes \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_graph_a14398ccdff87659943c3fd91a70eb0fb}\label{class_graph_a14398ccdff87659943c3fd91a70eb0fb}} 
+\index{Graph@{Graph}!triangular\_apprx@{triangular\_apprx}}
+\index{triangular\_apprx@{triangular\_apprx}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{triangular\_apprx()}{triangular\_apprx()}}
+{\footnotesize\ttfamily void Graph\+::triangular\+\_\+apprx (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Applies the Triangular Approximation algorithm to solve the Traveling Salesman Problem. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_graph_a18e8b777dac775222c6024f3c7b4a4b0}\label{class_graph_a18e8b777dac775222c6024f3c7b4a4b0}} 
+\index{Graph@{Graph}!EARTH\_RADIUS\_KM@{EARTH\_RADIUS\_KM}}
+\index{EARTH\_RADIUS\_KM@{EARTH\_RADIUS\_KM}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{EARTH\_RADIUS\_KM}{EARTH\_RADIUS\_KM}}
+{\footnotesize\ttfamily const double Graph\+::\+EARTH\+\_\+\+RADIUS\+\_\+\+KM = 6371.\+0}
+
+\mbox{\Hypertarget{class_graph_a8270621a1687b749d7e97c28bf0be720}\label{class_graph_a8270621a1687b749d7e97c28bf0be720}} 
+\index{Graph@{Graph}!node\_data@{node\_data}}
+\index{node\_data@{node\_data}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{node\_data}{node\_data}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$int, \mbox{\hyperlink{class_node}{Node}}$>$ Graph\+::node\+\_\+data}
+
+\mbox{\Hypertarget{class_graph_a9ef19ae307aaa8330f3aba5af6086539}\label{class_graph_a9ef19ae307aaa8330f3aba5af6086539}} 
+\index{Graph@{Graph}!PI@{PI}}
+\index{PI@{PI}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{PI}{PI}}
+{\footnotesize\ttfamily const double Graph\+::\+PI = 3.\+141592653589793}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_graph_8h}{Graph.\+h}}\item 
+\mbox{\hyperlink{_graph_8cpp}{Graph.\+cpp}}\end{DoxyCompactItemize}

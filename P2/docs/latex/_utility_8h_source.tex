@@ -1,0 +1,77 @@
+\hypertarget{_utility_8h_source}{}\doxysection{Utility.\+h}
+\mbox{\hyperlink{_utility_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ Ntsay\ Zacarias\ on\ 07/03/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ SRC\_UTILITY\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SRC\_UTILITY\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <regex>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_menu_8h}{Menu.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_utility}{Utility}}\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ LENGTH\ =\ 75;}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_utility_a39d5d7fb64b8e2ef2cec09ad21019d93}{getInput}}(\textcolor{keywordtype}{int}\ choice,\ \textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ max);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_utility_a29edc4ede26ae1888f1c764fe4ff6be2}{getCode}}(\textcolor{keywordtype}{int}\ code);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_utility_a34f05bd315eda43a811774d7f9d9ec07}{clear\_screen}}();}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_utility_a8d34a4c10ae4de754372ab8f6aa8f031}{footer}}();}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_utility_a5ca2bdb48ec616350a96753978ec2a70}{header}}(\textcolor{keyword}{const}\ std::string\&\ title);}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_utility_ae62c4dbbcf6fbbdc2f513c74fb3436d7}{body}}(\textcolor{keyword}{const}\ std::string\&\ description,\ std::vector<std::string>\ options);}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_utility_afb97f93021d82bda76e9e906e4eeec78}{isSubstring}}(std::string\ str,\ std::string\ sub);}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_utility_a71e56421b6ac091c585dbdbe1ad783d9}{get\_filenames}}(std::string\&\ f1,std::string\&\ f2);}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<T>\ \mbox{\hyperlink{class_utility_a0062a4d66859a1b52923cf195d801a0f}{loadDataFromCSV}}(std::string\ filename,\textcolor{keywordtype}{bool}\ hasLabel)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ std::vector<T>\ data;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ 0;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ file\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ ==\ 0)\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i++;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ T\ \textcolor{keywordtype}{object}\ =\ T::fromCSVLine(iss,hasLabel);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ data.push\_back(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ i++;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data;}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_utility_a8d34a4c10ae4de754372ab8f6aa8f031}{footer}}(std::string\ text);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{static}\ std::mutex\ \mbox{\hyperlink{class_utility_afd04ea51804d82d0ab7aa2ac7a123ded}{print\_mutex}};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_utility_a365dbdc4c9feca5424e77be3e8290018}{safe\_print}}(std::string\ text)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(\mbox{\hyperlink{class_utility_afd04ea51804d82d0ab7aa2ac7a123ded}{print\_mutex}});}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ std::cout\ <<\ text\ <<\ std::endl;}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{class_utility_a2699c8723b5a9c59da75012ada1dd5a3}{vectorToString}}(std::vector<int>\ vector1);}
+\DoxyCodeLine{00106\ \};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SRC\_UTILITY\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,66 @@
+\hypertarget{_node_8h_source}{}\doxysection{Node.\+h}
+\mbox{\hyperlink{_node_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ ntsayz\ on\ 09-\/03-\/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ SRC\_NODE\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ SRC\_NODE\_H}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_node}{Node}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ id;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{double}\ latitude;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{double}\ longitude;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_node_a98db01d6afb7b7552e89c42d1080e9a3}{Node}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{double}\ latitude,\ \textcolor{keywordtype}{double}\ longitude)\ :\ id(id),\ latitude(latitude),\ longitude(longitude)\ \{\}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_node_ad7a34779cad45d997bfd6d3d8043c75f}{Node}}()\ :\ id(),\ latitude(),\ longitude()\ \{\}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_node_ad7a34779cad45d997bfd6d3d8043c75f}{Node}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_node}{Node}}\ \mbox{\hyperlink{class_node_a2522af7c0c2091633ea3762b2601096a}{fromCSVLine}}(std::istringstream\&\ iss,\ \textcolor{keywordtype}{bool}\ hasLabel)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ std::string\ id\_str,\ latitude\_str,\ longitude\_str;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ std::getline(iss,\ id\_str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ std::getline(iss,\ latitude\_str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ std::getline(iss,\ longitude\_str);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}\ =\ std::stoi(id\_str);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ latitude\ =\ std::stod(latitude\_str);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ longitude\ =\ std::stod(longitude\_str);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{id,\ latitude,\ longitude\};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (std::invalid\_argument\ \textcolor{keyword}{const}\&\ e)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Bad\ input:\ std::invalid\_argument\ thrown.\ Invalid\ numbers\ in\ line."{}}\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ You\ can\ return\ an\ "{}invalid"{}\ Node\ here,\ or\ throw\ your\ own\ exception,\ or\ handle\ this\ error\ in\ some\ other\ way.}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (std::out\_of\_range\ \textcolor{keyword}{const}\&\ e)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Integer\ overflow:\ std::out\_of\_range\ thrown"{}}\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Same\ here.}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\};\ \ \textcolor{comment}{//\ Return\ a\ default\ Node\ if\ something\ goes\ wrong.}}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_node_a04d6761bf0ead66eb628a6ef5abc34e1}{getId}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_node_acb4f7b27553efe25aeb0045f5f3b9798}{setId}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_node_a6a76240688eddc8a2942618074e28c92}{getLatitude}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_node_ac62ad99961481d9e4b21dd4332717927}{setLatitude}}(\textcolor{keywordtype}{double}\ latitude);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_node_ad4a79ebbcca46dae4638ffbe4d732399}{getLongitude}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_node_a1c64b31b2afe1d39a10809da9198a016}{setLongitude}}(\textcolor{keywordtype}{double}\ longitude);}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SRC\_NODE\_H}}
+
+\end{DoxyCode}

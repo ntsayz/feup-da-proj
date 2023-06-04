@@ -1,0 +1,47 @@
+\hypertarget{_manager_8h_source}{}\doxysection{Manager.\+h}
+\mbox{\hyperlink{_manager_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ Ntsay\ Zacarias\ on\ 07/03/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ SRC\_MANAGER\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SRC\_MANAGER\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_utility_8h}{Utility.h}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_node_8h}{Node.h}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_edge_8h}{Edge.h}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_menu_8h}{Menu.h}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_8h}{Graph.h}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <windows.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ Library\ effective\ with\ Linux}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_manager}{Manager}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ option;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{int}\ choice;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{bool}\ globalSession\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{bool}\ localSession\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_graph}{Graph}}\ graph;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0}{Manager}}()=\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_af8c67c221068e4e3ccccf1d5f70ba8ee}{run}}();}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_manager_aa288907065b47bedc0776bfade058656}{load\_data}}();}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_manager_aa12b4fb7796df3df0a91382becd4585b}{main\_menu}}();}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SRC\_MANAGER\_H}}
+
+\end{DoxyCode}

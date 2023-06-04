@@ -1,0 +1,81 @@
+\hypertarget{_graph_8h_source}{}\doxysection{Graph.\+h}
+\mbox{\hyperlink{_graph_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ ntsayz\ on\ 09-\/03-\/2023.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_edge_8h}{Edge.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_node_8h}{Node.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_utility_8h}{Utility.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ SRC\_GRAPH\_H}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ SRC\_GRAPH\_H}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph}{Graph}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a3c34287a4cb9801ca23565b21a13d116}{addNode}}(\textcolor{keywordtype}{int}\ nodeId);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a92c449c0a8a03d5a464fdb3d6ddd2b8a}{addEdge}}(\mbox{\hyperlink{class_edge}{Edge}}\&\ edge);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ Constants\ for\ Haversine\ formula}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_a18e8b777dac775222c6024f3c7b4a4b0}{EARTH\_RADIUS\_KM}}\ =\ 6371.0;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_a9ef19ae307aaa8330f3aba5af6086539}{PI}}\ =\ 3.141592653589793;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ Function\ to\ convert\ degree\ to\ radian}}
+\DoxyCodeLine{00041\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_a07a6f59991cfa78dcb32f9c4bbd8bb31}{deg2rad}}(\textcolor{keywordtype}{double}\ deg)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (deg\ *\ \mbox{\hyperlink{class_graph_a9ef19ae307aaa8330f3aba5af6086539}{PI}}\ /\ 180);}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ Haversine\ formula\ to\ calculate\ the\ distance\ between\ two\ points\ given\ their\ latitudes\ and\ longitudes}}
+\DoxyCodeLine{00054\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_graph_adcaca37204735c22397cb0c084eaec74}{haversine\_distance}}(\textcolor{keywordtype}{double}\ lat1,\ \textcolor{keywordtype}{double}\ lon1,\ \textcolor{keywordtype}{double}\ lat2,\ \textcolor{keywordtype}{double}\ lon2);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a14398ccdff87659943c3fd91a70eb0fb}{triangular\_apprx}}();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a68f211a37b40067115fc6274d46153ed}{reset}}();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_ab2d404d8dae313101759313150e65e25}{backtracking\_tsp}}();}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_ae395bdab9530b30cbacf9f33e4640e91}{fillNodesFromAdjList}}();}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ std::unordered\_map<int,\ Node>\ \mbox{\hyperlink{class_graph_a8270621a1687b749d7e97c28bf0be720}{node\_data}};}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_ad8a0182762ffdf194f58bc82cfed2de3}{setCurrNodesfname}}(\textcolor{keyword}{const}\ std::string\&\ currNodesfname);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a6ebcc2a6cec1e6076e670cd18bfce36c}{nearest\_neighbor\_hrstc}}();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_aefd3b2df22824752e96ea47c87537d37}{greedy\_2opt\_hrstc}}();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a33dcfbe6d2ec42e6b781606961caa98d}{printGraph}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00103\ \ \ \ \ std::vector<Edge>\ \mbox{\hyperlink{class_graph_ae77a38f74474115274bb2c0e2ba3a819}{getEdgesFromNode}}(\textcolor{keywordtype}{int}\ nodeId)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{bool}\ hasEdge(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ destination);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00118\ \ \ \ \ std::unordered\_map<int,\ std::vector<Edge>>\ adjacency\_list;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00123\ \ \ \ \ std::unordered\_map<int,\ Node>\ nodes;}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{double}\ getEdgeWeight(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ destination);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{class_edge}{Edge}}\ getEdge(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ destination);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{void}\ backtracking\_helper(std::vector<int>\&\ visited,\ \textcolor{keywordtype}{double}\&\ minDistance,\ \textcolor{keywordtype}{double}\ currentDistance,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ currentNode,\ std::vector<int>\&\ currentPath,\ std::vector<int>\&\ minPath);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00157\ \ \ \ \ std::unordered\_map<int,\ std::vector<Edge>>\ createMST();}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{double}\ getEdgeDistance(\textcolor{keywordtype}{int}\ node1,\ \textcolor{keywordtype}{int}\ node2);}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ std::string\ curr\_nodesfname;}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SRC\_GRAPH\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,83 @@
+\hypertarget{class_manager}{}\doxysection{Manager Class Reference}
+\label{class_manager}\index{Manager@{Manager}}
+
+
+Manages the application. Stores its most important data structures, manages the application state.  
+
+
+
+
+{\ttfamily \#include $<$Manager.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0}{Manager}} ()=default
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_manager}{Manager}}\textquotesingle{}s constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_manager_af8c67c221068e4e3ccccf1d5f70ba8ee}{run}} ()
+\begin{DoxyCompactList}\small\item\em Function to start the application, called by the only instance of the manager function. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_manager_aa288907065b47bedc0776bfade058656}{load\+\_\+data}} ()
+\item 
+void \mbox{\hyperlink{class_manager_aa12b4fb7796df3df0a91382becd4585b}{main\+\_\+menu}} ()
+\begin{DoxyCompactList}\small\item\em Main menu of the application. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the application. Stores its most important data structures, manages the application state. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0}\label{class_manager_a51c8f271f79b1c6590e9bc4ae6343bc0}} 
+\index{Manager@{Manager}!Manager@{Manager}}
+\index{Manager@{Manager}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{Manager()}{Manager()}}
+{\footnotesize\ttfamily Manager\+::\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\mbox{\hyperlink{class_manager}{Manager}}\textquotesingle{}s constructor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_manager_aa288907065b47bedc0776bfade058656}\label{class_manager_aa288907065b47bedc0776bfade058656}} 
+\index{Manager@{Manager}!load\_data@{load\_data}}
+\index{load\_data@{load\_data}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{load\_data()}{load\_data()}}
+{\footnotesize\ttfamily bool Manager\+::load\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function to load the data from the .csv files from the dataset. 
+\begin{DoxyParams}{Parameters}
+{\em fname1} & Path to nodes file \\
+\hline
+{\em fname2} & Path to edges file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+It compares the size of the data structures that the data was loaded into, to determine if they\textquotesingle{}re according to spec 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_manager_aa12b4fb7796df3df0a91382becd4585b}\label{class_manager_aa12b4fb7796df3df0a91382becd4585b}} 
+\index{Manager@{Manager}!main\_menu@{main\_menu}}
+\index{main\_menu@{main\_menu}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{main\_menu()}{main\_menu()}}
+{\footnotesize\ttfamily void Manager\+::main\+\_\+menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main menu of the application. 
+
+\mbox{\Hypertarget{class_manager_af8c67c221068e4e3ccccf1d5f70ba8ee}\label{class_manager_af8c67c221068e4e3ccccf1d5f70ba8ee}} 
+\index{Manager@{Manager}!run@{run}}
+\index{run@{run}!Manager@{Manager}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void Manager\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to start the application, called by the only instance of the manager function. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_manager_8h}{Manager.\+h}}\item 
+\mbox{\hyperlink{_manager_8cpp}{Manager.\+cpp}}\end{DoxyCompactItemize}
